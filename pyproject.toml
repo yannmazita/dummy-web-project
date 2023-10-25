@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "dummy-web-project"
+version = "0.1.0"
+description = "Dummy web project"
+authors = ["Yann Mazita <dev.mazita@gmail.com>"]
+license = "GPL3"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+djangorestframework = "^3.14.0"
+django-cors-headers = "^4.3.0"
+django = "^4.2.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
