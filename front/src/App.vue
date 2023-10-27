@@ -1,10 +1,15 @@
+<template>
+    <div id="app">
+        <members-component />
+    </div>
+</template>
 <script>
-import Members from './components/the-members.vue'
+import MembersComponent from './components/MembersComponent.vue'
 
 export default {
   name: 'App',
   components: {
-    Members,
+    MembersComponent,
   }
 }
 </script>
