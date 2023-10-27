@@ -11,10 +11,10 @@ cd front; npm install axios
 ## Backend
 In project root:
 ```commandline
-cd backend; python managy.py runserver
+cd back; python manage.py runserver
 ```
 ## Frontend
 In project root:
 ```commandline
-cd Frontend; npm run serve
+cd front; npm run serve
 ```
