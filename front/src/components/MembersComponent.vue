@@ -53,12 +53,6 @@
                     </div>
                 </form>
             </div>
-            <ul class="members_list">
-                <li v-for="member in members" :key="member.id">
-                    <h2>{{ member.lastname }}</h2>
-                    <h2>{{ member.licenseNumber }}</h2>
-                </li>
-            </ul>
         </div>
     </div>
 </template>
