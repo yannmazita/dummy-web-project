@@ -1,4 +1,4 @@
-from rest_framework import routers, serializers
+from rest_framework import serializers
 from .models import Member
 
 
