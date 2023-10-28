@@ -34,7 +34,8 @@
                     </div>
                     <div class="form-group">
                         <label for="referee">Referee</label>
-                        <input type="checkbox" class="form-control" id="referee" true-value="true" false-value="false" v-model="referee">
+                        <input type="checkbox" class="form-control" id="referee" v-model="referee">
+                        <span>{{ isReferee }}</span>
                     </div>
                     <div class="form-group">
                         <label for="manager">Manager</label>
@@ -70,7 +71,7 @@
                 email: '',
                 telephone: '',
                 category: '',
-                referee: '',
+                referee: 'false',
                 manager: '',
                 director: '',
                 credentials: '',
@@ -100,12 +101,22 @@
                     this.email = '';
                     this.telephone = '';
                     this.category = '';
-                    this.referee = '';
+                    this.referee = 'false';
                     this.manager = '';
                     this.director = '';
                     this.credentials = '';
                 } catch (error) {
                     console.log(error);
+                }
+            }
+        },
+        computed: {
+            isReferee(){
+                if(this.referee){
+                    return 'yes'
+                }
+                else{
+                    return 'no'
                 }
             }
         },
