@@ -22,7 +22,9 @@
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <textarea class="form-control" id="email" v-model="email"></textarea>
+                        <!--<textarea class="form-control" id="email" v-model="email"></textarea>-->
+                        <input type="text" class="form-control" id="email" v-model="email">
+                        <p v-bind:class="feedback">{{ emailFeedback }}</p>
                     </div>
                     <div class="form-group">
                         <label for="phone_num">Telephone</label>
@@ -63,7 +65,6 @@
     export default {
         data() {
             return {
-                members: [],
                 licenseNumber: '',
                 lastname: '',
                 firstname:'',
@@ -75,6 +76,8 @@
                 manager: '',
                 director: '',
                 credentials: '',
+                emailFeedback: '',
+                feedback: 'invalid',
             }
         },
         methods: {
@@ -120,5 +123,20 @@
                 }
             }
         },
+        watch: {
+            email(newValue, oldValue){
+                if(!newValue.includes('@')){
+                    this.emailFeedback = 'Not an email address.';
+                    this.feedback = 'invalid';
+                }
+                else if(!oldValue.includes('@') && newValue.includes('@')){
+                    this.emailFeedback = 'Address is now valid.';
+                    this.feedback = 'valid';
+                }
+                else{
+                    this.emailFeedback = 'Address is valid.';
+                }
+            }
+        }
     }
 </script>
