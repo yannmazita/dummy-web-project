@@ -8,7 +8,7 @@ poetry install && cd front; npm install; cd ../
 ## Backend
 In project root:
 ```commandline
-cd back; python manage.py runserver
+cd back; python manage.py migrate && python manage.py runserver
 ```
 Backend will be accessible at localhost:8000
 ## Frontend
