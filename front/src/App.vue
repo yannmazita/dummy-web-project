@@ -1,16 +1,41 @@
 <template>
     <div id="app">
-        <members-component />
+        <button @click="componentNumber=1">Add member</button>
+        <button @click="componentNumber=2">Update member</button>
+        <button @click="componentNumber=3">Delete member</button>
+        <component :is="currentComponent"></component>
     </div>
 </template>
 <script>
-import MembersComponent from './components/MembersComponent.vue'
+import AddMemberComponent from './components/AddMemberComponent.vue'
+import UpdateMemberComponent from './components/UpdateMemberComponent.vue'
+import DeleteMemberComponent from './components/DeleteMemberComponent.vue'
 
 export default {
   name: 'App',
   components: {
-    MembersComponent,
-  }
+    'add-member-component': AddMemberComponent,
+    'update-member-component': UpdateMemberComponent,
+    'delete-member-component': DeleteMemberComponent,
+  },
+    data() {
+        return {
+            componentNumber: 1,
+        }
+    },
+    computed: {
+        currentComponent() {
+            if (this.componentNumber == 1){
+                return 'add-member-component';
+            }
+            else if (this.componentNumber == 2){
+                return 'update-member-component';
+            }
+            else {
+                return 'delete-member-component';
+            }
+        }
+    },
 }
 </script>
 
