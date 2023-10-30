@@ -1,17 +1,11 @@
 <template>
-    <div class="members_container">
-        <div class="members_content">
-            <div class="add_members">
-                Add member
-                <form @submit.prevent="submitForm">
-                    <div class="form-group">
-                        <label for="license_num">License number</label>
-                        <input type="number" class="form-control" id="license_num" v-model="licenseNumber">
-                    </div>
-                </form>
-            </div>
+    <h3>Delete member</h3>
+    <form @submit.prevent="submitForm">
+        <div class="form-group">
+            <label for="license_num">License number</label>
+            <input type="number" class="form-control" id="license_num" v-model="licenseNumber">
         </div>
-    </div>
+    </form>
 </template>
 
 

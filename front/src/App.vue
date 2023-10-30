@@ -7,9 +7,9 @@
     </div>
 </template>
 <script>
-import AddMemberComponent from './components/AddMemberComponent.vue'
-import UpdateMemberComponent from './components/UpdateMemberComponent.vue'
-import DeleteMemberComponent from './components/DeleteMemberComponent.vue'
+import AddMemberComponent from './components/club-space/AddMemberComponent.vue'
+import UpdateMemberComponent from './components/club-space/UpdateMemberComponent.vue'
+import DeleteMemberComponent from './components/club-space/DeleteMemberComponent.vue'
 
 export default {
   name: 'App',
@@ -21,11 +21,13 @@ export default {
     data() {
         return {
             componentNumber: 1,
+            componentTitle: '',
         }
     },
     computed: {
         currentComponent() {
             if (this.componentNumber == 1){
+
                 return 'add-member-component';
             }
             else if (this.componentNumber == 2){
