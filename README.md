@@ -1,7 +1,13 @@
-# Installation (poetry)
+# Installation
+## Using Poetry
 In project root:
 ```commandline
 poetry install && cd front; npm install; cd ../
+```
+## Using requirements.txt
+Dependencies defined in requirements.txt can be installed in a virtual environment.
+```commandline
+pip install -r requirements.txt
 ```
 
 # Running
