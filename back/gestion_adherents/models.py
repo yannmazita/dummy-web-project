@@ -3,10 +3,10 @@ from django.db import models
 
 class Categories(models.Model):
     categorie = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
-    annee_deb = models.IntegerField()
-    annee_fin = models.IntegerField()
-    tarif = models.IntegerField()
+    description = models.CharField(max_length=255, null=True)
+    annee_deb = models.IntegerField(null=True)
+    annee_fin = models.IntegerField(null=True)
+    tarif = models.IntegerField(null=True)
 
 
 class Equipes(models.Model):
@@ -46,9 +46,9 @@ class Adherents(models.Model):
     id_poste = models.ForeignKey(Postes, on_delete=models.CASCADE)
     login = models.CharField(max_length=255)
     mdp = models.CharField(max_length=255)
-    nom = models.CharField(max_length=255)
-    prenom = models.CharField(max_length=255)
-    no_licence = models.IntegerField()
+    nom = models.CharField(max_length=255, null=True)
+    prenom = models.CharField(max_length=255, null=True)
+    no_licence = models.IntegerField(null=True)
     date_naissance = models.DateField()
     genre = models.CharField(max_length=255)
     surclassement = models.IntegerField(
@@ -62,19 +62,20 @@ class Adherents(models.Model):
 
 class Archives(models.Model):
     titre = models.CharField(max_length=255)
-    type = models.CharField(max_length=255)
-    lien_photo = models.CharField(max_length=255)
-    contenu = models.CharField(max_length=255)
-    lien_document = models.CharField(max_length=255)
+    type = models.CharField(max_length=255, null=True)
+    lien_photo = models.CharField(max_length=255, null=True)
+    contenu = models.CharField(max_length=255, null=True)
+    lien_document = models.CharField(max_length=255, null=True)
     id_createur = models.ForeignKey(Adherents, on_delete=models.CASCADE, related_name="+")
     date_creation = models.DateField()
     id_validateur = models.ForeignKey(Adherents, on_delete=models.CASCADE)
-    date_validation = models.DateField()
+    date_validation = models.DateField(null=True)
 
 
 class Entraine(models.Model):
     id_entraineur = models.ForeignKey(Adherents, on_delete=models.CASCADE)
     id_equipe = models.ForeignKey(Equipes, on_delete=models.CASCADE)
+    ordre = models.IntegerField(null=True)
 
 
 class Joue(models.Model):
@@ -84,20 +85,20 @@ class Joue(models.Model):
 
 class Contacts(models.Model):
     id_adherent = models.ForeignKey(Adherents, on_delete=models.CASCADE)
-    nom = models.CharField(max_length=255)
-    prenom = models.CharField(max_length=255)
-    adresse = models.CharField(max_length=255)
-    code_postal = models.CharField(max_length=255)
-    ville = models.CharField(max_length=255)
-    complement = models.CharField(max_length=255)
-    remarque = models.CharField(max_length=255)
-    ordre = models.IntegerField()
+    nom = models.CharField(max_length=255, null=True)
+    prenom = models.CharField(max_length=255, null=True)
+    adresse = models.CharField(max_length=255, null=True)
+    code_postal = models.CharField(max_length=255, null=True)
+    ville = models.CharField(max_length=255, null=True)
+    complement = models.CharField(max_length=255, null=True)
+    remarque = models.CharField(max_length=255, null=True)
+    ordre = models.IntegerField(null=True)
 
 
 class Courriels(models.Model):
     id_contact = models.ForeignKey(Contacts, on_delete=models.CASCADE)
     courriel = models.CharField(max_length=255)
-    ordre = models.IntegerField()
+    ordre = models.IntegerField(null=True)
 
 
 class Telephones(models.Model):
@@ -109,24 +110,24 @@ class Telephones(models.Model):
 
 
 class Documents(models.Model):
-    titre = models.CharField(max_length=255)
-    type = models.CharField(max_length=255)
-    lien_photo = models.CharField(max_length=255)
-    contenu = models.CharField(max_length=255)
-    lien_document = models.CharField(max_length=255)
+    titre = models.CharField(max_length=255, null=True)
+    type = models.CharField(max_length=255, null=True)
+    lien_photo = models.CharField(max_length=255, null=True)
+    contenu = models.CharField(max_length=255, null=True)
+    lien_document = models.CharField(max_length=255, null=True)
     id_createur = models.ForeignKey(Adherents, on_delete=models.CASCADE, related_name="+")
     date_creation = models.DateField()
     id_validateur = models.ForeignKey(Adherents, on_delete=models.CASCADE)
-    date_validation = models.DateField()
+    date_validation = models.DateField(null=True)
     id_equipe = models.ForeignKey(Equipes, on_delete=models.CASCADE)
 
 
 class Catalogue(models.Model):
-    designation = models.CharField(max_length=255)
-    des_comp = models.CharField(max_length=255)
-    taille = models.CharField(max_length=255)
-    prix = models.IntegerField()
-    lien_photo = models.CharField(max_length=255)
+    designation = models.CharField(max_length=255, null=True)
+    des_comp = models.CharField(max_length=255, null=True)
+    taille = models.CharField(max_length=255, null=True)
+    prix = models.IntegerField(null=True)
+    lien_photo = models.CharField(max_length=255, null=True)
 
 
 class Salles(models.Model):
