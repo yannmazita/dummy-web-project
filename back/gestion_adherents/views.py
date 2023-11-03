@@ -13,7 +13,7 @@ from django.http import HttpResponse, JsonResponse
 from .serializers import MemberSerializer
 
 # Model
-from .models import Member
+from .models import Adherents
 
 
 @csrf_exempt

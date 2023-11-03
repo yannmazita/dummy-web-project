@@ -1,5 +1,5 @@
 from django.urls import path
-from members import views
+from gestion_adherents import views
 
 urlpatterns = [
     path("members.json", views.members),
