@@ -66,7 +66,7 @@ class Archives(models.Model):
     lien_photo = models.CharField(max_length=255)
     contenu = models.CharField(max_length=255)
     lien_document = models.CharField(max_length=255)
-    id_createur = models.ForeignKey(Adherents, on_delete=models.CASCADE)
+    id_createur = models.ForeignKey(Adherents, on_delete=models.CASCADE, related_name="+")
     date_creation = models.DateField()
     id_validateur = models.ForeignKey(Adherents, on_delete=models.CASCADE)
     date_validation = models.DateField()
@@ -114,7 +114,7 @@ class Documents(models.Model):
     lien_photo = models.CharField(max_length=255)
     contenu = models.CharField(max_length=255)
     lien_document = models.CharField(max_length=255)
-    id_createur = models.ForeignKey(Adherents, on_delete=models.CASCADE)
+    id_createur = models.ForeignKey(Adherents, on_delete=models.CASCADE, related_name="+")
     date_creation = models.DateField()
     id_validateur = models.ForeignKey(Adherents, on_delete=models.CASCADE)
     date_validation = models.DateField()
@@ -153,7 +153,7 @@ class Matchs(models.Model):
 
 
 class Arbitre(models.Model):
-    id_adherent = models.ForeignKey(Adherents, on_delete=models.CASCADE)
+    id_adherent = models.ForeignKey(Adherents, on_delete=models.CASCADE, related_name="+")
     id_match = models.ForeignKey(Matchs, on_delete=models.CASCADE)
 
 
