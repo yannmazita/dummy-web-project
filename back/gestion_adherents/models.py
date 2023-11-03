@@ -51,13 +51,13 @@ class Adherents(models.Model):
     no_licence = models.IntegerField()
     date_naissance = models.DateField()
     genre = models.CharField(max_length=255)
-    surclassment = models.IntegerField(
+    surclassement = models.IntegerField(
         default=Surclassement.SIMPLE, choices=Surclassement.choices  # type: ignore
     )
     director = models.CharField(max_length=4, choices=Status.choices)
     habilitation = models.IntegerField(choices=Habilitation.choices)
     arbitre = models.BooleanField()
-    manager = models.BooleanField()
+    entraineur = models.BooleanField()
 
 
 class Archives(models.Model):
