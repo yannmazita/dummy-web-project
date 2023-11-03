@@ -1,11 +1,29 @@
 <template>
-    <h3>Update member</h3>
-    <form @submit.prevent="submitForm">
-        <div class="form-group">
-            <label for="license_num">License number</label>
-            <input type="number" class="form-control" id="license_num" v-model="licenseNumber">
+    <main role="main" class="main-container-wrapper">
+        <div class="container js-quickedit-main-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="region region-content">
+                        <article role="article" class="node--type-page node--view-mode-full center">
+                            <div class="field field--name-field-blocs-evenementiels fields--typeèentity-reference-revisions field--label-hiden field__items">
+                                <div class="field__item">
+                                    <div class="paragraph block-pu-page-news-in-brief no-padding no-border">
+                                        <h3>Update member</h3>
+                                        <form @submit.prevent="submitForm">
+                                            <div class="input-group">
+                                                <label for="license_num">License number</label>
+                                                <input type="number" class="form-control" id="license_num" v-model="licenseNumber" >
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
         </div>
-    </form>
+    </main>
 </template>
 
 

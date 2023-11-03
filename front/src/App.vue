@@ -1,15 +1,22 @@
 <template>
-    <div id="app">
-        <button @click="componentNumber=1">Add member</button>
-        <button @click="componentNumber=2">Update member</button>
-        <button @click="componentNumber=3">Delete member</button>
-        <component :is="currentComponent"></component>
+    <div class="page">
+        <navigation-bar-component />
+        <div id="app">
+                <div id="block-menuentete" class="settings-tray-editable block block-system block-system-menu-blockheader center">
+                    <button @click="componentNumber=1" class="btn btn-primary">Add member</button>
+                    <button @click="componentNumber=2" class="btn btn-primary">Update member</button>
+                    <button @click="componentNumber=3" class="btn btn-primary">Delete member</button>
+                </div>
+                <component :is="currentComponent"></component>
+        </div>
     </div>
 </template>
+
 <script>
 import AddMemberComponent from './components/club-space/AddMemberComponent.vue'
 import UpdateMemberComponent from './components/club-space/UpdateMemberComponent.vue'
 import DeleteMemberComponent from './components/club-space/DeleteMemberComponent.vue'
+import NavigationBarComponent from './components/NavigationBarComponent.vue'
 
 export default {
   name: 'App',
@@ -17,6 +24,7 @@ export default {
     'add-member-component': AddMemberComponent,
     'update-member-component': UpdateMemberComponent,
     'delete-member-component': DeleteMemberComponent,
+    'navigation-bar-component': NavigationBarComponent,
   },
     data() {
         return {
@@ -42,12 +50,9 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import './assets/css/css1.css';
+.center{
+    display: flex;
+    justify-content: center;
 }
 </style>
