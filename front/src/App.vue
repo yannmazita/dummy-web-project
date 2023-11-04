@@ -1,14 +1,12 @@
 <template>
-    <div class="page">
-        <navigation-bar-component />
-        <div id="app">
-                <div id="block-menuentete" class="settings-tray-editable block block-system block-system-menu-blockheader center">
-                    <button @click="componentNumber=1" class="btn btn-primary">Add member</button>
-                    <button @click="componentNumber=2" class="btn btn-primary">Update member</button>
-                    <button @click="componentNumber=3" class="btn btn-primary">Delete member</button>
-                </div>
-                <component :is="currentComponent"></component>
-        </div>
+    <navigation-bar-component />
+    <div id="app">
+            <div class="center">
+                <button @click="componentNumber=1" class="btn btn-primary">Add member</button>
+                <button @click="componentNumber=2" class="btn btn-primary">Update member</button>
+                <button @click="componentNumber=3" class="btn btn-primary">Delete member</button>
+            </div>
+            <component :is="currentComponent"></component>
     </div>
 </template>
 
@@ -50,7 +48,6 @@ export default {
 </script>
 
 <style>
-@import './assets/css/css1.css';
 .center{
     display: flex;
     justify-content: center;

@@ -1,73 +1,111 @@
 <template>
-    <main role="main" class="main-container-wrapper">
-        <div class="container js-quickedit-main-content">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="region region-content">
-                        <article role="article" class="node--type-page node--view-mode-full center">
-                                        <div class="field field--name-field-blocs-evenementiels fields--typeèentity-reference-revisions field--label-hiden field__items">
-                                            <div class="field__item">
-                                                <div class="paragraph block-pu-page-news-in-brief no-padding no-border">
-                                                    <h3>Add member</h3>
-                                                    <form @submit.prevent="submitForm">
-                                                        <div class="input-group">
-                                                            <label for="license_num">License number</label>
-                                                            <input type="number" class="form-control" id="license_num" v-model="licenseNumber" >
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <label for="lastname">Lastname</label>
-                                                            <input type="text" class="form-control" id="lastname" v-model="lastname">
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <label for="firstname">Firstname</label>
-                                                            <input type="text" class="form-control" id="firstname" v-model="firstname">
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <label for="date_of_birth">Date of birth</label>
-                                                            <input type="date" class="form-control" id="date_of_birth" v-model="dateOfBirth">
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <label for="email">Email</label>
-                                                            <input type="text" class="form-control" id="email" v-model="email">
-                                                            <p v-bind:class="feedback">{{ emailFeedback }}</p>
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <label for="phone_num">Telephone</label>
-                                                            <input type="number" class="form-control" id="phone_num" v-model="telephone">
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <label for="category">Category</label>
-                                                            <input type="number" class="form-control" id="category" v-model="category">
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <label for="referee">Referee</label>
-                                                            <input type="checkbox" class="form-control" id="referee" v-model="referee">
-                                                            <span> ({{ isReferee }})</span>
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <label for="manager">Manager</label>
-                                                            <input type="text" class="form-control" id="manager" v-model="manager">
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <label for="director">Director</label>
-                                                            <input type="text" class="form-control" id="director" v-model="director">
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <label for="credentials">Credentials</label>
-                                                            <input type="number" class="form-control" id="credentials" v-model="credentials">
-                                                        </div>
-                                                        <div class="input-group">
-                                                            <button class="btn btn-primary" type="submit" aria-label="Add member">Add member</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <main>
+        <FormKit
+            type="form"
+            :config="{ validationVisibility: 'live' }"
+        >
+            <FormKit
+                type="number"
+                name="no_licence"
+                id="no_licence"
+                label="Numéro licence"
+                help="Le numéro de licence FFVB/FSGT."
+                placeholder="1337"
+                validation="min:0"
+            />
+            <FormKit
+                type="text"
+                name="nom"
+                id="nom"
+                label="Nom"
+                help="Le nom du licencié."
+                placeholder="Stallman"
+            />
+            <FormKit
+                type="text"
+                name="prenom"
+                id="prenom"
+                label="Prénom"
+                help="Le prénom du licencié."
+                placeholder="Richard"
+            />
+            <FormKit
+                type="date"
+                name="date_naissance"
+                id="date_naissance"
+                label="Date de naissance"
+                help="La date de naissance du licencié."
+            />
+            <FormKit
+                type="select"
+                name="genre"
+                id="genre"
+                label="Genre"
+                help="Le genre du licencié."
+                :options="['F', 'M', 'Autre']"
+            />
+            <FormKit
+                type="email"
+                name="email"
+                id="email"
+                label="Courriel"
+                help="Le courriel du licencié."
+                validation="email"
+            />
+            <FormKit
+                type="tel"
+                name="telephone"
+                id="telephone"
+                label="Numéro de téléphone"
+                help="Le numéro de téléphone du licencié."
+                validation="matches:/^0[1-9]-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}$/"
+                validation-visibility="submit"
+            />
+            <FormKit
+                type="select"
+                name="categorie"
+                id="categorie"
+                label="Catégorie"
+                help="La catégorie du licencié."
+                :options="[
+                    'M7 (Baby)',
+                    'M9 (Pupilles)',
+                    'M11 (Poussins)',
+                    'M13 (Benjamins)',
+                    'M15 (Minimes)',
+                    'M17 (Cadets)',
+                    'M20 (Juniors et Espoirs)',
+                    'Seniors',
+                    'FSGT',
+                    ]"
+            />
+            <FormKit
+                type="checkbox"
+                name="arbitre"
+                id="arbitre"
+                label="Arbitre"
+                help="Le licencié est-il un arbitre ?"
+            />
+            <FormKit
+                type="checkbox"
+                name="entraineur"
+                id="entraineur"
+                label="Entraineur"
+                help="Le licencié est-il un entraineur ?"
+            />
+            <FormKit
+                type="select"
+                name="habilitation"
+                id="habilitation"
+                label="Habilitation"
+                help="L'habilitation du licencié."
+                :options="[
+                '1 (Administration du site)',
+                '2 (Accès à l\'espace club)',
+                '3 (Consulation simple du site)',
+                ]"
+            />
+        </FormKit>
     </main>
 </template>
 
@@ -76,78 +114,58 @@
     export default {
         data() {
             return {
-                licenseNumber: '',
-                lastname: '',
-                firstname:'',
-                dateOfBirth: '',
+                no_licence: '',
+                nom: '',
+                prenom:'',
+                date_naissance: '',
+                genre: '',
                 email: '',
                 telephone: '',
-                category: '',
-                referee: 'false',
-                manager: '',
-                director: '',
-                credentials: '',
-                emailFeedback: '',
-                feedback: 'invalid',
+                categorie: '',
+                arbitre: 'false',
+                entraineur: '',
+                dirigeant: '',
+                habilitation: '',
             }
         },
         methods: {
             async submitForm(){
                 try {
-                    const response = await this.$http.post('http://localhost:8000/api/members/', {
-                        licenseNumber: this.licenseNumber,
-                        lastname: this.lastname,
-                        firstname: this.firstname,
-                        dateOfBirth: this.dateOfBirth,
+                    const response = await this.$http.post('http://localhost:8000/api/adherents/', {
+                        no_licence: this.no_licence,
+                        nom: this.nom,
+                        prenom: this.prenom,
+                        date_naissance: this.date_naissance,
+                        genre: this.genre,
                         email: this.email,
                         telephone: this.telephone,
-                        category: this.category,
-                        referee: this.referee,
-                        manager: this.manager,
-                        director: this.director,
-                        credentials: this.credentials,
+                        categorie: this.categorie,
+                        arbitre: this.arbitre,
+                        entraineur: this.entraineur,
+                        dirigeant: this.dirigeant,
+                        habilitation: this.habilitation,
                     });
                     this.members.push(response.data);
                     this.licenseNumber = '';
-                    this.lastname = '';
-                    this.firstname = '';
-                    this.dateOfBirth = '';
+                    this.nom = '';
+                    this.prenom = '';
+                    this.date_naissance = '';
+                    this.genre = '';
                     this.email = '';
                     this.telephone = '';
-                    this.category = '';
-                    this.referee = 'false';
-                    this.manager = '';
-                    this.director = '';
-                    this.credentials = '';
+                    this.categorie = '';
+                    this.arbitre = 'false';
+                    this.entraineur = '';
+                    this.dirigeant = '';
+                    this.habilitation = '';
                 } catch (error) {
                     console.log(error);
                 }
             }
         },
         computed: {
-            isReferee(){
-                if(this.referee){
-                    return 'yes'
-                }
-                else{
-                    return 'no'
-                }
-            }
         },
         watch: {
-            email(newValue, oldValue){
-                if(!newValue.includes('@')){
-                    this.emailFeedback = 'Not an email address.';
-                    this.feedback = 'invalid';
-                }
-                else if(!oldValue.includes('@') && newValue.includes('@')){
-                    this.emailFeedback = 'Address is now valid.';
-                    this.feedback = 'valid';
-                }
-                else{
-                    this.emailFeedback = 'Address is valid.';
-                }
-            }
         }
     }
 </script>
