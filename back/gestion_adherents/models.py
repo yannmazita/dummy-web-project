@@ -12,11 +12,11 @@ class Categories(models.Model):
 class Equipes(models.Model):
     id_categorie = models.ForeignKey(Categories, on_delete=models.CASCADE)
     nom = models.CharField(max_length=255)
-    points = models.IntegerField()
-    victoires = models.IntegerField()
-    defaites = models.IntegerField()
-    nulls = models.IntegerField()
-    photo = models.CharField(max_length=255)
+    points = models.IntegerField(null=True)
+    victoires = models.IntegerField(null=True)
+    defaites = models.IntegerField(null=True)
+    nulls = models.IntegerField(null=True)
+    photo = models.CharField(max_length=255, null=True)
     club = models.BooleanField()
 
 
@@ -37,7 +37,7 @@ class Adherents(models.Model):
         BASIC = 3
 
     id_categorie = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    id_poste = models.ForeignKey(Postes, on_delete=models.CASCADE)
+    id_poste = models.ForeignKey(Postes, on_delete=models.CASCADE, null=True)
     login = models.CharField(max_length=255)
     mdp = models.CharField(max_length=255)
     nom = models.CharField(max_length=255, null=True, blank=True)
@@ -73,7 +73,7 @@ class Entraine(models.Model):
 
 class Joue(models.Model):
     id_adherent = models.ForeignKey(Adherents, on_delete=models.CASCADE)
-    idlinux_equipe = models.ForeignKey(Equipes, on_delete=models.CASCADE)
+    id_equipe = models.ForeignKey(Equipes, on_delete=models.CASCADE)
 
 
 class Contacts(models.Model):
@@ -119,16 +119,17 @@ class Catalogue(models.Model):
     designation = models.CharField(max_length=255, null=True, blank=True)
     des_comp = models.CharField(max_length=255, null=True, blank=True)
     taille = models.CharField(max_length=255, null=True, blank=True)
+    coloris = models.CharField(max_length=255, null=True, blank=True)
     prix = models.IntegerField(null=True, blank=True)
     lien_photo = models.CharField(max_length=255, null=True, blank=True)
 
 
 class Salles(models.Model):
     nom = models.CharField(max_length=255)
-    adresse = models.CharField(max_length=255)
-    code_postal = models.CharField(max_length=255)
-    vlle = models.CharField(max_length=255)
-    complement = models.CharField(max_length=255)
+    adresse = models.CharField(max_length=255, null=True)
+    code_postal = models.CharField(max_length=255, null=True)
+    ville = models.CharField(max_length=255, null=True)
+    complement = models.CharField(max_length=255, null=True)
 
 
 class Creneaux(models.Model):
@@ -140,9 +141,9 @@ class Creneaux(models.Model):
 class Matchs(models.Model):
     id_equipe_a = models.IntegerField()
     id_creneau = models.ForeignKey(Creneaux, on_delete=models.CASCADE)
-    score_a = models.IntegerField()
-    score_b = models.IntegerField()
-    duree = models.DateField()
+    score_a = models.IntegerField(null=True)
+    score_b = models.IntegerField(null=True)
+    duree = models.DurationField(null=True)
     nom_equipe_b = models.CharField(max_length=255)
 
 
