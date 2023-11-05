@@ -114,10 +114,12 @@
 
 
 <script setup>
+    import axios from 'axios'
+
     async function submitForm(fields){
+        const data = JSON.stringify(fields);
         try {
-            await this.$http.post('http://localhost:8000/api/adherents/', {
-            });
+            await axios.post('http://localhost:8000/api/adherents/', data);
         }
         catch (error) {
             console.log(error);
