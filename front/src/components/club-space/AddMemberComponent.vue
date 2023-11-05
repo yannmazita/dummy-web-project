@@ -2,7 +2,8 @@
     <main>
         <FormKit
             type="form"
-            :config="{ validationVisibility: 'live' }"
+            @submit="submitForm"
+            :config="{ validationVisibility: 'live',}"
         >
             <FormKit
                 type="number"
@@ -11,7 +12,7 @@
                 label="Numéro licence"
                 help="Le numéro de licence FFVB/FSGT."
                 placeholder="1337"
-                validation="min:0"
+                validation="min:0|required"
             />
             <FormKit
                 type="text"
@@ -20,6 +21,7 @@
                 label="Nom"
                 help="Le nom du licencié."
                 placeholder="Stallman"
+                validation="required:trim"
             />
             <FormKit
                 type="text"
@@ -28,6 +30,7 @@
                 label="Prénom"
                 help="Le prénom du licencié."
                 placeholder="Richard"
+                validation="required:trim"
             />
             <FormKit
                 type="date"
@@ -35,6 +38,7 @@
                 id="date_naissance"
                 label="Date de naissance"
                 help="La date de naissance du licencié."
+                validation="required"
             />
             <FormKit
                 type="select"
@@ -50,7 +54,7 @@
                 id="email"
                 label="Courriel"
                 help="Le courriel du licencié."
-                validation="email"
+                validation="required|email"
             />
             <FormKit
                 type="tel"
@@ -58,8 +62,7 @@
                 id="telephone"
                 label="Numéro de téléphone"
                 help="Le numéro de téléphone du licencié."
-                validation="matches:/^0[1-9]-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}$/"
-                validation-visibility="submit"
+                validation="required|matches:/^0[1-9]-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}$/"
             />
             <FormKit
                 type="select"
@@ -110,63 +113,16 @@
 </template>
 
 
-<script>
-    export default {
-        data() {
-            return {
-                no_licence: '',
-                nom: '',
-                prenom:'',
-                date_naissance: '',
-                genre: '',
-                email: '',
-                telephone: '',
-                categorie: '',
-                arbitre: 'false',
-                entraineur: '',
-                dirigeant: '',
-                habilitation: '',
-            }
-        },
-        methods: {
-            async submitForm(){
-                try {
-                    const response = await this.$http.post('http://localhost:8000/api/adherents/', {
-                        no_licence: this.no_licence,
-                        nom: this.nom,
-                        prenom: this.prenom,
-                        date_naissance: this.date_naissance,
-                        genre: this.genre,
-                        email: this.email,
-                        telephone: this.telephone,
-                        categorie: this.categorie,
-                        arbitre: this.arbitre,
-                        entraineur: this.entraineur,
-                        dirigeant: this.dirigeant,
-                        habilitation: this.habilitation,
-                    });
-                    this.members.push(response.data);
-                    this.licenseNumber = '';
-                    this.nom = '';
-                    this.prenom = '';
-                    this.date_naissance = '';
-                    this.genre = '';
-                    this.email = '';
-                    this.telephone = '';
-                    this.categorie = '';
-                    this.arbitre = 'false';
-                    this.entraineur = '';
-                    this.dirigeant = '';
-                    this.habilitation = '';
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-        },
-        computed: {
-        },
-        watch: {
+<script setup>
+    async function submitForm(fields){
+        try {
+            await this.$http.post('http://localhost:8000/api/adherents/', {
+            });
         }
+        catch (error) {
+            console.log(error);
+        }
+        alert(JSON.stringify(fields))
     }
 </script>
 
