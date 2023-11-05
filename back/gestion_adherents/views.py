@@ -1,5 +1,4 @@
 from rest_framework.parsers import JSONParser
-from .commands import custom_commands
 
 # To bypass having a CSRF token
 from django.views.decorators.csrf import csrf_exempt
@@ -17,7 +16,7 @@ from .models import Adherents, Equipes, Categories, Postes
 def adherents(request):
     """Create and Read adherents"""
     if request.method == "GET":
-        # custom_commands()
+        # populateDatabase()
         # Get information that won't break GDPR
         adherents = Adherents.objects.values(  # type: ignore
             "no_licence", "nom", "prenom", "surclassement", "arbitre", "entraineur"
