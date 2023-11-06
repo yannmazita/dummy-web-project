@@ -117,14 +117,18 @@
     import axios from 'axios'
 
     async function submitForm(fields){
-        const data = JSON.stringify(fields);
+        const rawFields = fields;
+        rawFields.categorie = rawFields.categorie.split(" ", 1);    // Throwing out the description from the value.
+        rawFields.habilitation = rawFields.categorie.split(" ", 1);
+        const data = JSON.stringify(rawFields);
+        
         try {
             await axios.post('http://localhost:8000/api/adherents/', data);
         }
         catch (error) {
             console.log(error);
         }
-        alert(JSON.stringify(fields))
+        alert(JSON.stringify(rawFields))
     }
 </script>
 
