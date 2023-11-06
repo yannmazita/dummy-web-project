@@ -1,5 +1,6 @@
+from django.core.management.base import BaseCommand
 from datetime import datetime
-from .models import (
+from ...models import (
     Adherents,
     Arbitre,
     Archives,
@@ -57,6 +58,7 @@ def ajouterCategories():
             tarif=item[5],
         )
         category.save()
+    print("Categorie table handled")
 
 
 def ajouterEquipes():
@@ -126,6 +128,7 @@ def ajouterEquipes():
             club=item[8],
         )
         equipe.save()
+    print("Equipes table handled")
 
 
 def ajouterPostes():
@@ -139,6 +142,8 @@ def ajouterPostes():
     for item in data:
         poste = Postes(id=item[0], designation=item[1], description=item[2])
         poste.save()
+
+    print("Postes table handled")
 
 
 def ajouterAdherents():
@@ -308,6 +313,7 @@ def ajouterAdherents():
             entraineur=item[13],
         )
         adherent.save()
+    print("Adherents table handled")
 
 
 def ajouterArchives():
@@ -376,6 +382,7 @@ def ajouterArchives():
             date_validation=item[9],
         )
         archive.save()
+    print("Archives table handled")
 
 
 def ajouterEntraine():
@@ -385,8 +392,8 @@ def ajouterEntraine():
         ordre=1,
     )
 
-    # Save the new Entraine object to the database
     entraine.save()
+    print("Entraine table handled")
 
 
 def ajouterJoue():
@@ -395,8 +402,8 @@ def ajouterJoue():
         id_equipe=noneReplace(Equipes, 3),
     )
 
-    # Save the new Joue object to the database
     joue.save()
+    print("Joue table handled")
 
 
 def ajouterContacts():
@@ -413,8 +420,8 @@ def ajouterContacts():
         ordre=0,
     )
 
-    # Save the new Contact object to the database
     contact.save()
+    print("Contact table handled")
 
 
 def ajouterCourriels():
@@ -430,9 +437,9 @@ def ajouterCourriels():
         ordre=None,
     )
 
-    # Save the new Courriels objects to the database
     courriel1.save()
     courriel2.save()
+    print("Courriels table handled")
 
 
 def ajouterDocuments():
@@ -493,6 +500,7 @@ def ajouterDocuments():
             id_equipe=noneReplace(Equipes, item[10]),
         )
         document.save()
+    print("Documents table handled")
 
 
 def ajouterCatalogues():
@@ -763,6 +771,7 @@ def ajouterCatalogues():
                 lien_photo=item[6],
             )
             product.save()
+        print("Catalogue table handled")
 
 
 def ajouterSalles():
@@ -781,6 +790,7 @@ def ajouterSalles():
             complement=item[5],
         )
         salle.save()
+    print("Salles table handled")
 
 
 def ajouterCreneaux():
@@ -804,6 +814,7 @@ def ajouterCreneaux():
             fin=datetime.strptime(item[3], "%Y-%m-%d %H:%M:%S"),
         )
         creneau.save()
+    print("Creneaux table handled")
 
 
 def ajouterMatchs():
@@ -829,20 +840,25 @@ def ajouterMatchs():
             nom_equipe_b=item[6],
         )
         match.save()
+    print("Matchs table handled")
 
 
-def populateDatabase():
-    ajouterCategories()
-    ajouterEquipes()
-    ajouterPostes()
-    ajouterAdherents()
-    ajouterArchives()
-    ajouterEntraine()
-    ajouterJoue()
-    ajouterContacts()
-    ajouterCourriels()
-    ajouterDocuments()
-    ajouterCatalogues()
-    ajouterSalles()
-    ajouterCreneaux()
-    ajouterMatchs()
+class Command(BaseCommand):
+    help = "Populates the database with relevant data."
+
+    def handle(self, *args, **kwargs):
+        ajouterCategories()
+        ajouterEquipes()
+        ajouterPostes()
+        ajouterAdherents()
+        ajouterArchives()
+        ajouterEntraine()
+        ajouterJoue()
+        ajouterContacts()
+        ajouterCourriels()
+        ajouterDocuments()
+        ajouterCatalogues()
+        ajouterSalles()
+        ajouterCreneaux()
+        ajouterMatchs()
+        print("Database has been populated")

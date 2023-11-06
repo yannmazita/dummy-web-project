@@ -14,7 +14,7 @@ pip install -r requirements.txt
 ## Backend
 In project root:
 ```commandline
-cd back; poetry shell && python manage.py migrate && python manage.py runserver
+cd back; poetry shell && python manage populate_server && python manage.py migrate && python manage.py runserver
 ```
 Backend will be accessible at localhost:8000
 ## Frontend

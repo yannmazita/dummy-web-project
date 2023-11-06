@@ -16,7 +16,6 @@ from .models import Adherents, Equipes, Categories, Postes
 def adherents(request):
     """Create and Read adherents"""
     if request.method == "GET":
-        # populateDatabase()
         # Get information that won't break GDPR
         adherents = Adherents.objects.values(  # type: ignore
             "no_licence", "nom", "prenom", "surclassement", "arbitre", "entraineur"
