@@ -14,7 +14,7 @@ from .models import Adherents, Equipes, Categories, Postes
 
 @csrf_exempt
 def adherents(request):
-    """Create and Read adherents"""
+    """Create and Read adherents."""
     if request.method == "GET":
         # Get information that won't break GDPR
         adherents = Adherents.objects.values(  # type: ignore
@@ -55,8 +55,17 @@ def adherents(request):
 
 @csrf_exempt
 def equipes(request):
-    """Read equipes"""
+    """Read equipes."""
     if request.method == "GET":
-        equipes = Equipes.objects.all()  # type: ignore
+        equipes = Equipes.objects.all().values()  # type: ignore
         serializer = EquipesSerializer(equipes, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+
+@csrf_exempt
+def categories(request):
+    """Read categories."""
+    if request.method == "GET":
+        categories = Categories.objects.all().values()  # type: ignore
+        serializer = EquipesSerializer(categories, many=True)
         return JsonResponse(serializer.data, safe=False)
