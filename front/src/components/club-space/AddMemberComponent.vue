@@ -88,6 +88,8 @@
                 id="arbitre"
                 label="Arbitre"
                 help="Le licencié est-il un arbitre ?"
+                value="false"
+                :off-value="false"
             />
             <FormKit
                 type="checkbox"
@@ -95,6 +97,8 @@
                 id="entraineur"
                 label="Entraineur"
                 help="Le licencié est-il un entraineur ?"
+                value="false"
+                :off-value="false"
             />
             <FormKit
                 type="select"
@@ -119,7 +123,7 @@
     async function submitForm(fields){
         const rawFields = fields;
         rawFields.categorie = rawFields.categorie.split(" ", 1);    // Throwing out the description from the value.
-        rawFields.habilitation = rawFields.categorie.split(" ", 1);
+        rawFields.habilitation = rawFields.habilitation.split(" ", 1);
         const data = JSON.stringify(rawFields);
         
         try {
