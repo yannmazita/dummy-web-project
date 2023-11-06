@@ -101,6 +101,15 @@
                 :off-value="false"
             />
             <FormKit
+                type="checkbox"
+                name="dirigeant"
+                id="dirigeant"
+                label="Dirigeant"
+                help="Le licencié est-il un dirigeant ?"
+                value="false"
+                :off-value="false"
+            />
+            <FormKit
                 type="select"
                 name="habilitation"
                 id="habilitation"
