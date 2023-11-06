@@ -6,8 +6,8 @@ class AdherentsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Adherents
         fields = [
-            "id_categorie",
-            "id_poste",
+            "categorie_id",
+            "poste_id",
             "login",
             "mdp",
             "nom",
@@ -39,7 +39,7 @@ class EquipesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Equipes
         fields = [
-            "id_categorie",
+            "categorie_id",
             "nom",
             "points",
             "victoires",
