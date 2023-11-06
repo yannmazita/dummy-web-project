@@ -10,7 +10,8 @@ class Categories(models.Model):
 
 
 class Equipes(models.Model):
-    id_categorie = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    categorie = models.ForeignKey(
+        Categories, on_delete=models.CASCADE)
     nom = models.CharField(max_length=255)
     points = models.IntegerField(null=True)
     victoires = models.IntegerField(null=True)
@@ -36,8 +37,10 @@ class Adherents(models.Model):
         CLUB = 2
         BASIC = 3
 
-    id_categorie = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    id_poste = models.ForeignKey(Postes, on_delete=models.CASCADE, null=True)
+    categorie = models.ForeignKey(
+        Categories, on_delete=models.CASCADE)
+    poste = models.ForeignKey(
+        Postes, on_delete=models.CASCADE, null=True)
     login = models.CharField(max_length=255)
     mdp = models.CharField(max_length=255)
     nom = models.CharField(max_length=255, null=True, blank=True)
@@ -59,25 +62,32 @@ class Archives(models.Model):
     lien_photo = models.CharField(max_length=255, null=True, blank=True)
     contenu = models.CharField(max_length=255, null=True, blank=True)
     lien_document = models.CharField(max_length=255, null=True, blank=True)
-    id_createur = models.ForeignKey(Adherents, on_delete=models.CASCADE, related_name="+")
+    createur = models.ForeignKey(
+        Adherents, on_delete=models.CASCADE, related_name="+")
     date_creation = models.DateField()
-    id_validateur = models.ForeignKey(Adherents, on_delete=models.CASCADE)
+    validateur = models.ForeignKey(
+        Adherents, on_delete=models.CASCADE)
     date_validation = models.DateField(null=True, blank=True)
 
 
 class Entraine(models.Model):
-    id_entraineur = models.ForeignKey(Adherents, on_delete=models.CASCADE)
-    id_equipe = models.ForeignKey(Equipes, on_delete=models.CASCADE)
+    entraineur = models.ForeignKey(
+        Adherents, on_delete=models.CASCADE)
+    equipe = models.ForeignKey(
+        Equipes, on_delete=models.CASCADE)
     ordre = models.IntegerField(null=True, blank=True)
 
 
 class Joue(models.Model):
-    id_adherent = models.ForeignKey(Adherents, on_delete=models.CASCADE)
-    id_equipe = models.ForeignKey(Equipes, on_delete=models.CASCADE)
+    adherent = models.ForeignKey(
+        Adherents, on_delete=models.CASCADE)
+    equipe = models.ForeignKey(
+        Equipes, on_delete=models.CASCADE)
 
 
 class Contacts(models.Model):
-    id_adherent = models.ForeignKey(Adherents, on_delete=models.CASCADE)
+    adherent = models.ForeignKey(
+        Adherents, on_delete=models.CASCADE)
     nom = models.CharField(max_length=255, null=True, blank=True)
     prenom = models.CharField(max_length=255, null=True, blank=True)
     adresse = models.CharField(max_length=255, null=True, blank=True)
@@ -89,13 +99,15 @@ class Contacts(models.Model):
 
 
 class Courriels(models.Model):
-    id_contact = models.ForeignKey(Contacts, on_delete=models.CASCADE)
+    contact = models.ForeignKey(
+        Contacts, on_delete=models.CASCADE)
     courriel = models.CharField(max_length=255)
     ordre = models.IntegerField(null=True, blank=True)
 
 
 class Telephones(models.Model):
-    id_contact = models.ForeignKey(Contacts, on_delete=models.CASCADE)
+    contact = models.ForeignKey(
+        Contacts, on_delete=models.CASCADE)
     telephone = models.CharField(max_length=255)
     type = models.CharField(max_length=255)
     remarque = models.CharField(max_length=255)
@@ -108,11 +120,14 @@ class Documents(models.Model):
     lien_photo = models.CharField(max_length=255, null=True, blank=True)
     contenu = models.CharField(max_length=255, null=True, blank=True)
     lien_document = models.CharField(max_length=255, null=True, blank=True)
-    id_createur = models.ForeignKey(Adherents, on_delete=models.CASCADE, related_name="+")
+    createur = models.ForeignKey(
+        Adherents, on_delete=models.CASCADE, related_name="+")
     date_creation = models.DateField()
-    id_validateur = models.ForeignKey(Adherents, on_delete=models.CASCADE)
+    validateur = models.ForeignKey(
+        Adherents, on_delete=models.CASCADE)
     date_validation = models.DateField(null=True, blank=True)
-    id_equipe = models.ForeignKey(Equipes, on_delete=models.CASCADE)
+    equipe = models.ForeignKey(
+        Equipes, on_delete=models.CASCADE)
 
 
 class Catalogue(models.Model):
@@ -133,14 +148,15 @@ class Salles(models.Model):
 
 
 class Creneaux(models.Model):
-    id_salle = models.ForeignKey(Salles, on_delete=models.CASCADE)
+    salle = models.ForeignKey(Salles, on_delete=models.CASCADE)
     debut = models.DateField()
     fin = models.DateField()
 
 
 class Matchs(models.Model):
     id_equipe_a = models.IntegerField()
-    id_creneau = models.ForeignKey(Creneaux, on_delete=models.CASCADE)
+    creneau = models.ForeignKey(
+        Creneaux, on_delete=models.CASCADE)
     score_a = models.IntegerField(null=True)
     score_b = models.IntegerField(null=True)
     duree = models.DurationField(null=True)
@@ -148,11 +164,15 @@ class Matchs(models.Model):
 
 
 class Arbitre(models.Model):
-    id_adherent = models.ForeignKey(Adherents, on_delete=models.CASCADE, related_name="+")
-    id_match = models.ForeignKey(Matchs, on_delete=models.CASCADE)
+    adherent = models.ForeignKey(
+        Adherents, on_delete=models.CASCADE, related_name="+")
+    match = models.ForeignKey(Matchs, on_delete=models.CASCADE)
 
 
 class Entrainements(models.Model):
-    id_equipe = models.ForeignKey(Equipes, on_delete=models.CASCADE)
-    id_entraineur = models.ForeignKey(Adherents, on_delete=models.CASCADE)
-    id_creneau = models.ForeignKey(Creneaux, on_delete=models.CASCADE)
+    equipe = models.ForeignKey(
+        Equipes, on_delete=models.CASCADE)
+    entraineur = models.ForeignKey(
+        Adherents, on_delete=models.CASCADE)
+    creneau = models.ForeignKey(
+        Creneaux, on_delete=models.CASCADE)
