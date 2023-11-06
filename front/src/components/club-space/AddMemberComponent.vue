@@ -143,7 +143,7 @@
 
     async function getEquipes(){
         try {
-            const response = await axios.get('http://localhost:8080/api/equipes/');
+            const response = await axios.get('http://localhost:8000/api/equipes/');
             equipes = response.data;
         }
         catch (error){
@@ -152,7 +152,7 @@
     }
     async function getCategories(){
         try {
-            const response = await axios.get('http://localhost:8080/api/categories/');
+            const response = await axios.get('http://localhost:8000/api/categories/');
             categories = response.data;
         }
         catch (error){
