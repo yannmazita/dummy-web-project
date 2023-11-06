@@ -92,22 +92,28 @@
                 :off-value="false"
             />
             <FormKit
-                type="checkbox"
-                name="entraineur"
-                id="entraineur"
-                label="Entraineur"
-                help="Le licencié est-il un entraineur ?"
-                value="false"
-                :off-value="false"
+                type="select"
+                name="equipe"
+                id="equipe"
+                label="Équipe"
+                help="L'équipe entrainée"
+                :options="[
+                    'équipe 1',
+                    'équipe 2',
+                    ]"
             />
             <FormKit
-                type="checkbox"
+                type="select"
                 name="dirigeant"
                 id="dirigeant"
                 label="Dirigeant"
                 help="Le licencié est-il un dirigeant ?"
-                value="false"
-                :off-value="false"
+                :options="[
+                    'Président',
+                    'Secrétaire',
+                    'Référent arbitre',
+                    'Référent entraineur',
+                    ]"
             />
             <FormKit
                 type="select"
@@ -116,9 +122,9 @@
                 label="Habilitation"
                 help="L'habilitation du licencié."
                 :options="[
-                '1 (Administration du site)',
-                '2 (Accès à l\'espace club)',
-                '3 (Consulation simple du site)',
+                { label: '1 (Administration du site)', value: '1'},
+                { label: '2 (Accès à l\'espace club)', value: '2'},
+                { label: '3 (Consulation simple du site)', value: '3'},
                 ]"
             />
         </FormKit>
@@ -128,6 +134,32 @@
 
 <script setup>
     import axios from 'axios'
+    /*
+    import { onMounted } from 'vue'
+
+    let equipes = [''];
+    let categories = [''];
+    let adherent = [''];
+
+    async function getEquipes(){
+        try {
+            const response = await axios.get('http://localhost:8080/api/equipes/');
+            equipes = response.data;
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
+    async function getCategories(){
+        try {
+            const response = await axios.get('http://localhost:8080/api/categories/');
+            categories = response.data;
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
+    */
 
     async function submitForm(fields){
         const rawFields = fields;
@@ -141,7 +173,7 @@
         catch (error) {
             console.log(error);
         }
-        alert(JSON.stringify(rawFields))
+        console.log(JSON.stringify(rawFields))
     }
 </script>
 
