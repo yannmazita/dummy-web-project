@@ -118,7 +118,7 @@ def ajouterEquipes():
     for item in data:
         equipe = Equipes(
             id=item[0],
-            id_categorie=noneReplace(Categories, item[1]),
+            categorie=noneReplace(Categories, item[1]),
             nom=item[2],
             points=item[3],
             victoires=item[4],
@@ -295,11 +295,10 @@ def ajouterAdherents():
     ]
 
     for item in data:
-        print(f"\nid_poste={item[2]}\n")
         adherent = Adherents(
             id=item[0],
-            id_categorie=noneReplace(Categories, item[1]),
-            id_poste=noneReplace(Postes, item[2]),
+            categorie=noneReplace(Categories, item[1]),
+            poste=noneReplace(Postes, item[2]),
             login=item[3],
             mdp=item[4],
             nom=item[5],
@@ -376,9 +375,9 @@ def ajouterArchives():
             lien_photo=item[3],
             contenu=item[4],
             lien_document=item[5],
-            id_createur=noneReplace(Adherents, item[6]),
+            createur=noneReplace(Adherents, item[6]),
             date_creation=item[7],
-            id_validateur=noneReplace(Adherents, item[8]),
+            validateur=noneReplace(Adherents, item[8]),
             date_validation=item[9],
         )
         archive.save()
@@ -387,8 +386,8 @@ def ajouterArchives():
 
 def ajouterEntraine():
     entraine = Entraine(
-        id_entraineur=noneReplace(Adherents, 1),
-        id_equipe=noneReplace(Equipes, 1),
+        entraineur=noneReplace(Adherents, 1),
+        equipe=noneReplace(Equipes, 1),
         ordre=1,
     )
 
@@ -398,8 +397,8 @@ def ajouterEntraine():
 
 def ajouterJoue():
     joue = Joue(
-        id_adherent=noneReplace(Adherents, 4),
-        id_equipe=noneReplace(Equipes, 3),
+        adherent=noneReplace(Adherents, 4),
+        equipe=noneReplace(Equipes, 3),
     )
 
     joue.save()
@@ -409,7 +408,7 @@ def ajouterJoue():
 def ajouterContacts():
     contact = Contacts(
         id=1,
-        id_adherent=noneReplace(Adherents, 1),
+        adherent=noneReplace(Adherents, 1),
         nom="AZLOUNI",
         prenom="Sirine",
         adresse="adresse",
@@ -426,13 +425,13 @@ def ajouterContacts():
 
 def ajouterCourriels():
     courriel1 = Courriels(
-        id_contact=noneReplace(Contacts, 1),
+        contact=noneReplace(Contacts, 1),
         courriel="azlouni.sirine@hotmail.fr",
         ordre=None,
     )
 
     courriel2 = Courriels(
-        id_contact=noneReplace(Contacts, 1),
+        contact=noneReplace(Contacts, 1),
         courriel="azlouni.sirine@gmail.com",
         ordre=None,
     )
@@ -493,11 +492,11 @@ def ajouterDocuments():
             lien_photo=item[3],
             contenu=item[4],
             lien_document=item[5],
-            id_createur=noneReplace(Adherents, item[6]),
+            createur=noneReplace(Adherents, item[6]),
             date_creation=datetime.strptime(item[7], "%Y-%m-%d"),
-            id_validateur=noneReplace(Adherents, item[8]),
+            validateur=noneReplace(Adherents, item[8]),
             date_validation=datetime.strptime(item[9], "%Y-%m-%d"),
-            id_equipe=noneReplace(Equipes, item[10]),
+            equipe=noneReplace(Equipes, item[10]),
         )
         document.save()
     print("Documents table handled")
@@ -809,7 +808,7 @@ def ajouterCreneaux():
     for item in data:
         creneau = Creneaux(
             id=item[0],
-            id_salle=noneReplace(Salles, item[1]),
+            salle=noneReplace(Salles, item[1]),
             debut=datetime.strptime(item[2], "%Y-%m-%d %H:%M:%S"),
             fin=datetime.strptime(item[3], "%Y-%m-%d %H:%M:%S"),
         )
@@ -833,7 +832,7 @@ def ajouterMatchs():
         match = Matchs(
             id=item[0],
             id_equipe_a=item[1],
-            id_creneau=noneReplace(Creneaux, item[2]),
+            creneau=noneReplace(Creneaux, item[2]),
             score_a=item[3],
             score_b=item[4],
             duree=item[5],
