@@ -70,17 +70,7 @@
                 id="categorie"
                 label="Catégorie"
                 help="La catégorie du licencié."
-                :options="[
-                    'M7 (Baby)',
-                    'M9 (Pupilles)',
-                    'M11 (Poussins)',
-                    'M13 (Benjamins)',
-                    'M15 (Minimes)',
-                    'M17 (Cadets)',
-                    'M20 (Juniors et Espoirs)',
-                    'Seniors',
-                    'FSGT',
-                    ]"
+                :options="categories"
             />
             <FormKit
                 type="checkbox"
@@ -97,10 +87,7 @@
                 id="equipe"
                 label="Équipe"
                 help="L'équipe entrainée"
-                :options="[
-                    'équipe 1',
-                    'équipe 2',
-                    ]"
+                :options="equipes"
             />
             <FormKit
                 type="select"
@@ -134,32 +121,41 @@
 
 <script setup>
     import axios from 'axios'
-    /*
-    import { onMounted } from 'vue'
+    import { ref } from 'vue'
 
-    let equipes = [''];
-    let categories = [''];
-    let adherent = [''];
+    let categories = ref([]);
+    let equipes = [];
 
-    async function getEquipes(){
-        try {
-            const response = await axios.get('http://localhost:8000/api/equipes/');
-            equipes = response.data;
-        }
-        catch (error){
-            console.log(error);
-        }
-    }
     async function getCategories(){
         try {
             const response = await axios.get('http://localhost:8000/api/categories/');
-            categories = response.data;
+            const data = response.data;
+            for (let item of data){
+                categories.value.push(
+                    {
+                        label: `${item.categorie} ${(item.description == null) ? '' : item.description}`,
+                        value: `${item.id}`
+                    },
+                );
+            }
+            //console.log(categories);
         }
         catch (error){
             console.log(error);
         }
     }
-    */
+    async function getEquipes(){
+        try {
+            const response = await axios.get('http://localhost:8000/api/equipes/');
+            const data = response.data;
+            for (let item in data){
+                equipes.push({label: `${item.nom}`, value: `${item.id}`});
+            }
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
 
     async function submitForm(fields){
         const rawFields = fields;
@@ -175,6 +171,9 @@
         }
         console.log(JSON.stringify(rawFields))
     }
+
+    getCategories();
+    getEquipes();
 </script>
 
 <style>
