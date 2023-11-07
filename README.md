@@ -2,25 +2,36 @@
 ## Using Poetry
 In project root:
 ```commandline
-poetry install && cd front; poetry shell && npm install; cd ../
+poetry install && cd front && poetry shell
+```
+```commandline
+npm install && exit && cd ../
 ```
 ## Using requirements.txt
 Dependencies defined in requirements.txt can be installed in a virtual environment.
 ```commandline
-pip install -r requirements.txt
+pip install -r requirements.txt && cd front && npm install && cd ../
 ```
 
 # Running
 ## Backend
-In project root:
+In project root, inside poetry env/virtual environment:
 ```commandline
-cd back; poetry shell && python manage.py makemigrations gestion_adherents && python manage.py migrate && python manage.py populate_database && python manage.py runserver
+cd back; poetry shell 
+```
+or any command activating your virtual environment inside the back folder.
+```commandline
+python manage.py makemigrations gestion_adherents && python manage.py migrate && python manage.py populate_database && python manage.py runserver
 ```
 Backend will be accessible at localhost:8000
 ## Frontend
 In project root:
 ```commandline
-cd front; poetry shell && npm install && npm run serve
+cd front; poetry shell
+```
+or any command activating your virtual environment inside the front folder.
+```commandline
+npm run serve
 ```
 Frontend will be accessible at localhost:8080
 
