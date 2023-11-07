@@ -8,6 +8,7 @@ from .serializers import (
     AdherentsSerializer,
     AdherentsPublicSerializer,
     EquipesSerializer,
+    CategoriesSerializer,
 )
 from .models import Adherents, Equipes, Categories, Postes
 
@@ -67,5 +68,5 @@ def categories(request):
     """Read categories."""
     if request.method == "GET":
         categories = Categories.objects.all().values()  # type: ignore
-        serializer = EquipesSerializer(categories, many=True)
+        serializer = CategoriesSerializer(categories, many=True)
         return JsonResponse(serializer.data, safe=False)
