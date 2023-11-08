@@ -70,7 +70,7 @@
                 id="categorie"
                 label="Catégorie"
                 help="La catégorie du licencié."
-                options="['⏳']"
+                :options="['⏳']"
             />
             <FormKit
                 type="checkbox"
@@ -87,7 +87,7 @@
                 id="equipe"
                 label="Équipe"
                 help="L'équipe entrainée"
-                options="['⏳']"
+                :options="['⏳']"
             />
             <FormKit
                 type="select"
@@ -95,12 +95,7 @@
                 id="dirigeant"
                 label="Dirigeant"
                 help="Le licencié est-il un dirigeant ?"
-                :options="[
-                    'Président',
-                    'Secrétaire',
-                    'Référent arbitre',
-                    'Référent entraineur',
-                    ]"
+                :options="['⏳']"
             />
             <FormKit
                 type="select"
@@ -158,6 +153,21 @@
         }
     }
 
+    async function getPostes(){
+        try {
+            const response = await axios.get('http://localhost:8000/api/postes/');
+            const data = response.data;
+            const postes = [ {label: 'Pas de poste de dirigeant', value: null} ];
+            for (let item of data){
+                postes.push({label: `${item.designation} (${item.description})`, value: `${item.id}`});
+            }
+            return postes;
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
+
     async function submitForm(fields){
         const rawFields = fields;
         rawFields.categorie = rawFields.categorie.split(" ", 1);    // Throwing out the description from the value.
@@ -175,12 +185,20 @@
 
 
     onMounted(async function() {
-        const categories = await getCategories();
-        const equipes = await getEquipes();
-        const categorieForm = getNode("categorie");
-        const equipeForm = getNode("equipe");
-        categorieForm.props.options = categories;
-        equipeForm.props.options = equipes;
+        try {
+            const categories = await getCategories();
+            const equipes = await getEquipes();
+            const postes = await getPostes();
+            const categorieForm = getNode("categorie");
+            const equipeForm = getNode("equipe");
+            const dirigeantForm = getNode("dirigeant");
+            categorieForm.props.options = categories;
+            equipeForm.props.options = equipes;
+            dirigeantForm.props.options = postes;
+        }
+        catch (error) {
+            console.log(error);
+        }
     })
 
 </script>
