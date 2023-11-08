@@ -3,7 +3,7 @@ from rest_framework.parsers import JSONParser
 # To bypass having a CSRF token
 from django.views.decorators.csrf import csrf_exempt
 
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from .serializers import (
     AdherentsSerializer,
     AdherentsPublicSerializer,
@@ -15,68 +15,89 @@ from .models import Adherents, Equipes, Categories, Postes
 
 
 @csrf_exempt
-def adherents(request):
-    """Create and Read adherents."""
+def adherents(request, id=None):
+    """Creates and Reads adherents.
+
+    Args:
+        request: The HTTP request.
+        id: The id of the object in the database.
+    Returns:
+        JSON object or HTTP response.
+    """
     if request.method == "GET":
-        # Get information that won't break GDPR
-        adherents = Adherents.objects.values(  # type: ignore
-            "no_licence", "nom", "prenom", "surclassement", "arbitre", "entraineur"
-        )
-        serializer = AdherentsPublicSerializer(adherents, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        if id is None:
+            if False:
+                # Get information that won't break GDPR
+                adherents = Adherents.objects.values(  # type: ignore
+                    "no_licence", "nom", "prenom", "surclassement", "arbitre", "entraineur"
+                )
+                serializer = AdherentsPublicSerializer(adherents, many=True)
+                return JsonResponse(serializer.data, safe=False)
+            if True:
+                # Get everything
+                adherents = Adherents.objects.all().values()  # type: ignore
+                serializer = AdherentsSerializer(adherents, many=True)
+                return JsonResponse(serializer.data, safe=False)
+        else:
+            try:
+                adherent = Adherents.objects.get(pk=id)  # type: ignore
+            except:
+                return HttpResponse(status=404)
+            serializer = AdherentsSerializer(adherent)
+            return JsonResponse(serializer.data, safe=False)
     elif request.method == "POST":
-        data = JSONParser().parse(request)
-
-        print(f"data={data}")
-
-        # ! Django names indexing primary keys "id" by default
-        id_categorie = Categories.objects.filter(  # type: ignore
-            categorie=f"{data['categorie']}"
-        ).values("id")
-        id_poste = Postes.objects.filter(  # type: ignore
-            designation=f"{data['dirigeant']}"
-        ).values("id")
-
-        print(f"\nid_categorie={id_categorie}")
-        print(f"\nid_poste={id_poste}")
-
-        data["id_categorie"] = id_categorie
-        data["id_poste"] = id_poste
-
-        print(f"\ndata['id_categorie']={id_categorie}")
-        print(f"\ndata['id_poste']={id_poste}")
-
-        serializer = AdherentsSerializer(data=data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        print(f"\n{serializer.errors}")
-        return JsonResponse(serializer.errors, status=400)
+        pass
 
 
 @csrf_exempt
 def equipes(request):
-    """Read equipes."""
+    """Read equipes.
+
+    Args:
+        request: The HTTP request.
+    Returns:
+        JSON object or HttpResponse.
+    """
     if request.method == "GET":
-        equipes = Equipes.objects.all().values()  # type: ignore
+        try:
+            equipes = Equipes.objects.all().values()  # type: ignore
+        except:
+            return HttpResponse(status=404)
         serializer = EquipesSerializer(equipes, many=True)
         return JsonResponse(serializer.data, safe=False)
 
 
 @csrf_exempt
 def categories(request):
-    """Read categories."""
+    """Read categories.
+
+    Args:
+        request: The HTTP request.
+    Returns:
+        JSON object or HttpResponse.
+    """
     if request.method == "GET":
-        categories = Categories.objects.all().values()  # type: ignore
+        try:
+            categories = Categories.objects.all().values()  # type: ignore
+        except:
+            return HttpResponse(status=404)
         serializer = CategoriesSerializer(categories, many=True)
         return JsonResponse(serializer.data, safe=False)
 
 
 @csrf_exempt
 def postes(request):
-    """Read postes."""
+    """Read postes.
+
+    Args:
+        request: The HTTP request.
+    Returns:
+        JSON object or HttpResponse.
+    """
     if request.method == "GET":
-        postes = Postes.objects.all().values()  # type: ignore
+        try:
+            postes = Postes.objects.all().values()  # type: ignore
+        except:
+            return HttpResponse(status=404)
         serializer = PostesSerializer(postes, many=True)
         return JsonResponse(serializer.data, safe=False)

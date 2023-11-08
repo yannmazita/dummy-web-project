@@ -3,6 +3,7 @@ from gestion_adherents import views
 
 urlpatterns = [
     path("adherents/", views.adherents),
+    path("adherents/<int:id>/", views.adherents),
     path("equipes/", views.equipes),
     path("categories/", views.categories),
     path("postes/", views.postes),
