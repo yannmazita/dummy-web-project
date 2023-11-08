@@ -70,7 +70,6 @@
                 id="categorie"
                 label="Catégorie"
                 help="La catégorie du licencié."
-                :options="['⏳']"
             />
             <FormKit
                 type="checkbox"
@@ -87,7 +86,6 @@
                 id="equipe"
                 label="Équipe"
                 help="L'équipe entrainée"
-                :options="['⏳']"
             />
             <FormKit
                 type="select"
@@ -95,7 +93,6 @@
                 id="dirigeant"
                 label="Dirigeant"
                 help="Le licencié est-il un dirigeant ?"
-                :options="['⏳']"
             />
             <FormKit
                 type="select"
@@ -180,7 +177,10 @@
         catch (error) {
             console.log(error);
         }
-        console.log(JSON.stringify(rawFields))
+        console.log(JSON.stringify(rawFields));
+        const form  = getNode("categories");
+        //const options = form.props.options;
+        console.log(form);
     }
 
 
