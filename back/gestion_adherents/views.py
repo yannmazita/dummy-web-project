@@ -9,6 +9,7 @@ from .serializers import (
     AdherentsPublicSerializer,
     EquipesSerializer,
     CategoriesSerializer,
+    PostesSerializer,
 )
 from .models import Adherents, Equipes, Categories, Postes
 
@@ -69,4 +70,13 @@ def categories(request):
     if request.method == "GET":
         categories = Categories.objects.all().values()  # type: ignore
         serializer = CategoriesSerializer(categories, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+
+@csrf_exempt
+def postes(request):
+    """Read postes."""
+    if request.method == "GET":
+        postes = Postes.objects.all().values()  # type: ignore
+        serializer = PostesSerializer(postes, many=True)
         return JsonResponse(serializer.data, safe=False)

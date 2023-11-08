@@ -1,11 +1,12 @@
 from rest_framework import serializers
-from .models import Adherents, Categories, Equipes
+from .models import Adherents, Categories, Equipes, Postes
 
 
 class AdherentsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Adherents
         fields = [
+            "id",
             "categorie_id",
             "poste_id",
             "login",
@@ -26,6 +27,7 @@ class AdherentsPublicSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Adherents
         fields = [
+            "id",
             "no_licence",
             "nom",
             "prenom",
@@ -39,6 +41,7 @@ class EquipesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Equipes
         fields = [
+            "id",
             "categorie_id",
             "nom",
             "points",
@@ -54,9 +57,20 @@ class CategoriesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Categories
         fields = [
+            "id",
             "categorie",
             "description",
             "annee_deb",
             "annee_fin",
             "tarif",
+        ]
+
+
+class PostesSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Postes
+        fields = [
+            "id",
+            "designation",
+            "description",
         ]
