@@ -70,6 +70,7 @@
                 id="categorie"
                 label="Catégorie"
                 help="La catégorie du licencié."
+                options="['⏳']"
             />
             <FormKit
                 type="checkbox"
@@ -86,6 +87,7 @@
                 id="equipe"
                 label="Équipe"
                 help="L'équipe entrainée"
+                options="['⏳']"
             />
             <FormKit
                 type="select"
@@ -119,18 +121,14 @@
 
 <script setup>
     import axios from 'axios'
-    import { ref, onMounted } from 'vue'
+    import { onMounted } from 'vue'
     import { getNode } from '@formkit/core'
-
-    ref();
-    //let equipes = [];
 
     async function getCategories(){
         try {
             const response = await axios.get('http://localhost:8000/api/categories/');
             const data = response.data;
             const categories = [];
-            console.log(data);
             for (let item of data){
                 categories.push(
                     {
@@ -145,20 +143,20 @@
             console.log(error);
         }
     }
-    /*
     async function getEquipes(){
         try {
             const response = await axios.get('http://localhost:8000/api/equipes/');
             const data = response.data;
-            for (let item in data){
+            const equipes = [ {label: 'Pas d\'équipe entrainée', value: null} ];
+            for (let item of data){
                 equipes.push({label: `${item.nom}`, value: `${item.id}`});
             }
+            return equipes;
         }
         catch (error){
             console.log(error);
         }
     }
-    */
 
     async function submitForm(fields){
         const rawFields = fields;
@@ -177,11 +175,12 @@
 
 
     onMounted(async function() {
-        const response = await getCategories();
-        const node = getNode("categorie");
-        console.log(response);
-        node.props.options = response;
-        console.log(node.props.options);
+        const categories = await getCategories();
+        const equipes = await getEquipes();
+        const categorieForm = getNode("categorie");
+        const equipeForm = getNode("equipe");
+        categorieForm.props.options = categories;
+        equipeForm.props.options = equipes;
     })
 
 </script>
