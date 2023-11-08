@@ -70,7 +70,6 @@
                 id="categorie"
                 label="Catégorie"
                 help="La catégorie du licencié."
-                :options="categories"
             />
             <FormKit
                 type="checkbox"
@@ -87,7 +86,6 @@
                 id="equipe"
                 label="Équipe"
                 help="L'équipe entrainée"
-                :options="equipes"
             />
             <FormKit
                 type="select"
@@ -121,29 +119,33 @@
 
 <script setup>
     import axios from 'axios'
-    import { ref } from 'vue'
+    import { ref, onMounted } from 'vue'
+    import { getNode } from '@formkit/core'
 
-    let categories = ref([]);
-    let equipes = [];
+    ref();
+    //let equipes = [];
 
     async function getCategories(){
         try {
             const response = await axios.get('http://localhost:8000/api/categories/');
             const data = response.data;
+            const categories = [];
+            console.log(data);
             for (let item of data){
-                categories.value.push(
+                categories.push(
                     {
                         label: `${item.categorie} ${(item.description == null) ? '' : item.description}`,
                         value: `${item.id}`
                     },
                 );
             }
-            //console.log(categories);
+            return categories;
         }
         catch (error){
             console.log(error);
         }
     }
+    /*
     async function getEquipes(){
         try {
             const response = await axios.get('http://localhost:8000/api/equipes/');
@@ -156,6 +158,7 @@
             console.log(error);
         }
     }
+    */
 
     async function submitForm(fields){
         const rawFields = fields;
@@ -172,8 +175,15 @@
         console.log(JSON.stringify(rawFields))
     }
 
-    getCategories();
-    getEquipes();
+
+    onMounted(async function() {
+        const response = await getCategories();
+        const node = getNode("categorie");
+        console.log(response);
+        node.props.options = response;
+        console.log(node.props.options);
+    })
+
 </script>
 
 <style>
