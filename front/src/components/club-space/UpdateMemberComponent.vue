@@ -23,16 +23,31 @@
     //import AdherentCreation from './AdherentCreation.vue'
     import axios from 'axios'
 
+    let adherent = {};
+
     async function submitForm(fields){
         try {
             const response = await axios.get(`http://localhost:8000/api/adherent/no_licence=${fields.no_licence}`);
-            const data = response.data;
-            console.log(data);
-            return data;
+            adherent = response.data;
+            console.log(adherent);
         }
         catch (error){
             console.log(error);
         }
     }
+
+    /*
+    async function getFormDetailFromAdherent(){
+        const categorieAndDescription = "";
+        const posteDesignationAndDescription = "";
+        try {
+            const response = await axios.get(`http://localhost:8000/api/categorie/${categorie_id}`)
+            adherent = response.data
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
+    */
         
 </script>
