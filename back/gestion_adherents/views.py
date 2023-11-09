@@ -1,5 +1,3 @@
-from rest_framework.parsers import JSONParser
-
 # To bypass having a CSRF token
 from django.views.decorators.csrf import csrf_exempt
 
