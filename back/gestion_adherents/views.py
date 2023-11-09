@@ -27,7 +27,12 @@ def adherents(request, id=None):
             if False:
                 # Get information that won't break GDPR
                 adherents = Adherents.objects.values(  # type: ignore
-                    "no_licence", "nom", "prenom", "surclassement", "arbitre", "entraineur"
+                    "no_licence",
+                    "nom",
+                    "prenom",
+                    "surclassement",
+                    "arbitre",
+                    "entraineur",
                 )
                 serializer = AdherentsPublicSerializer(adherents, many=True)
                 return JsonResponse(serializer.data, safe=False)
@@ -45,6 +50,25 @@ def adherents(request, id=None):
             return JsonResponse(serializer.data, safe=False)
     elif request.method == "POST":
         pass
+
+
+@csrf_exempt
+def adherentDetail(request, licenseNumber):
+    """Creates and Reads adherents.
+
+    Args:
+        request: The HTTP request.
+        licenseNumber: The licenseNumber of the object in the database.
+    Returns:
+        JSON object or HTTP response.
+    """
+    if request.method == "GET":
+        try:
+            adherent = Adherents.objects.get(no_licence=licenseNumber)  # type: ignore
+        except:
+            return HttpResponse(status=404)
+        serializer = AdherentsSerializer(adherent)
+        return JsonResponse(serializer.data, safe=False)
 
 
 @csrf_exempt
