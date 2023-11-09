@@ -5,7 +5,7 @@ In project root:
 poetry install && cd front && poetry shell
 ```
 ```commandline
-npm install && exit && cd ../
+npm install
 ```
 ## Using requirements.txt
 Dependencies defined in requirements.txt can be installed in a virtual environment.
@@ -20,8 +20,13 @@ In project root, inside poetry env/virtual environment:
 cd back; poetry shell 
 ```
 or any command activating your virtual environment inside the back folder.
+First start:
 ```commandline
 python manage.py makemigrations gestion_adherents && python manage.py migrate && python manage.py populate_database && python manage.py runserver
+```
+Subsequent starts only require:
+```commandline
+python manage.py runserver
 ```
 Backend will be accessible at localhost:8000
 ## Frontend
@@ -36,4 +41,4 @@ npm run serve
 Frontend will be accessible at localhost:8080
 
 # Disclaimer
-Documentation may severely lag behind actual features as I learn vuejs.
+Documentation may severely lag behind actual features.
