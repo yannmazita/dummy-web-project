@@ -37,12 +37,23 @@
     }
 
     /*
-    async function getFormDetailFromAdherent(){
-        const categorieAndDescription = "";
-        const posteDesignationAndDescription = "";
+    async function getMissingLabelsFromAdherent(){
+        let categorieLabel = "";
+        let posteLabel = "";
         try {
-            const response = await axios.get(`http://localhost:8000/api/categorie/${categorie_id}`)
-            adherent = response.data
+            const response = await axios.get(`http://localhost:8000/api/categorie/${adherent.categorie}`);
+            const data = response.data;
+            categorieLabel = `${data.categorie} ${(data.description == null) ? '' : data.description}`;
+            console.log(categorieLabel);
+        }
+        catch (error){
+            console.log(error);
+        }
+        try {
+            const response = await axios.get(`http://localhost:8000/api/categorie/${adherent.categorie}`);
+            const data = response.data;
+            posteLabel = `${data.designation} (${data.description})`;
+            console.log(posteLabel);
         }
         catch (error){
             console.log(error);
