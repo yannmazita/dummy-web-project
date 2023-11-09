@@ -108,6 +108,25 @@ def categories(request):
 
 
 @csrf_exempt
+def categorieDetail(request, id):
+    """Reads categories.
+
+    Args:
+        request: The HTTP request.
+        id: The id of the object in the database.
+    Returns:
+        JSON object or HttpResponse.
+    """
+    if request.method == "GET":
+        try:
+            categorie = Categories.objects.get(id=id)  # type: ignore
+        except:
+            return HttpResponse(status=404)
+        serializer = CategoriesSerializer(categorie.data)
+        return JsonResponse(serializer.data, safe=False)
+
+
+@csrf_exempt
 def postes(request):
     """Read postes.
 
@@ -122,4 +141,21 @@ def postes(request):
         except:
             return HttpResponse(status=404)
         serializer = PostesSerializer(postes, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+
+@csrf_exempt
+def posteDetail(request, id):
+    """Reads postes.
+
+    Args:
+        request: The HTTP request
+        id: The id of the object in the database.
+    """
+    if request.method == "GET":
+        try:
+            poste = Postes.objects.get(id=id)  # type: ignore
+        except:
+            return HttpResponse(status=404)
+        serializer = PostesSerializer(poste)
         return JsonResponse(serializer.data, safe=False)

@@ -7,5 +7,7 @@ urlpatterns = [
     path("adherent/no_licence=<int:licenseNumber>/", views.adherentDetail),
     path("equipes/", views.equipes),
     path("categories/", views.categories),
+    path("categorie/<int:id>", views.categorieDetail),
     path("postes/", views.postes),
+    path("poste/<int:id>", views.posteDetail),
 ]
