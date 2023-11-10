@@ -113,10 +113,27 @@
 
 <script setup>
     import axios from 'axios'
-    import { onMounted } from 'vue'
+    import { ref, onMounted, defineProps } from 'vue'
     import { getNode } from '@formkit/core'
 
-    //let adherent = {};
+    const props = defineProps({
+        adherent:Object
+    })
+
+    const adherent = ref(props.adherent);
+
+    async function submitForm(fields){
+        const data = JSON.stringify(fields);
+        
+        try {
+            await axios.post('http://localhost:8000/api/adherents/', data);
+        }
+        catch (error) {
+            console.log(error);
+        }
+        console.log(fields); 
+        console.log(JSON.stringify(fields));
+    }
 
     async function getCategories(){
         try {
@@ -167,18 +184,13 @@
         }
     }
 
-    async function submitForm(fields){
-        const data = JSON.stringify(fields);
-        
-        try {
-            await axios.post('http://localhost:8000/api/adherents/', data);
-        }
-        catch (error) {
-            console.log(error);
-        }
-        console.log(fields); 
-        console.log(JSON.stringify(fields));
+    /*
+    async function getFormDataFromAdherent(){
+        const id = adherent.value.id;
+        const categorie_id = adherent.value.categorie_id;
+        const poste_id = adherent.value.poste_id;
     }
+    */
 
     onMounted(async function() {
         try {
@@ -194,6 +206,9 @@
         }
         catch (error) {
             console.log(error);
+        }
+        if (adherent.value != null && adherent.value != undefined){
+            console.log(`adherent bien reçu: ${adherent.value.id}`);
         }
     })
 

@@ -1,11 +1,12 @@
 <template>
     <AdherentLicenceNumber
         @licenseNumberEntered="(payload) => {getAdherentFromLicenseNumber(payload);}"
-        :adherentLoaded=adherentLoaded
+        :isAdherentLoaded=isAdherentLoaded
         v-if="currentComponent=='AdherentLicenceNumber'"
     />
     <AdherentCreation
         v-if="currentComponent=='AdherentCreation'"
+        :adherent=adherent
     />
 </template>
 
@@ -13,29 +14,31 @@
     import AdherentLicenceNumber from './children/AdherentLicenceNumber.vue'
     import AdherentCreation from './children/AdherentCreation.vue'
     import axios from 'axios'
-    import { ref, watch } from 'vue'
+    import { ref, watch, defineEmits } from 'vue'
 
     const adherent = ref({});
-    const adherentLoaded = ref(false);
+    const isAdherentLoaded = ref(false);
     const currentComponent = ref("AdherentLicenceNumber");
+    const emit = defineEmits(['adherent']);
 
     async function getAdherentFromLicenseNumber(licenseNumber){
         try {
             const response = await axios.get(`http://localhost:8000/api/adherent/no_licence=${licenseNumber}`);
             adherent.value = response.data;
-            adherentLoaded.value = true;
+            isAdherentLoaded.value = true;
             console.log(adherent.value);
-            console.log(adherentLoaded.value);
+            console.log(isAdherentLoaded.value);
         }
         catch (error){
             console.log(error);
-            adherentLoaded.value = false;
+            isAdherentLoaded.value = false;
         }
     }
 
-    watch(adherentLoaded, (newAdherentLoaded) =>{
-        if (newAdherentLoaded){
+    watch(isAdherentLoaded, (newIsAdherentLoaded) =>{
+        if (newIsAdherentLoaded){
             currentComponent.value = "AdherentCreation";
+            emit('adherent', adherent);
         }
         else{
             currentComponent.value = "AdherentLicenceNumber";

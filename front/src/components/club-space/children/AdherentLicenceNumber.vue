@@ -24,7 +24,7 @@
     let licenseNumber = ref(-1);
     const emit = defineEmits(['licenseNumber'])
     const props = defineProps({
-        adherentLoaded:Boolean
+        isAdherentLoaded:Boolean
     })
 
     const getLicenseNumber = function(fields){
@@ -34,7 +34,7 @@
     }
 
     watch(props, (newProps) =>{
-        if (newProps.adherentLoaded){
+        if (newProps.isAdherentLoaded){
             control.value = true;
         }
         else{
