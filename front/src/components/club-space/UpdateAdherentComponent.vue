@@ -1,7 +1,7 @@
 <template>
     <FormKit
         type="form"
-        @submit="submitForm"
+        @submit="getLicenceNumber"
         :config="{ validationVisibility: 'live'}"
         v-if="!control"
     >
@@ -19,31 +19,32 @@
 
 
 <script setup>
-    import axios from 'axios'
-    import { ref, watch } from 'vue'
+    //import axios from 'axios'
+    import { ref } from 'vue'
 
-    const adherent = ref({});
+    //const adherent = ref({});
+    let licenseNumber = ref(-1);
     let control = ref(false);
 
-    watch(adherent, function(newAdherent) {
-        if (adherent.value !== newAdherent.value){
-            //pass
-        }
-    })
 
-    async function submitForm(fields){
+    /*
+    async function getAdherent(){
         try {
-            const response = await axios.get(`http://localhost:8000/api/adherent/no_licence=${fields.no_licence}`);
+            const response = await axios.get(`http://localhost:8000/api/adherent/no_licence=${licenseNumber.value}`);
             adherent.value = response.data;
             console.log(adherent.value);
-            //control = true;
-            console.log(control);
         }
         catch (error){
             console.log(error);
-            //control = false;
         }
     }
+    */
 
+    const getLicenceNumber = function(fields){
+        licenseNumber = fields.no_licence;
+        console.log(licenseNumber);
+        licenseNumber.value!==-1?control.value=true:control.value=false;
+    }
+    
         
 </script>
