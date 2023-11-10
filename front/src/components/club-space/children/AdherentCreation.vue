@@ -178,36 +178,7 @@
         }
         console.log(fields); 
         console.log(JSON.stringify(fields));
-        //const form  = getNode("categories");
-        //const options = form.props.options;
-        //console.log(form);
     }
-
-    /*
-    async function getMissingLabelsFromAdherent(){
-        let categorieLabel = "";
-        let posteLabel = "";
-        try {
-            const response = await axios.get(`http://localhost:8000/api/categorie/${adherent.categorie}`);
-            const data = response.data;
-            categorieLabel = `${data.categorie} ${(data.description == null) ? '' : data.description}`;
-            console.log(categorieLabel);
-        }
-        catch (error){
-            console.log(error);
-        }
-        try {
-            const response = await axios.get(`http://localhost:8000/api/poste/${adherent.poste}`);
-            const data = response.data;
-            posteLabel = `${data.designation} (${data.description})`;
-            console.log(posteLabel);
-        }
-        catch (error){
-            console.log(error);
-        }
-    }
-    */
-
 
     onMounted(async function() {
         try {
