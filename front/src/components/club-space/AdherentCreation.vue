@@ -168,10 +168,7 @@
     }
 
     async function submitForm(fields){
-        const rawFields = fields;
-        rawFields.categorie = rawFields.categorie.split(" ", 1);    // Throwing out the description from the value.
-        rawFields.habilitation = rawFields.habilitation.split(" ", 1);
-        const data = JSON.stringify(rawFields);
+        const data = JSON.stringify(fields);
         
         try {
             await axios.post('http://localhost:8000/api/adherents/', data);
@@ -179,10 +176,11 @@
         catch (error) {
             console.log(error);
         }
-        console.log(JSON.stringify(rawFields));
-        const form  = getNode("categories");
+        console.log(fields); 
+        console.log(JSON.stringify(fields));
+        //const form  = getNode("categories");
         //const options = form.props.options;
-        console.log(form);
+        //console.log(form);
     }
 
     /*

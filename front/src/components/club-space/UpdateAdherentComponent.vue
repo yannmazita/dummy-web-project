@@ -3,6 +3,7 @@
         type="form"
         @submit="submitForm"
         :config="{ validationVisibility: 'live'}"
+        v-if="!control"
     >
         <FormKit
             type="number"
@@ -22,6 +23,7 @@
     import { ref, watch } from 'vue'
 
     const adherent = ref({});
+    let control = ref(false);
 
     watch(adherent, function(newAdherent) {
         if (adherent.value !== newAdherent.value){
@@ -34,9 +36,12 @@
             const response = await axios.get(`http://localhost:8000/api/adherent/no_licence=${fields.no_licence}`);
             adherent.value = response.data;
             console.log(adherent.value);
+            //control = true;
+            console.log(control);
         }
         catch (error){
             console.log(error);
+            //control = false;
         }
     }
 
