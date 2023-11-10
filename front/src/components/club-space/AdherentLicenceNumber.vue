@@ -17,37 +17,28 @@
     </FormKit>
 </template>
 
-
-<script>
-    /*
-    export default {
-        data(){
-            return{
-                control: false,
-                licenseNumber: -1,
-            }
-        },
-        methods: {
-            getLicenseNumber(fields){
-                this.licenseNumber = fields.no_licence;
-                this.$emit('licenseNumber');
-                console.log(this.licenseNumber);
-            }
-        },
-        emits: ['licenseNumber'],
-    }
-    */
-</script>
 <script setup>
-    import { ref, defineEmits } from 'vue'
+    import { ref, defineEmits, defineProps, watch } from 'vue'
 
     let control = ref(false);
     let licenseNumber = ref(-1);
     const emit = defineEmits(['licenseNumber'])
+    const props = defineProps({
+        adherentLoaded:Boolean
+    })
 
     const getLicenseNumber = function(fields){
         licenseNumber = fields.no_licence;
         emit('licenseNumberEntered', licenseNumber);
         //licenseNumber.value!==-1?control.value=true:control.value=false;
     }
+
+    watch(props, (newProps) =>{
+        if (newProps.adherentLoaded){
+            control.value = true;
+        }
+        else{
+            control.value = false;
+        }
+    })
 </script>

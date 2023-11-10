@@ -1,39 +1,9 @@
 <template>
-    <AdherentLicenceNumber @licenseNumberEntered="(payload) => {getAdherentFromLicenseNumber(payload);}"/>
-    <button @click="getAdherent" class="btn btn-primary">get adherent</button>
+    <AdherentLicenceNumber
+        @licenseNumberEntered="(payload) => {getAdherentFromLicenseNumber(payload);}"
+        :adherentLoaded=adherentLoaded
+    />
 </template>
-
-<script>
-    /*
-    import AdherentLicenceNumber from './AdherentLicenceNumber.vue'
-    import axios from 'axios'
-    export default {
-        data(){
-            return{
-                adherent: {},
-            }
-        },
-        methods: {
-            async getAdherent(){
-                try {
-                    const response = await axios.get(`http://localhost:8000/api/adherent/no_licence=${this.licenseNumber}`);
-                    this.adherent = response.data;
-                    console.log(this.adherent);
-                    console.log(`licenseNumber in parent=${this.licenseNumber}`);
-                }
-                catch (error){
-                    console.log(`licenseNumber in parent=${this.licenseNumber}`);
-                    console.log(error);
-                }
-            },
-        },
-        props: [
-            'licenseNumber',
-        ]
-    }
-                    console.log(`licenseNumber in parent=${this.licenseNumber}`);
-    */
-</script>
 
 <script setup>
     import AdherentLicenceNumber from './AdherentLicenceNumber.vue'
@@ -41,15 +11,19 @@
     import { ref } from 'vue'
 
     const adherent = ref({});
+    let adherentLoaded = ref(false);
 
     async function getAdherentFromLicenseNumber(licenseNumber){
         try {
             const response = await axios.get(`http://localhost:8000/api/adherent/no_licence=${licenseNumber}`);
             adherent.value = response.data;
+            adherentLoaded.value = true;
             console.log(adherent.value);
+            console.log(adherentLoaded.value);
         }
         catch (error){
             console.log(error);
+            adherentLoaded.value = false;
         }
     }
 </script>
