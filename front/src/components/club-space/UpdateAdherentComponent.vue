@@ -16,8 +16,8 @@
     import { ref, watch } from 'vue'
 
     const adherent = ref({});
-    let adherentLoaded = ref(false);
-    let currentComponent = ref("AdherentLicenceNumber");
+    const adherentLoaded = ref(false);
+    const currentComponent = ref("AdherentLicenceNumber");
 
     async function getAdherentFromLicenseNumber(licenseNumber){
         try {
