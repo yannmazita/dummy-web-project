@@ -3,6 +3,6 @@
 </template>
 
 <script setup>
-    import AdherentCreation from './AdherentCreation.vue'
+    import AdherentCreation from './children/AdherentCreation.vue'
 </script>
 

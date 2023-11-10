@@ -2,16 +2,22 @@
     <AdherentLicenceNumber
         @licenseNumberEntered="(payload) => {getAdherentFromLicenseNumber(payload);}"
         :adherentLoaded=adherentLoaded
+        v-if="currentComponent=='AdherentLicenceNumber'"
+    />
+    <AdherentCreation
+        v-if="currentComponent=='AdherentCreation'"
     />
 </template>
 
 <script setup>
-    import AdherentLicenceNumber from './AdherentLicenceNumber.vue'
+    import AdherentLicenceNumber from './children/AdherentLicenceNumber.vue'
+    import AdherentCreation from './children/AdherentCreation.vue'
     import axios from 'axios'
-    import { ref } from 'vue'
+    import { ref, watch } from 'vue'
 
     const adherent = ref({});
     let adherentLoaded = ref(false);
+    let currentComponent = ref("AdherentLicenceNumber");
 
     async function getAdherentFromLicenseNumber(licenseNumber){
         try {
@@ -26,4 +32,13 @@
             adherentLoaded.value = false;
         }
     }
+
+    watch(adherentLoaded, (newAdherentLoaded) =>{
+        if (newAdherentLoaded){
+            currentComponent.value = "AdherentCreation";
+        }
+        else{
+            currentComponent.value = "AdherentLicenceNumber";
+        }
+    })
 </script>
