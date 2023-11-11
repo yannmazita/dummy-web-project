@@ -154,6 +154,21 @@
             console.log(error);
         }
     }
+    async function getCategorieByID(id){
+        try{
+            const response = await axios.get(`http://localhost:8000/api/categorie/${id}`);
+            const data = response.data;
+            const field = {
+                label: `${data.categorie} ${(data.description == null) ? '' : data.description}`,
+                value: `${data.id}`
+            }
+            return field;
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
+
     async function getEquipes(){
         try {
             const response = await axios.get('http://localhost:8000/api/equipes/');
@@ -168,6 +183,41 @@
             console.log(error);
         }
     }
+    async function getEquipeByID(id){
+        try{
+            const response = await axios.get(`http://localhost:8000/api/equipe/${id}`);
+            const data = response.data;
+            const field = {
+                label: `${data.nom}`,
+                value: `${data.id}`
+            };
+            return field;
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
+    async function getEntraineByAdherentID(id){
+        if (id === null){
+            const field = {
+                label: 'Pas d\'équipe entrainée',
+                value: null,
+            };
+            return field;
+        }
+        try{
+            const response = await axios.get(`http://localhost:8000/api/entraine/adherent_id=${id}`);
+            const data = response.data;
+            console.log(data);
+            const equipeId = data.equipeId;
+            const field = getEquipeByID(equipeId);
+            return field;
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
+    
 
     async function getPostes(){
         try {
@@ -175,7 +225,10 @@
             const data = response.data;
             const postes = [ {label: 'Pas de poste de dirigeant', value: null} ];
             for (let item of data){
-                postes.push({label: `${item.designation} (${item.description})`, value: `${item.id}`});
+                postes.push({
+                    label: `${item.designation} (${item.description})`,
+                    value: `${item.id}`
+                },);
             }
             return postes;
         }
@@ -183,14 +236,44 @@
             console.log(error);
         }
     }
+    async function getPosteByID(id){
+        if (id === null){
+            const field = {
+                label: 'Pas de poste de dirigeant',
+                value: null,
+            };
+            return field;
+        }
+        try{
+            const response = await axios.get(`http://localhost:8000/api/poste/${id}`);
+            const data = response.data;
+            const field = {
+                label: `${data.designation} (${data.description})`,
+                value: `${data.id}`
+            };
+            return field;
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
 
-    /*
     async function getFormDataFromAdherent(){
         const id = adherent.value.id;
-        const categorie_id = adherent.value.categorie_id;
-        const poste_id = adherent.value.poste_id;
+        const categorieId = adherent.value.categorie_id;
+        const posteId = adherent.value.poste_id;
+        const categorie = await getCategorieByID(categorieId);
+        const poste = await getPosteByID(posteId);
+        const isEntraineur = adherent.value.entraineur;
+        let entraine = null;
+        (isEntraineur) ? entraine = await getEntraineByAdherentID(id) : entraine = null; 
+        //const entraine = await getEntraineByAdherentID(id);
+        console.log(categorieId);
+        console.log(posteId);
+        console.log(categorie);
+        console.log(poste);
+        console.log(entraine);
     }
-    */
 
     onMounted(async function() {
         try {
@@ -209,6 +292,7 @@
         }
         if (adherent.value != null && adherent.value != undefined){
             console.log(`adherent bien reçu: ${adherent.value.id}`);
+            getFormDataFromAdherent();
         }
     })
 
