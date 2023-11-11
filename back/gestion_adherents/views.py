@@ -6,10 +6,11 @@ from .serializers import (
     AdherentsSerializer,
     AdherentsPublicSerializer,
     EquipesSerializer,
+    EntraineSerializer,
     CategoriesSerializer,
     PostesSerializer,
 )
-from .models import Adherents, Equipes, Categories, Postes
+from .models import Adherents, Equipes, Entraine, Categories, Postes
 
 
 @csrf_exempt
@@ -72,20 +73,75 @@ def adherentDetail(request, licenseNumber):
 
 
 @csrf_exempt
-def equipes(request):
+def equipes(request, id=None):
     """Read equipes.
 
     Args:
         request: The HTTP request.
+        id: The id (primary key) of the object in the database.
     Returns:
         JSON object or HttpResponse.
     """
     if request.method == "GET":
+        if id is None:
+            try:
+                equipes = Equipes.objects.all().values()  # type: ignore
+            except:
+                return HttpResponse(status=404)
+            serializer = EquipesSerializer(equipes, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            try:
+                equipe = Equipes.objects.get(id=id)  # type: ignore
+            except:
+                return HttpResponse(status=404)
+            serializer = EquipesSerializer(equipe)
+            return JsonResponse(serializer, safe=False)
+
+
+@csrf_exempt
+def entraine(request, id=None):
+    """Read entraine.
+
+    Args:
+        request: The HTTP request.
+        id: The id (primary key) of the object in the database.
+    Returns:
+        JSON object or HttpResponse.
+    """
+    if request.method == "GET":
+        if id is None:
+            try:
+                entraines = Entraine.objects.all().values()  # type: ignore
+            except:
+                return HttpResponse(status=404)
+            serializer = EntraineSerializer(entraines, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            try:
+                entraine = Equipes.objects.get(id=id)  # type: ignore
+            except:
+                return HttpResponse(status=404)
+            serializer = EquipesSerializer(entraine)
+            return JsonResponse(serializer, safe=False)
+
+
+@csrf_exempt
+def entraineDetail(request, adherentId):
+    """Read entraine (by adherentId).
+
+    Args:
+        request: The HTTP request.
+        adherentId: The adherentId of the object in the database.
+    Returns:
+        JSON object or HTTP response.
+    """
+    if request.method == "GET":
         try:
-            equipes = Equipes.objects.all().values()  # type: ignore
+            entraine = Entraine.objects.get(adherent_id=adherentId)  # type: ignore
         except:
             return HttpResponse(status=404)
-        serializer = EquipesSerializer(equipes, many=True)
+        serializer = EntraineSerializer(entraine)
         return JsonResponse(serializer.data, safe=False)
 
 
