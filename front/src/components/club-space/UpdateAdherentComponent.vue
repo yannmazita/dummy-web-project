@@ -14,12 +14,11 @@
     import AdherentLicenceNumber from './children/AdherentLicenceNumber.vue'
     import AdherentCreation from './children/AdherentCreation.vue'
     import axios from 'axios'
-    import { ref, watch, defineEmits } from 'vue'
+    import { ref, watch } from 'vue'
 
     const adherent = ref({});
     const isAdherentLoaded = ref(false);
     const currentComponent = ref("AdherentLicenceNumber");
-    const emit = defineEmits(['adherent']);
 
     async function getAdherentFromLicenseNumber(licenseNumber){
         try {
@@ -38,7 +37,6 @@
     watch(isAdherentLoaded, (newIsAdherentLoaded) =>{
         if (newIsAdherentLoaded){
             currentComponent.value = "AdherentCreation";
-            emit('adherent', adherent);
         }
         else{
             currentComponent.value = "AdherentLicenceNumber";
