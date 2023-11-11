@@ -112,7 +112,7 @@ def categories(request, id=None):
                 categorie = Categories.objects.get(id=id)  # type: ignore
             except:
                 return HttpResponse(status=404)
-            serializer = CategoriesSerializer(categorie.data)
+            serializer = CategoriesSerializer(categorie)
             return JsonResponse(serializer.data, safe=False)
 
 
@@ -140,4 +140,4 @@ def postes(request, id=None):
             except:
                 return HttpResponse(status=404)
             serializer = PostesSerializer(poste)
-            return JsonResponse(serializer.data, safe=False)
+            return JsonResponse(serializer, safe=False)
