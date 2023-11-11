@@ -113,8 +113,27 @@
 
 <script setup>
     import axios from 'axios'
-    import { onMounted } from 'vue'
+    import { ref, onMounted, defineProps } from 'vue'
     import { getNode } from '@formkit/core'
+
+    const props = defineProps({
+        adherent:Object
+    })
+
+    const adherent = ref(props.adherent);
+
+    async function submitForm(fields){
+        const data = JSON.stringify(fields);
+        
+        try {
+            await axios.post('http://localhost:8000/api/adherents/', data);
+        }
+        catch (error) {
+            console.log(error);
+        }
+        console.log(fields); 
+        console.log(JSON.stringify(fields));
+    }
 
     async function getCategories(){
         try {
@@ -135,6 +154,21 @@
             console.log(error);
         }
     }
+    async function getCategorieByID(id){
+        try{
+            const response = await axios.get(`http://localhost:8000/api/categorie/${id}`);
+            const data = response.data;
+            const field = {
+                label: `${data.categorie} ${(data.description == null) ? '' : data.description}`,
+                value: `${data.id}`
+            }
+            return field;
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
+
     async function getEquipes(){
         try {
             const response = await axios.get('http://localhost:8000/api/equipes/');
@@ -149,6 +183,41 @@
             console.log(error);
         }
     }
+    async function getEquipeByID(id){
+        try{
+            const response = await axios.get(`http://localhost:8000/api/equipe/${id}`);
+            const data = response.data;
+            const field = {
+                label: `${data.nom}`,
+                value: `${data.id}`
+            };
+            return field;
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
+    async function getEntraineByAdherentID(id){
+        if (id === null){
+            const field = {
+                label: 'Pas d\'équipe entrainée',
+                value: null,
+            };
+            return field;
+        }
+        try{
+            const response = await axios.get(`http://localhost:8000/api/entraine/adherent_id=${id}`);
+            const data = response.data;
+            console.log(data);
+            const equipeId = data.equipeId;
+            const field = getEquipeByID(equipeId);
+            return field;
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
+    
 
     async function getPostes(){
         try {
@@ -156,7 +225,10 @@
             const data = response.data;
             const postes = [ {label: 'Pas de poste de dirigeant', value: null} ];
             for (let item of data){
-                postes.push({label: `${item.designation} (${item.description})`, value: `${item.id}`});
+                postes.push({
+                    label: `${item.designation} (${item.description})`,
+                    value: `${item.id}`
+                },);
             }
             return postes;
         }
@@ -164,25 +236,44 @@
             console.log(error);
         }
     }
-
-    async function submitForm(fields){
-        const rawFields = fields;
-        rawFields.categorie = rawFields.categorie.split(" ", 1);    // Throwing out the description from the value.
-        rawFields.habilitation = rawFields.habilitation.split(" ", 1);
-        const data = JSON.stringify(rawFields);
-        
-        try {
-            await axios.post('http://localhost:8000/api/adherents/', data);
+    async function getPosteByID(id){
+        if (id === null){
+            const field = {
+                label: 'Pas de poste de dirigeant',
+                value: null,
+            };
+            return field;
         }
-        catch (error) {
+        try{
+            const response = await axios.get(`http://localhost:8000/api/poste/${id}`);
+            const data = response.data;
+            const field = {
+                label: `${data.designation} (${data.description})`,
+                value: `${data.id}`
+            };
+            return field;
+        }
+        catch (error){
             console.log(error);
         }
-        console.log(JSON.stringify(rawFields));
-        const form  = getNode("categories");
-        //const options = form.props.options;
-        console.log(form);
     }
 
+    async function getFormDataFromAdherent(){
+        const id = adherent.value.id;
+        const categorieId = adherent.value.categorie_id;
+        const posteId = adherent.value.poste_id;
+        const categorie = await getCategorieByID(categorieId);
+        const poste = await getPosteByID(posteId);
+        const isEntraineur = adherent.value.entraineur;
+        let entraine = null;
+        (isEntraineur) ? entraine = await getEntraineByAdherentID(id) : entraine = null; 
+        //const entraine = await getEntraineByAdherentID(id);
+        console.log(categorieId);
+        console.log(posteId);
+        console.log(categorie);
+        console.log(poste);
+        console.log(entraine);
+    }
 
     onMounted(async function() {
         try {
@@ -199,9 +290,10 @@
         catch (error) {
             console.log(error);
         }
+        if (adherent.value != null && adherent.value != undefined){
+            console.log(`adherent bien reçu: ${adherent.value.id}`);
+            getFormDataFromAdherent();
+        }
     })
 
 </script>
-
-<style>
-</style>

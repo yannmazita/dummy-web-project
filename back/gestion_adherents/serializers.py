@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Adherents, Categories, Equipes, Postes
+from .models import Adherents, Categories, Entraine, Equipes, Postes
 
 
 class AdherentsSerializer(serializers.HyperlinkedModelSerializer):
@@ -50,6 +50,16 @@ class EquipesSerializer(serializers.HyperlinkedModelSerializer):
             "nulls",
             "photo",
             "club",
+        ]
+
+
+class EntraineSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Entraine
+        fields = [
+            "id",
+            "entraineur_id",
+            "equipe_id",
         ]
 
 
