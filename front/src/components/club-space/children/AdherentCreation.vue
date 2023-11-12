@@ -125,17 +125,12 @@
     const form = ref({});
 
     async function submitForm(fields){
-        const data = JSON.stringify(fields);
-        
         try {
-            await axios.post('http://localhost:8000/api/adherents/', data);
+            await axios.post('http://localhost:8000/api/adherents/', fields);
         }
         catch (error) {
             console.log(error);
         }
-        console.log(fields); 
-        console.log(JSON.stringify(fields));
-        console.log(form);
     }
 
     async function getCategories(){
