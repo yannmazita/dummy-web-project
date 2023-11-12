@@ -137,7 +137,7 @@
         }
         else{
             try {
-                await axios.put(`http://localhost:8000/api/adherent/id=${adherent.value.id}`, fields);
+                await axios.put(`http://localhost:8000/api/adherent/${adherent.value.id}`, fields);
                 console.log(fields);
             }
             catch (error) {
