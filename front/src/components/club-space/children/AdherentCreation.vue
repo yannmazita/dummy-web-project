@@ -70,7 +70,7 @@
                 id="categorie"
                 label="Catégorie"
                 help="La catégorie du licencié."
-            />
+ k          />
             <FormKit
                 type="checkbox"
                 name="arbitre"
