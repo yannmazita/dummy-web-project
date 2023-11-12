@@ -25,8 +25,6 @@
             const response = await axios.get(`http://localhost:8000/api/adherent/no_licence=${licenseNumber}`);
             adherent.value = response.data;
             isAdherentLoaded.value = true;
-            console.log(adherent.value);
-            console.log(isAdherentLoaded.value);
         }
         catch (error){
             console.log(error);

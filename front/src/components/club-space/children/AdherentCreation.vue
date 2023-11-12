@@ -199,7 +199,6 @@
         try{
             const response = await axios.get(`http://localhost:8000/api/entraine/adherent_id=${id}`);
             const data = response.data;
-            console.log(data);
             const equipeId = data.equipeId;
             const field = getEquipeByID(equipeId);
             return field;
@@ -289,7 +288,6 @@
             console.log(error);
         }
         if (adherent.value != null && adherent.value != undefined){
-            console.log(`adherent bien reçu: ${adherent.value.id}`);
             getFormDataFromAdherent();
         }
     })
