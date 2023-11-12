@@ -126,6 +126,13 @@
     const adherent = ref(props.adherent);
 
     async function submitForm(fields){
+        // Formkit doesn't behave correctly when objects in options props are null.
+        if (fields.equipe=='null'){
+            fields.equipe=null;
+        }
+        if (fields.poste=='null'){
+            fields.poste=null;
+        }
         if (adherent.value === undefined || adherent.value === null){
             try {
                 await axios.post('http://localhost:8000/api/adherents/', fields);
@@ -137,7 +144,7 @@
         }
         else{
             try {
-                await axios.put(`http://localhost:8000/api/adherent/${adherent.value.id}`, fields);
+                await axios.put(`http://localhost:8000/api/adherent/${adherent.value.id}/`, fields);
                 console.log(fields);
             }
             catch (error) {
