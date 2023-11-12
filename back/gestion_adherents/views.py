@@ -6,6 +6,7 @@ from .serializers import (
     AdherentsSerializer,
     AdherentsPublicSerializer,
     CategoriesSerializer,
+    ContactsSerializer,
     CourrielsSerializer,
     EquipesSerializer,
     EntraineSerializer,
@@ -252,7 +253,7 @@ def courrielsDetail(request, contactId):
             courriel = Courriels.objects.get(contact_id=contactId)  # type: ignore
         except:
             return HttpResponse(status=404)
-        serializer = EntraineSerializer(courriel)
+        serializer = CourrielsSerializer(courriel)
         return JsonResponse(serializer.data, safe=False)
 
 
@@ -298,7 +299,7 @@ def telephonesDetail(request, contactId):
             contact = Contacts.objects.get(contact_id=contactId)  # type: ignore
         except:
             return HttpResponse(status=404)
-        serializer = EntraineSerializer(contact)
+        serializer = TelephonesSerializer(contact)
         return JsonResponse(serializer.data, safe=False)
 
 
@@ -318,14 +319,14 @@ def contacts(request, id=None):
                 contacts = Contacts.objects.all().values()  # type: ignore
             except:
                 return HttpResponse(status=404)
-            serializer = TelephonesSerializer(contacts, many=True)
+            serializer = ContactsSerializer(contacts, many=True)
             return JsonResponse(serializer.data, safe=False)
         else:
             try:
                 contact = Contacts.objects.get(id=id)  # type: ignore
             except:
                 return HttpResponse(status=404)
-            serializer = TelephonesSerializer(contact)
+            serializer = ContactsSerializer(contact)
             return JsonResponse(serializer, safe=False)
 
 
@@ -344,5 +345,5 @@ def contactsDetail(request, adherentId):
             contact = Contacts.objects.get(adherent_id=adherentId)  # type: ignore
         except:
             return HttpResponse(status=404)
-        serializer = EntraineSerializer(contact)
+        serializer = ContactsSerializer(contact)
         return JsonResponse(serializer.data, safe=False)
