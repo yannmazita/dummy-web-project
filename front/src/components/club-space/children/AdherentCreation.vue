@@ -50,8 +50,8 @@
             />
             <FormKit
                 type="email"
-                name="email"
-                id="email"
+                name="courriel"
+                id="courriel"
                 label="Courriel"
                 help="Le courriel du licencié."
                 validation="required|email"
@@ -268,7 +268,7 @@
         getNode('prenom').input(adherent.value.prenom);
         getNode('date_naissance').input(adherent.value.date_naissance);
         getNode('genre').input(adherent.value.genre);
-        //getNode('email').input(adherent.value.courriel);
+        //getNode('courriel').input(adherent.value.courriel);
         //getNode('phone').input(adherent.value.telephone);
         //const categorieId = adherent.value.categorie_id;
         //await getNode('categorie').input(getCategorieByID(categorieId));
