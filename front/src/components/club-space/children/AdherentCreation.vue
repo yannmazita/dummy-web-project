@@ -70,6 +70,7 @@
                 id="categorie"
                 label="Catégorie"
                 help="La catégorie du licencié."
+                validation="required"
  k          />
             <FormKit
                 type="checkbox"
@@ -85,14 +86,16 @@
                 name="equipe"
                 id="equipe"
                 label="Équipe"
-                help="L'équipe entrainée"
+                help="L'équipe entrainée."
+                validation="required"
             />
             <FormKit
                 type="select"
-                name="dirigeant"
-                id="dirigeant"
+                name="poste"
+                id="poste"
                 label="Dirigeant"
                 help="Le licencié est-il un dirigeant ?"
+                validation="required"
             />
             <FormKit
                 type="select"
@@ -124,7 +127,8 @@
 
     async function submitForm(fields){
         try {
-            await axios.post('http://localhost:8000/api/adherents/', fields);
+            //await axios.post('http://localhost:8000/api/adherents/', fields);
+            console.log(fields);
         }
         catch (error) {
             console.log(error);
@@ -174,7 +178,7 @@
         try {
             const response = await axios.get('http://localhost:8000/api/equipes/');
             const data = response.data;
-            const equipes = [ {label: 'Pas d\'équipe entrainée', value: null} ];
+            const equipes = [ {label: 'Pas d\'équipe entrainée', value: 'null'} ];
             for (let item of data){
                 equipes.push({label: `${item.nom}`, value: `${item.id}`});
             }
@@ -220,7 +224,7 @@
     
 
     async function getPostes(){
-        const postes = [ {label: 'Pas de poste de dirigeant', value: null} ];
+        const postes = [ {label: 'Pas de poste de dirigeant', value: 'null'} ];
         try {
             const response = await axios.get('http://localhost:8000/api/postes/');
             const data = response.data;
@@ -230,6 +234,7 @@
                     value: `${item.id}`
                 },);
             }
+            console.log(postes)
             return postes;
         }
         catch (error){
@@ -275,7 +280,7 @@
         getNode('arbitre').input(adherent.value.arbitre);
         //await getNode('equipe').input(getEntraineByAdherentID(id));
         //const posteId = adherent.value.poste_id;
-        //await getNode('dirigeant').input(getPosteByID(posteId));
+        //await getNode('poste').input(getPosteByID(posteId));
         getNode('habilitation').input(adherent.value.habilitation);
 
         // Failed to manage to change the input of select forms.
@@ -288,10 +293,10 @@
             const postes = await getPostes();
             const categorieForm = getNode("categorie");
             const equipeForm = getNode("equipe");
-            const dirigeantForm = getNode("dirigeant");
+            const posteForm = getNode("poste");
             categorieForm.props.options = categories;
             equipeForm.props.options = equipes;
-            dirigeantForm.props.options = postes;
+            posteForm.props.options = postes;
         }
         catch (error) {
             console.log(error);
