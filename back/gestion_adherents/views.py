@@ -1,7 +1,7 @@
-# To bypass having a CSRF token
 from django.views.decorators.csrf import csrf_exempt
-
+from rest_framework.parsers import JSONParser
 from django.http import HttpResponse, JsonResponse
+
 from .serializers import (
     AdherentsSerializer,
     AdherentsPublicSerializer,
@@ -63,6 +63,17 @@ def adherents(request, id=None):
             return JsonResponse(serializer.data, safe=False)
     elif request.method == "POST":
         pass
+    elif request.method == "PUT":
+        if id is None:
+            return HttpResponse(status=405)
+        else:
+            try:
+                adherent = Adherents.objects.get(pk=id)  # type: ignore
+            except:
+                return HttpResponse(status=404)
+            data = JSONParser().parse(request)
+            print(data)
+            return HttpResponse(status=201)
 
 
 @csrf_exempt
