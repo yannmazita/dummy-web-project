@@ -5,12 +5,23 @@ from django.http import HttpResponse, JsonResponse
 from .serializers import (
     AdherentsSerializer,
     AdherentsPublicSerializer,
+    CategoriesSerializer,
+    CourrielsSerializer,
     EquipesSerializer,
     EntraineSerializer,
-    CategoriesSerializer,
     PostesSerializer,
+    TelephonesSerializer,
 )
-from .models import Adherents, Equipes, Entraine, Categories, Postes
+from .models import (
+    Adherents,
+    Categories,
+    Contacts,
+    Courriels,
+    Equipes,
+    Entraine,
+    Postes,
+    Telephones,
+)
 
 
 @csrf_exempt
@@ -197,3 +208,141 @@ def postes(request, id=None):
                 return HttpResponse(status=404)
             serializer = PostesSerializer(poste)
             return JsonResponse(serializer, safe=False)
+
+
+@csrf_exempt
+def courriels(request, id=None):
+    """Read courriels.
+
+    Args:
+        request: The HTTP request.
+        id: The id (primary key) of the object in the database.
+    Returns:
+        JSON object or HttpResponse.
+    """
+    if request.method == "GET":
+        if id is None:
+            try:
+                courriels = Courriels.objects.all().values()  # type: ignore
+            except:
+                return HttpResponse(status=404)
+            serializer = CourrielsSerializer(courriels, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            try:
+                courriel = Courriels.objects.get(id=id)  # type: ignore
+            except:
+                return HttpResponse(status=404)
+            serializer = CourrielsSerializer(courriel)
+            return JsonResponse(serializer, safe=False)
+
+
+@csrf_exempt
+def courrielsDetail(request, contactId):
+    """Read courriels (by contactId).
+
+    Args:
+        request: The HTTP request.
+        contactId: The contactId of the object in the database.
+    Returns:
+        JSON object or HTTP response.
+    """
+    if request.method == "GET":
+        try:
+            courriel = Courriels.objects.get(contact_id=contactId)  # type: ignore
+        except:
+            return HttpResponse(status=404)
+        serializer = EntraineSerializer(courriel)
+        return JsonResponse(serializer.data, safe=False)
+
+
+@csrf_exempt
+def telephones(request, id=None):
+    """Read telephones.
+
+    Args:
+        request: The HTTP request.
+        id: The id (primary key) of the object in the database.
+    Returns:
+        JSON object or HttpResponse.
+    """
+    if request.method == "GET":
+        if id is None:
+            try:
+                telephones = Telephones.objects.all().values()  # type: ignore
+            except:
+                return HttpResponse(status=404)
+            serializer = TelephonesSerializer(telephones, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            try:
+                telephone = Telephones.objects.get(id=id)  # type: ignore
+            except:
+                return HttpResponse(status=404)
+            serializer = TelephonesSerializer(telephone)
+            return JsonResponse(serializer, safe=False)
+
+
+@csrf_exempt
+def telephonesDetail(request, contactId):
+    """Read contacts (by contactId).
+
+    Args:
+        request: The HTTP request.
+        contactId: The contactId of the object in the database.
+    Returns:
+        JSON object or HTTP response.
+    """
+    if request.method == "GET":
+        try:
+            contact = Contacts.objects.get(contact_id=contactId)  # type: ignore
+        except:
+            return HttpResponse(status=404)
+        serializer = EntraineSerializer(contact)
+        return JsonResponse(serializer.data, safe=False)
+
+
+@csrf_exempt
+def contacts(request, id=None):
+    """Read contacts.
+
+    Args:
+        request: The HTTP request.
+        id: The id (primary key) of the object in the database.
+    Returns:
+        JSON object or HttpResponse.
+    """
+    if request.method == "GET":
+        if id is None:
+            try:
+                contacts = Contacts.objects.all().values()  # type: ignore
+            except:
+                return HttpResponse(status=404)
+            serializer = TelephonesSerializer(contacts, many=True)
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            try:
+                contact = Contacts.objects.get(id=id)  # type: ignore
+            except:
+                return HttpResponse(status=404)
+            serializer = TelephonesSerializer(contact)
+            return JsonResponse(serializer, safe=False)
+
+
+@csrf_exempt
+def contactsDetail(request, adherentId):
+    """Read contacts (by adherentId).
+
+    Args:
+        request: The HTTP request.
+        adherentId: The adherentId of the object in the database.
+    Returns:
+        JSON object or HTTP response.
+    """
+    if request.method == "GET":
+        try:
+            contact = Contacts.objects.get(adherent_id=adherentId)  # type: ignore
+        except:
+            return HttpResponse(status=404)
+        serializer = EntraineSerializer(contact)
+        return JsonResponse(serializer.data, safe=False)

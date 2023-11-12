@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Adherents, Categories, Entraine, Equipes, Postes
+from .models import Adherents, Categories, Courriels, Entraine, Equipes, Postes, Telephones
 
 
 class AdherentsSerializer(serializers.HyperlinkedModelSerializer):
@@ -83,4 +83,27 @@ class PostesSerializer(serializers.HyperlinkedModelSerializer):
             "id",
             "designation",
             "description",
+        ]
+
+
+class CourrielsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Courriels
+        fields = [
+            "id",
+            "contact_id",
+            "courriel",
+            "ordre",
+        ]
+
+
+class TelephonesSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Telephones
+        fields = [
+            "id",
+            "contact_id",
+            "type",
+            "remarque"
+            "ordre",
         ]

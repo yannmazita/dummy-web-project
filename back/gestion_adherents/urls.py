@@ -14,4 +14,13 @@ urlpatterns = [
     path("categorie/<int:id>", views.categories),
     path("postes/", views.postes),
     path("poste/<int:id>", views.postes),
+    path("courriels/", views.courriels),
+    path("courriel/<int:id>", views.courriels),
+    path("courriel/contact_id=<int:contactId>", views.courrielsDetail),
+    path("telephones/", views.telephones),
+    path("telephone/<int:id>", views.telephones),
+    path("telephone/contact_id=<int:contactId>", views.telephonesDetail),
+    path("contacts/", views.contacts),
+    path("contact/<int:id>", views.contacts),
+    path("contact/adherent_id=<int:adherentId>", views.contactsDetail),
 ]
