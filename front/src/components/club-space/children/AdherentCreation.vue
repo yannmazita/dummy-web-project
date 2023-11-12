@@ -126,12 +126,23 @@
     const adherent = ref(props.adherent);
 
     async function submitForm(fields){
-        try {
-            //await axios.post('http://localhost:8000/api/adherents/', fields);
-            console.log(fields);
+        if (adherent.value === undefined || adherent.value === null){
+            try {
+                await axios.post('http://localhost:8000/api/adherents/', fields);
+                console.log(fields);
+            }
+            catch (error) {
+                console.log(error);
+            }
         }
-        catch (error) {
-            console.log(error);
+        else{
+            try {
+                await axios.put(`http://localhost:8000/api/adherent/no_licence=${adherent.value.no_licence}`, fields);
+                console.log(fields);
+            }
+            catch (error) {
+                console.log(error);
+            }
         }
     }
 
