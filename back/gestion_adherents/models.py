@@ -41,8 +41,8 @@ class Adherents(models.Model):
         Categories, on_delete=models.CASCADE)
     poste = models.ForeignKey(
         Postes, on_delete=models.CASCADE, null=True)
-    login = models.CharField(max_length=255)
-    mdp = models.CharField(max_length=255)
+    login = models.CharField(max_length=255, null=True)
+    mdp = models.CharField(max_length=255, null=True)
     nom = models.CharField(max_length=255, null=True, blank=True)
     prenom = models.CharField(max_length=255, null=True, blank=True)
     no_licence = models.IntegerField(null=True, blank=True)
