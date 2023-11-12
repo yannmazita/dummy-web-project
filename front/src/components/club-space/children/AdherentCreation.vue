@@ -3,7 +3,8 @@
         <FormKit
             type="form"
             @submit="submitForm"
-            :config="{ validationVisibility: 'live',}"
+            :config="{ validationVisibility: 'live'}"
+            v-model="form"
         >
             <FormKit
                 type="number"
@@ -121,6 +122,7 @@
     })
 
     const adherent = ref(props.adherent);
+    const form = ref({});
 
     async function submitForm(fields){
         const data = JSON.stringify(fields);
@@ -133,6 +135,7 @@
         }
         console.log(fields); 
         console.log(JSON.stringify(fields));
+        console.log(form);
     }
 
     async function getCategories(){
@@ -198,13 +201,6 @@
         }
     }
     async function getEntraineByAdherentID(id){
-        if (id === null){
-            const field = {
-                label: 'Pas d\'équipe entrainée',
-                value: null,
-            };
-            return field;
-        }
         try{
             const response = await axios.get(`http://localhost:8000/api/entraine/adherent_id=${id}`);
             const data = response.data;
@@ -215,15 +211,20 @@
         }
         catch (error){
             console.log(error);
+            const field = {
+                label: 'Pas d\'équipe entrainée',
+                value: null,
+            };
+            return field;
         }
     }
     
 
     async function getPostes(){
+        const postes = [ {label: 'Pas de poste de dirigeant', value: null} ];
         try {
             const response = await axios.get('http://localhost:8000/api/postes/');
             const data = response.data;
-            const postes = [ {label: 'Pas de poste de dirigeant', value: null} ];
             for (let item of data){
                 postes.push({
                     label: `${item.designation} (${item.description})`,
@@ -234,6 +235,7 @@
         }
         catch (error){
             console.log(error);
+            return postes;
         }
     }
     async function getPosteByID(id){
@@ -260,19 +262,20 @@
 
     async function getFormDataFromAdherent(){
         const id = adherent.value.id;
+        getNode('no_licence').input(adherent.value.no_licence);
+        getNode('nom').input(adherent.value.nom);
+        getNode('prenom').input(adherent.value.prenom);
+        getNode('date_naissance').input(adherent.value.date_naissance);
+        getNode('genre').input(adherent.value.genre);
+        //getNode('email').input(adherent.value.courriel);
+        //getNode('phone').input(adherent.value.telephone);
         const categorieId = adherent.value.categorie_id;
+        await getNode('categorie').input(await getCategorieByID(categorieId));
+        getNode('arbitre').input(adherent.value.arbitre);
+        await getNode('equipe').input(await getEntraineByAdherentID(id));
         const posteId = adherent.value.poste_id;
-        const categorie = await getCategorieByID(categorieId);
-        const poste = await getPosteByID(posteId);
-        const isEntraineur = adherent.value.entraineur;
-        let entraine = null;
-        (isEntraineur) ? entraine = await getEntraineByAdherentID(id) : entraine = null; 
-        //const entraine = await getEntraineByAdherentID(id);
-        console.log(categorieId);
-        console.log(posteId);
-        console.log(categorie);
-        console.log(poste);
-        console.log(entraine);
+        await getNode('dirigeant').input(await getPosteByID(posteId));
+        getNode('habilitation').input(adherent.value.habilitation);
     }
 
     onMounted(async function() {
