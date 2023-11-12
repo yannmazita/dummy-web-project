@@ -4,7 +4,6 @@
             type="form"
             @submit="submitForm"
             :config="{ validationVisibility: 'live'}"
-            v-model="form"
         >
             <FormKit
                 type="number"
@@ -122,7 +121,6 @@
     })
 
     const adherent = ref(props.adherent);
-    const form = ref({});
 
     async function submitForm(fields){
         try {
@@ -152,13 +150,17 @@
             console.log(error);
         }
     }
+    /*
     async function getCategorieByID(id){
         try{
             const response = await axios.get(`http://localhost:8000/api/categorie/${id}`);
             const data = response.data;
             const field = {
                 label: `${data.categorie} ${(data.description == null) ? '' : data.description}`,
-                value: `${data.id}`
+                value: `${data.id}`,
+                attrs: {
+                    selected: true,
+                },
             }
             return field;
         }
@@ -166,6 +168,7 @@
             console.log(error);
         }
     }
+    */
 
     async function getEquipes(){
         try {
@@ -181,13 +184,14 @@
             console.log(error);
         }
     }
+    /*
     async function getEquipeByID(id){
         try{
             const response = await axios.get(`http://localhost:8000/api/equipe/${id}`);
             const data = response.data;
             const field = {
                 label: `${data.nom}`,
-                value: `${data.id}`
+                value: `${data.id}`,
             };
             return field;
         }
@@ -212,6 +216,7 @@
             return field;
         }
     }
+    */
     
 
     async function getPostes(){
@@ -232,6 +237,7 @@
             return postes;
         }
     }
+    /*
     async function getPosteByID(id){
         if (id === null){
             const field = {
@@ -245,7 +251,7 @@
             const data = response.data;
             const field = {
                 label: `${data.designation} (${data.description})`,
-                value: `${data.id}`
+                value: `${data.id}`,
             };
             return field;
         }
@@ -253,9 +259,10 @@
             console.log(error);
         }
     }
+    */
 
     async function getFormDataFromAdherent(){
-        const id = adherent.value.id;
+        //const id = adherent.value.id;
         getNode('no_licence').input(adherent.value.no_licence);
         getNode('nom').input(adherent.value.nom);
         getNode('prenom').input(adherent.value.prenom);
@@ -263,13 +270,15 @@
         getNode('genre').input(adherent.value.genre);
         //getNode('email').input(adherent.value.courriel);
         //getNode('phone').input(adherent.value.telephone);
-        const categorieId = adherent.value.categorie_id;
-        await getNode('categorie').input(await getCategorieByID(categorieId));
+        //const categorieId = adherent.value.categorie_id;
+        //await getNode('categorie').input(getCategorieByID(categorieId));
         getNode('arbitre').input(adherent.value.arbitre);
-        await getNode('equipe').input(await getEntraineByAdherentID(id));
-        const posteId = adherent.value.poste_id;
-        await getNode('dirigeant').input(await getPosteByID(posteId));
+        //await getNode('equipe').input(getEntraineByAdherentID(id));
+        //const posteId = adherent.value.poste_id;
+        //await getNode('dirigeant').input(getPosteByID(posteId));
         getNode('habilitation').input(adherent.value.habilitation);
+
+        // Failed to manage to change the input of select forms.
     }
 
     onMounted(async function() {
