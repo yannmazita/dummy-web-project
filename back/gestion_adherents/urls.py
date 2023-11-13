@@ -3,9 +3,9 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from gestion_adherents import views
 
 urlpatterns = [
-    path("adherents/", views.adherents),
-    path("adherent/<int:id>/", views.adherents),
-    path("adherent/no_licence=<int:licenseNumber>/", views.adherentDetail),
+    path("adherents/", views.AdherentsList.as_view()),
+    # path("adherent/<int:id>/", views.AdherentsDetail.as_view({"get": "getByID"})),
+    # path("adherent/no_licence=<int:licenseNumber>/", views.AdherentsDetail({"get": "getByLicenseNumber"})),
     path("equipes/", views.equipes),
     path("equipe/<int:id>", views.equipes),
     path("entrainees/", views.entraine),

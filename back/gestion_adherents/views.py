@@ -1,5 +1,7 @@
+from django.http import Http404
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 
@@ -26,74 +28,60 @@ from .models import (
 )
 
 
-@api_view(["GET", "POST", "PUT", "DELETE"])
-def adherents(request, id=None, format=None):
-    """Creates and Reads adherents.
+class AdherentsList(APIView):
+    """Read all Adherents or create a new Adherent."""
 
-    Args:
-        request: The HTTP request.
-        id: The id (primary key) of the object in the database.
-    Returns:
-        DRF Response.
-    """
-    if request.method == "GET":
-        if id is None:
-            if False:
-                # Get information that won't break GDPR
-                adherents = Adherents.objects.values(  # type: ignore
-                    "no_licence",
-                    "nom",
-                    "prenom",
-                    "surclassement",
-                    "arbitre",
-                    "entraineur",
-                )
-                serializer = AdherentsPublicSerializer(adherents, many=True)
-                return Response(serializer.data)
-            if True:
-                # Get everything
-                adherents = Adherents.objects.all().values()  # type: ignore
-                serializer = AdherentsSerializer(adherents, many=True)
-                return Response(serializer.data)
-        else:
-            try:
-                adherent = Adherents.objects.get(pk=id)  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = AdherentsSerializer(adherent)
+    def get(self, request, format=None):
+        if False:
+            # Get information that won't break GDPR
+            adherents = Adherents.objects.values(  # type: ignore
+                "no_licence",
+                "nom",
+                "prenom",
+                "surclassement",
+                "arbitre",
+                "entraineur",
+            )
+            serializer = AdherentsPublicSerializer(adherents, many=True)
             return Response(serializer.data)
-    elif request.method == "POST":
+        if True:
+            # Get everything
+            adherents = Adherents.objects.all().values()  # type: ignore
+            serializer = AdherentsSerializer(adherents, many=True)
+            return Response(serializer.data)
+
+    def post(self, request, format=None):
         pass
-    elif request.method == "PUT":
-        if id is None:
-            return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
-        else:
-            try:
-                adherent = Adherents.objects.get(pk=id)  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            data = JSONParser().parse(request)
-            serializer = AdherentsSerializer(adherent, data=data)
-            return Response(status=status.HTTP_201_CREATED)
 
 
-@api_view(["GET"])
-def adherentDetail(request, licenseNumber, format=None):
-    """Reads adherents (by licenseNumber).
+class AdherentsDetail(APIView):
+    """Read, update or delete a snippet instance."""
 
-    Args:
-        request: The HTTP request.
-        licenseNumber: The licenseNumber of the object in the database.
-    Returns:
-        DRF Response.
-    """
-    if request.method == "GET":
+    def getObjectByID(self, id):
         try:
-            adherent = Adherents.objects.get(no_licence=licenseNumber)  # type: ignore
+            return Adherents.objects.get(id=id)  # type: ignore
         except:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            raise Http404
+
+    def getObjectByLicenseNumber(self, licenseNumber):
+        try:
+            return Adherents.objects.get(no_licence=licenseNumber)  # type: ignore
+        except:
+            raise Http404
+
+    def getByID(self, request, id, format=None):
+        adherent = self.getObjectByID(id)
         serializer = AdherentsSerializer(adherent)
         return Response(serializer.data)
+
+    def getByLicenseNumber(self, request, licenseNumber, format=None):
+        adherent = self.getObjectByLicenseNumber(licenseNumber)
+        serializer = AdherentsSerializer(adherent)
+        return Response(serializer.data)
+
+    def putByID(self, request, id, format=None):
+        adherent = self.getObjectByID(id)
+        print(request.data)
 
 
 @api_view(["GET"])
