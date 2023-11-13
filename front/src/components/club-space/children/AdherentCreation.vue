@@ -161,7 +161,7 @@
         }
         else{
             try {
-                await axios.put(`http://localhost:8000/api/adherent/${adherent.value.id}/`, fields);
+                await axios.put(`http://localhost:8000/api/adherents/${adherent.value.id}/`, fields);
                 console.log(fields);
             }
             catch (error) {
@@ -192,7 +192,7 @@
     /*
     async function getCategorieByID(id){
         try{
-            const response = await axios.get(`http://localhost:8000/api/categorie/${id}.json`);
+            const response = await axios.get(`http://localhost:8000/api/categories/${id}.json`);
             const data = response.data;
             const field = {
                 label: `${data.categorie} ${(data.description == null) ? '' : data.description}`,
@@ -226,7 +226,7 @@
     /*
     async function getEquipeByID(id){
         try{
-            const response = await axios.get(`http://localhost:8000/api/equipe/${id}.json`);
+            const response = await axios.get(`http://localhost:8000/api/equipes/${id}.json`);
             const data = response.data;
             const field = {
                 label: `${data.nom}`,
@@ -287,7 +287,7 @@
             return field;
         }
         try{
-            const response = await axios.get(`http://localhost:8000/api/poste/${id}.json`);
+            const response = await axios.get(`http://localhost:8000/api/postes/${id}.json`);
             const data = response.data;
             const field = {
                 label: `${data.designation} (${data.description})`,
