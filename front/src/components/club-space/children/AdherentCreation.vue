@@ -308,6 +308,7 @@
         //getNode('phone').input(adherent.value.telephone);
         //const categorieId = adherent.value.categorie_id;
         //await getNode('categorie').input(getCategorieByID(categorieId));
+        getNode('surclassement').input(adherent.value.surclassement);
         getNode('arbitre').input(adherent.value.arbitre);
         //await getNode('equipe').input(getEntraineByAdherentID(id));
         //const posteId = adherent.value.poste_id;
