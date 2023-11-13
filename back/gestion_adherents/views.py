@@ -49,18 +49,21 @@ class AdherentsList(generics.ListCreateAPIView):
 
 class AdherentsDetail(generics.RetrieveUpdateDestroyAPIView):
     """Read, update or delete an Adherent instance."""
+
     queryset = Adherents.objects.all()  # type: ignore
     serializer_class = AdherentsSerializer
 
 
 class EquipesList(generics.ListAPIView):
     """Read all Equipes."""
+
     queryset = Equipes.objects.all()  # type: ignore
     serializer_class = EquipesSerializer
 
 
 class EquipesDetail(generics.RetrieveAPIView):
     """Read an Equipe instance."""
+
     queryset = Equipes.objects.all()  # type: ignore
     serializer_class = EquipesSerializer
 
@@ -111,31 +114,14 @@ def entraineDetail(request, adherentId, format=None):
         return Response(serializer.data)
 
 
-@api_view(["GET"])
-def categories(request, id=None, format=None):
-    """Read categories.
+class CategoriesList(generics.ListAPIView):
+    queryset = Categories.objects.all()  # type: ignore
+    serializer_class = CategoriesSerializer
 
-    Args:
-        request: The HTTP request.
-        id: The id (primary key) of the object in the database.
-    Returns:
-        DRF Response.
-    """
-    if request.method == "GET":
-        if id is None:
-            try:
-                categories = Categories.objects.all().values()  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = CategoriesSerializer(categories, many=True)
-            return Response(serializer.data)
-        else:
-            try:
-                categorie = Categories.objects.get(id=id)  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = CategoriesSerializer(categorie)
-            return Response(serializer.data)
+
+class CategoriesDetail(generics.RetrieveAPIView):
+    queryset = Categories.objects.all()  # type: ignore
+    serializer_class = CategoriesSerializer
 
 
 @api_view(["GET"])

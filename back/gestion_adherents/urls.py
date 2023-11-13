@@ -6,7 +6,7 @@ urlpatterns = [
     path("", views.apiRoot),
     path("adherents/", views.AdherentsList.as_view(), name="adherents-list"),
     path(
-        "adherent/<int:id>/", views.AdherentsDetail.as_view(), name="adherents-detail"
+        "adherent/<int:pk>/", views.AdherentsDetail.as_view(), name="adherents-detail"
     ),
     # path("adherent/no_licence=<int:licenseNumber>/", views.AdherentsDetail({"get": "getByLicenseNumber"})),
     path("equipes/", views.EquipesList.as_view(), name="equipes-list"),
@@ -14,8 +14,10 @@ urlpatterns = [
     path("entrainees/", views.entraine),
     path("entraine/<int:id>", views.entraine),
     path("entraine/adherent_id=<int:adherentId>", views.entraineDetail),
-    path("categories/", views.categories),
-    path("categorie/<int:id>", views.categories),
+    path("categories/", views.CategoriesList.as_view(), name="categories-list"),
+    path(
+        "categorie/<int:pk>", views.CategoriesDetail.as_view(), name="categories-detail"
+    ),
     path("postes/", views.postes),
     path("poste/<int:id>", views.postes),
     path("courriels/", views.courriels),
