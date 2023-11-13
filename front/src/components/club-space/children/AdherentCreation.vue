@@ -70,8 +70,20 @@
                 id="categorie"
                 label="Catégorie"
                 help="La catégorie du licencié."
+            />
+            <FormKit
+                type="select"
+                name="surclassement"
+                id="surclassement"
+                label="Surclassement"
+                help="La surclassement du licencié."
                 validation="required"
- k          />
+                :options="[
+                { label: 'Simple', value: '1'},
+                { label: 'Double', value: '2'},
+                { label: 'Triple', value: '3'},
+                ]"
+            />
             <FormKit
                 type="checkbox"
                 name="arbitre"
@@ -103,6 +115,7 @@
                 id="habilitation"
                 label="Habilitation"
                 help="L'habilitation du licencié."
+                validation="required"
                 :options="[
                 { label: '1 (Administration du site)', value: '1'},
                 { label: '2 (Accès à l\'espace club)', value: '2'},
