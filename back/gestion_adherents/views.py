@@ -1,6 +1,7 @@
-from django.views.decorators.csrf import csrf_exempt
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
-from django.http import HttpResponse, JsonResponse
 
 from .serializers import (
     AdherentsSerializer,
@@ -25,7 +26,7 @@ from .models import (
 )
 
 
-@csrf_exempt
+@api_view(["GET", "POST", "PUT", "DELETE"])
 def adherents(request, id=None):
     """Creates and Reads adherents.
 
@@ -33,7 +34,7 @@ def adherents(request, id=None):
         request: The HTTP request.
         id: The id (primary key) of the object in the database.
     Returns:
-        JSON object or HTTP response.
+        DRF Response.
     """
     if request.method == "GET":
         if id is None:
@@ -48,35 +49,35 @@ def adherents(request, id=None):
                     "entraineur",
                 )
                 serializer = AdherentsPublicSerializer(adherents, many=True)
-                return JsonResponse(serializer.data, safe=False)
+                return Response(serializer.data)
             if True:
                 # Get everything
                 adherents = Adherents.objects.all().values()  # type: ignore
                 serializer = AdherentsSerializer(adherents, many=True)
-                return JsonResponse(serializer.data, safe=False)
+                return Response(serializer.data)
         else:
             try:
                 adherent = Adherents.objects.get(pk=id)  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = AdherentsSerializer(adherent)
-            return JsonResponse(serializer.data, safe=False)
+            return Response(serializer.data)
     elif request.method == "POST":
         pass
     elif request.method == "PUT":
         if id is None:
-            return HttpResponse(status=405)
+            return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
         else:
             try:
                 adherent = Adherents.objects.get(pk=id)  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             data = JSONParser().parse(request)
-            print(data)
-            return HttpResponse(status=201)
+            serializer = AdherentsSerializer(adherent, data=data)
+            return Response(status=status.HTTP_201_CREATED)
 
 
-@csrf_exempt
+@api_view(["GET"])
 def adherentDetail(request, licenseNumber):
     """Reads adherents (by licenseNumber).
 
@@ -84,18 +85,18 @@ def adherentDetail(request, licenseNumber):
         request: The HTTP request.
         licenseNumber: The licenseNumber of the object in the database.
     Returns:
-        JSON object or HTTP response.
+        DRF Response.
     """
     if request.method == "GET":
         try:
             adherent = Adherents.objects.get(no_licence=licenseNumber)  # type: ignore
         except:
-            return HttpResponse(status=404)
+            return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = AdherentsSerializer(adherent)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
 
 
-@csrf_exempt
+@api_view(["GET"])
 def equipes(request, id=None):
     """Read equipes.
 
@@ -103,26 +104,26 @@ def equipes(request, id=None):
         request: The HTTP request.
         id: The id (primary key) of the object in the database.
     Returns:
-        JSON object or HttpResponse.
+        DRF Response.
     """
     if request.method == "GET":
         if id is None:
             try:
                 equipes = Equipes.objects.all().values()  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = EquipesSerializer(equipes, many=True)
-            return JsonResponse(serializer.data, safe=False)
+            return Response(serializer.data)
         else:
             try:
                 equipe = Equipes.objects.get(id=id)  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = EquipesSerializer(equipe)
-            return JsonResponse(serializer, safe=False)
+            return Response(serializer.data)
 
 
-@csrf_exempt
+@api_view(["GET"])
 def entraine(request, id=None):
     """Read entraine.
 
@@ -130,26 +131,26 @@ def entraine(request, id=None):
         request: The HTTP request.
         id: The id (primary key) of the object in the database.
     Returns:
-        JSON object or HttpResponse.
+        DRF Response.
     """
     if request.method == "GET":
         if id is None:
             try:
                 entraines = Entraine.objects.all().values()  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = EntraineSerializer(entraines, many=True)
-            return JsonResponse(serializer.data, safe=False)
+            return Response(serializer.data)
         else:
             try:
                 entraine = Equipes.objects.get(id=id)  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = EquipesSerializer(entraine)
-            return JsonResponse(serializer, safe=False)
+            return Response(serializer.data)
 
 
-@csrf_exempt
+@api_view(["GET"])
 def entraineDetail(request, adherentId):
     """Read entraine (by adherentId).
 
@@ -157,18 +158,18 @@ def entraineDetail(request, adherentId):
         request: The HTTP request.
         adherentId: The adherentId of the object in the database.
     Returns:
-        JSON object or HTTP response.
+        DRF Response.
     """
     if request.method == "GET":
         try:
             entraine = Entraine.objects.get(adherent_id=adherentId)  # type: ignore
         except:
-            return HttpResponse(status=404)
+            return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = EntraineSerializer(entraine)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
 
 
-@csrf_exempt
+@api_view(["GET"])
 def categories(request, id=None):
     """Read categories.
 
@@ -176,26 +177,26 @@ def categories(request, id=None):
         request: The HTTP request.
         id: The id (primary key) of the object in the database.
     Returns:
-        JSON object or HttpResponse.
+        DRF Response.
     """
     if request.method == "GET":
         if id is None:
             try:
                 categories = Categories.objects.all().values()  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = CategoriesSerializer(categories, many=True)
-            return JsonResponse(serializer.data, safe=False)
+            return Response(serializer.data)
         else:
             try:
                 categorie = Categories.objects.get(id=id)  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = CategoriesSerializer(categorie)
-            return JsonResponse(serializer.data, safe=False)
+            return Response(serializer.data)
 
 
-@csrf_exempt
+@api_view(["GET"])
 def postes(request, id=None):
     """Read postes.
 
@@ -203,26 +204,26 @@ def postes(request, id=None):
         request: The HTTP request.
         id: The id (primary key) of the object in the database.
     Returns:
-        JSON object or HttpResponse.
+        DRF Response.
     """
     if request.method == "GET":
         if id is None:
             try:
                 postes = Postes.objects.all().values()  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = PostesSerializer(postes, many=True)
-            return JsonResponse(serializer.data, safe=False)
+            return Response(serializer.data)
         else:
             try:
                 poste = Postes.objects.get(id=id)  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = PostesSerializer(poste)
-            return JsonResponse(serializer, safe=False)
+            return Response(serializer.data)
 
 
-@csrf_exempt
+@api_view(["GET"])
 def courriels(request, id=None):
     """Read courriels.
 
@@ -230,26 +231,26 @@ def courriels(request, id=None):
         request: The HTTP request.
         id: The id (primary key) of the object in the database.
     Returns:
-        JSON object or HttpResponse.
+        DRF Response.
     """
     if request.method == "GET":
         if id is None:
             try:
                 courriels = Courriels.objects.all().values()  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = CourrielsSerializer(courriels, many=True)
-            return JsonResponse(serializer.data, safe=False)
+            return Response(serializer.data)
         else:
             try:
                 courriel = Courriels.objects.get(id=id)  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = CourrielsSerializer(courriel)
-            return JsonResponse(serializer, safe=False)
+            return Response(serializer.data)
 
 
-@csrf_exempt
+@api_view(["GET"])
 def courrielsDetail(request, contactId):
     """Read courriels (by contactId).
 
@@ -257,18 +258,18 @@ def courrielsDetail(request, contactId):
         request: The HTTP request.
         contactId: The contactId of the object in the database.
     Returns:
-        JSON object or HTTP response.
+        DRF Response.
     """
     if request.method == "GET":
         try:
             courriel = Courriels.objects.get(contact_id=contactId)  # type: ignore
         except:
-            return HttpResponse(status=404)
+            return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = CourrielsSerializer(courriel)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
 
 
-@csrf_exempt
+@api_view(["GET"])
 def telephones(request, id=None):
     """Read telephones.
 
@@ -276,26 +277,26 @@ def telephones(request, id=None):
         request: The HTTP request.
         id: The id (primary key) of the object in the database.
     Returns:
-        JSON object or HttpResponse.
+        DRF Response.
     """
     if request.method == "GET":
         if id is None:
             try:
                 telephones = Telephones.objects.all().values()  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = TelephonesSerializer(telephones, many=True)
-            return JsonResponse(serializer.data, safe=False)
+            return Response(serializer.data)
         else:
             try:
                 telephone = Telephones.objects.get(id=id)  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = TelephonesSerializer(telephone)
-            return JsonResponse(serializer, safe=False)
+            return Response(serializer.data)
 
 
-@csrf_exempt
+@api_view(["GET"])
 def telephonesDetail(request, contactId):
     """Read contacts (by contactId).
 
@@ -303,18 +304,18 @@ def telephonesDetail(request, contactId):
         request: The HTTP request.
         contactId: The contactId of the object in the database.
     Returns:
-        JSON object or HTTP response.
+        DRF Response.
     """
     if request.method == "GET":
         try:
             contact = Contacts.objects.get(contact_id=contactId)  # type: ignore
         except:
-            return HttpResponse(status=404)
+            return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = TelephonesSerializer(contact)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
 
 
-@csrf_exempt
+@api_view(["GET"])
 def contacts(request, id=None):
     """Read contacts.
 
@@ -322,26 +323,26 @@ def contacts(request, id=None):
         request: The HTTP request.
         id: The id (primary key) of the object in the database.
     Returns:
-        JSON object or HttpResponse.
+        DRF Response.
     """
     if request.method == "GET":
         if id is None:
             try:
                 contacts = Contacts.objects.all().values()  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = ContactsSerializer(contacts, many=True)
-            return JsonResponse(serializer.data, safe=False)
+            return Response(serializer.data)
         else:
             try:
                 contact = Contacts.objects.get(id=id)  # type: ignore
             except:
-                return HttpResponse(status=404)
+                return Response(status=status.HTTP_404_NOT_FOUND)
             serializer = ContactsSerializer(contact)
-            return JsonResponse(serializer, safe=False)
+            return Response(serializer.data)
 
 
-@csrf_exempt
+@api_view(["GET"])
 def contactsDetail(request, adherentId):
     """Read contacts (by adherentId).
 
@@ -349,12 +350,12 @@ def contactsDetail(request, adherentId):
         request: The HTTP request.
         adherentId: The adherentId of the object in the database.
     Returns:
-        JSON object or HTTP response.
+        DRF Response.
     """
     if request.method == "GET":
         try:
             contact = Contacts.objects.get(adherent_id=adherentId)  # type: ignore
         except:
-            return HttpResponse(status=404)
+            return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = ContactsSerializer(contact)
-        return JsonResponse(serializer.data, safe=False)
+        return Response(serializer.data)
