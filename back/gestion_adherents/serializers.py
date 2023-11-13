@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import (
     Adherents,
     Categories,
+    Contacts,
     Courriels,
     Entraine,
     Equipes,
@@ -119,7 +120,7 @@ class TelephonesSerializer(serializers.HyperlinkedModelSerializer):
 
 class ContactsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Telephones
+        model = Contacts
         fields = [
             "id",
             "adherent_id",
