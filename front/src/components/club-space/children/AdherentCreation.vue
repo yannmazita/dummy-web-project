@@ -139,13 +139,17 @@
     const adherent = ref(props.adherent);
 
     async function submitForm(fields){
-        // Formkit doesn't behave correctly when objects in options props are null.
-        if (fields.equipe=='null'){
-            fields.equipe=null;
+        // Formkit doesn't behave correctly when objects in options props are anything other than strings.
+        for (let field in fields){
+            if (field == 'null'){
+                field = null;
+            }
+            const pattern = /^[0-9]*$/;
+            if (pattern.test(field)){
+                //pass
+            }
         }
-        if (fields.poste=='null'){
-            fields.poste=null;
-        }
+
         if (adherent.value === undefined || adherent.value === null){
             try {
                 await axios.post('http://localhost:8000/api/adherents/', fields);
@@ -168,7 +172,7 @@
 
     async function getCategories(){
         try {
-            const response = await axios.get('http://localhost:8000/api/categories/');
+            const response = await axios.get('http://localhost:8000/api/categories.json/');
             const data = response.data;
             const categories = [];
             for (let item of data){
@@ -188,7 +192,7 @@
     /*
     async function getCategorieByID(id){
         try{
-            const response = await axios.get(`http://localhost:8000/api/categorie/${id}`);
+            const response = await axios.get(`http://localhost:8000/api/categorie/${id}.json`);
             const data = response.data;
             const field = {
                 label: `${data.categorie} ${(data.description == null) ? '' : data.description}`,
@@ -207,7 +211,7 @@
 
     async function getEquipes(){
         try {
-            const response = await axios.get('http://localhost:8000/api/equipes/');
+            const response = await axios.get('http://localhost:8000/api/equipes.json/');
             const data = response.data;
             const equipes = [ {label: 'Pas d\'équipe entrainée', value: 'null'} ];
             for (let item of data){
@@ -222,7 +226,7 @@
     /*
     async function getEquipeByID(id){
         try{
-            const response = await axios.get(`http://localhost:8000/api/equipe/${id}`);
+            const response = await axios.get(`http://localhost:8000/api/equipe/${id}.json`);
             const data = response.data;
             const field = {
                 label: `${data.nom}`,
@@ -236,7 +240,7 @@
     }
     async function getEntraineByAdherentID(id){
         try{
-            const response = await axios.get(`http://localhost:8000/api/entraine/adherent_id=${id}`);
+            const response = await axios.get(`http://localhost:8000/api/entraine/adherent_id=${id}.json`);
             const data = response.data;
             const equipeId = data.equipeId;
             const field = getEquipeByID(equipeId);
@@ -257,7 +261,7 @@
     async function getPostes(){
         const postes = [ {label: 'Pas de poste de dirigeant', value: 'null'} ];
         try {
-            const response = await axios.get('http://localhost:8000/api/postes/');
+            const response = await axios.get('http://localhost:8000/api/postes.json/');
             const data = response.data;
             for (let item of data){
                 postes.push({
@@ -283,7 +287,7 @@
             return field;
         }
         try{
-            const response = await axios.get(`http://localhost:8000/api/poste/${id}`);
+            const response = await axios.get(`http://localhost:8000/api/poste/${id}.json`);
             const data = response.data;
             const field = {
                 label: `${data.designation} (${data.description})`,
