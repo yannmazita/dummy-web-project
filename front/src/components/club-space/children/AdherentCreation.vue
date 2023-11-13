@@ -269,7 +269,6 @@
                     value: `${item.id}`
                 },);
             }
-            console.log(postes)
             return postes;
         }
         catch (error){
