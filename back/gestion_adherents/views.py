@@ -68,31 +68,18 @@ class EquipesDetail(generics.RetrieveAPIView):
     serializer_class = EquipesSerializer
 
 
-@api_view(["GET"])
-def entraine(request, id=None, format=None):
-    """Read entraine.
+class EntraineList(generics.ListAPIView):
+    """Read all Entraine."""
 
-    Args:
-        request: The HTTP request.
-        id: The id (primary key) of the object in the database.
-    Returns:
-        DRF Response.
-    """
-    if request.method == "GET":
-        if id is None:
-            try:
-                entraines = Entraine.objects.all().values()  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = EntraineSerializer(entraines, many=True)
-            return Response(serializer.data)
-        else:
-            try:
-                entraine = Equipes.objects.get(id=id)  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = EquipesSerializer(entraine)
-            return Response(serializer.data)
+    queryset = Entraine.objects.all()  # type: ignore
+    serializer_class = EntraineSerializer
+
+
+class EntraineDetail(generics.RetrieveAPIView):
+    """Read an Entraine instance."""
+
+    queryset = Entraine.objects.all()  # type: ignore
+    serializer_class = EntraineSerializer
 
 
 @api_view(["GET"])
@@ -115,67 +102,45 @@ def entraineDetail(request, adherentId, format=None):
 
 
 class CategoriesList(generics.ListAPIView):
+    """Read all Categories."""
+
     queryset = Categories.objects.all()  # type: ignore
     serializer_class = CategoriesSerializer
 
 
 class CategoriesDetail(generics.RetrieveAPIView):
+    """Read a Categories instance."""
+
     queryset = Categories.objects.all()  # type: ignore
     serializer_class = CategoriesSerializer
 
 
-@api_view(["GET"])
-def postes(request, id=None, format=None):
-    """Read postes.
+class PostesList(generics.ListAPIView):
+    """Read all Postes."""
 
-    Args:
-        request: The HTTP request.
-        id: The id (primary key) of the object in the database.
-    Returns:
-        DRF Response.
-    """
-    if request.method == "GET":
-        if id is None:
-            try:
-                postes = Postes.objects.all().values()  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = PostesSerializer(postes, many=True)
-            return Response(serializer.data)
-        else:
-            try:
-                poste = Postes.objects.get(id=id)  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = PostesSerializer(poste)
-            return Response(serializer.data)
+    queryset = Postes.objects.all()  # type: ignore
+    serializer_class = PostesSerializer
 
 
-@api_view(["GET"])
-def courriels(request, id=None, format=None):
-    """Read courriels.
+class PostesDetail(generics.RetrieveAPIView):
+    """Read a Postes instance."""
 
-    Args:
-        request: The HTTP request.
-        id: The id (primary key) of the object in the database.
-    Returns:
-        DRF Response.
-    """
-    if request.method == "GET":
-        if id is None:
-            try:
-                courriels = Courriels.objects.all().values()  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = CourrielsSerializer(courriels, many=True)
-            return Response(serializer.data)
-        else:
-            try:
-                courriel = Courriels.objects.get(id=id)  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = CourrielsSerializer(courriel)
-            return Response(serializer.data)
+    queryset = Postes.objects.all()  # type: ignore
+    serializer_class = PostesSerializer
+
+
+class CourrielsList(generics.ListAPIView):
+    """Read all Courriels."""
+
+    queryset = Courriels.objects.all()  # type: ignore
+    serializer_class = CourrielsSerializer
+
+
+class CourrielsDetail(generics.RetrieveAPIView):
+    """Read a Courriels instance."""
+
+    queryset = Courriels.objects.all()  # type: ignore
+    serializer_class = CourrielsSerializer
 
 
 @api_view(["GET"])
@@ -197,31 +162,18 @@ def courrielsDetail(request, contactId, format=None):
         return Response(serializer.data)
 
 
-@api_view(["GET"])
-def telephones(request, id=None, format=None):
-    """Read telephones.
+class TelephonesList(generics.ListAPIView):
+    """Read all Telephones."""
 
-    Args:
-        request: The HTTP request.
-        id: The id (primary key) of the object in the database.
-    Returns:
-        DRF Response.
-    """
-    if request.method == "GET":
-        if id is None:
-            try:
-                telephones = Telephones.objects.all().values()  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = TelephonesSerializer(telephones, many=True)
-            return Response(serializer.data)
-        else:
-            try:
-                telephone = Telephones.objects.get(id=id)  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = TelephonesSerializer(telephone)
-            return Response(serializer.data)
+    queryset = Telephones.objects.all()  # type: ignore
+    serializer_class = TelephonesSerializer
+
+
+class TelephonesDetail(generics.RetrieveAPIView):
+    """Read a Telephones instance."""
+
+    queryset = Telephones.objects.all()  # type: ignore
+    serializer_class = TelephonesSerializer
 
 
 @api_view(["GET"])
@@ -243,31 +195,18 @@ def telephonesDetail(request, contactId, format=None):
         return Response(serializer.data)
 
 
-@api_view(["GET"])
-def contacts(request, id=None, format=None):
-    """Read contacts.
+class ContactsList(generics.ListAPIView):
+    """Read all Contacts."""
 
-    Args:
-        request: The HTTP request.
-        id: The id (primary key) of the object in the database.
-    Returns:
-        DRF Response.
-    """
-    if request.method == "GET":
-        if id is None:
-            try:
-                contacts = Contacts.objects.all().values()  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = ContactsSerializer(contacts, many=True)
-            return Response(serializer.data)
-        else:
-            try:
-                contact = Contacts.objects.get(id=id)  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = ContactsSerializer(contact)
-            return Response(serializer.data)
+    queryset = Contacts.objects.all()  # type: ignore
+    serializer_class = ContactsSerializer
+
+
+class ContactsDetail(generics.RetrieveAPIView):
+    """Read a Contacts instance."""
+
+    queryset = Contacts.objects.all()  # type: ignore
+    serializer_class = ContactsSerializer
 
 
 @api_view(["GET"])

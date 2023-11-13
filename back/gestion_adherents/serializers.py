@@ -37,6 +37,7 @@ class AdherentsPublicSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Adherents
         fields = [
+            "url",
             "id",
             "no_licence",
             "nom",
@@ -68,6 +69,7 @@ class EntraineSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Entraine
         fields = [
+            "url",
             "id",
             "entraineur_id",
             "equipe_id",
@@ -78,6 +80,7 @@ class CategoriesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Categories
         fields = [
+            "url",
             "id",
             "categorie",
             "description",
@@ -91,6 +94,7 @@ class PostesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Postes
         fields = [
+            "url",
             "id",
             "designation",
             "description",
@@ -101,6 +105,7 @@ class CourrielsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Courriels
         fields = [
+            "url",
             "id",
             "contact_id",
             "courriel",
@@ -112,6 +117,7 @@ class TelephonesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Telephones
         fields = [
+            "url",
             "id",
             "contact_id",
             "type",
@@ -124,6 +130,7 @@ class ContactsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Contacts
         fields = [
+            "url",
             "id",
             "adherent_id",
             "nom",
