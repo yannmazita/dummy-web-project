@@ -27,7 +27,7 @@ from .models import (
 
 
 @api_view(["GET", "POST", "PUT", "DELETE"])
-def adherents(request, id=None):
+def adherents(request, id=None, format=None):
     """Creates and Reads adherents.
 
     Args:
@@ -78,7 +78,7 @@ def adherents(request, id=None):
 
 
 @api_view(["GET"])
-def adherentDetail(request, licenseNumber):
+def adherentDetail(request, licenseNumber, format=None):
     """Reads adherents (by licenseNumber).
 
     Args:
@@ -97,7 +97,7 @@ def adherentDetail(request, licenseNumber):
 
 
 @api_view(["GET"])
-def equipes(request, id=None):
+def equipes(request, id=None, format=None):
     """Read equipes.
 
     Args:
@@ -124,7 +124,7 @@ def equipes(request, id=None):
 
 
 @api_view(["GET"])
-def entraine(request, id=None):
+def entraine(request, id=None, format=None):
     """Read entraine.
 
     Args:
@@ -151,7 +151,7 @@ def entraine(request, id=None):
 
 
 @api_view(["GET"])
-def entraineDetail(request, adherentId):
+def entraineDetail(request, adherentId, format=None):
     """Read entraine (by adherentId).
 
     Args:
@@ -170,7 +170,7 @@ def entraineDetail(request, adherentId):
 
 
 @api_view(["GET"])
-def categories(request, id=None):
+def categories(request, id=None, format=None):
     """Read categories.
 
     Args:
@@ -197,7 +197,7 @@ def categories(request, id=None):
 
 
 @api_view(["GET"])
-def postes(request, id=None):
+def postes(request, id=None, format=None):
     """Read postes.
 
     Args:
@@ -224,7 +224,7 @@ def postes(request, id=None):
 
 
 @api_view(["GET"])
-def courriels(request, id=None):
+def courriels(request, id=None, format=None):
     """Read courriels.
 
     Args:
@@ -251,7 +251,7 @@ def courriels(request, id=None):
 
 
 @api_view(["GET"])
-def courrielsDetail(request, contactId):
+def courrielsDetail(request, contactId, format=None):
     """Read courriels (by contactId).
 
     Args:
@@ -270,7 +270,7 @@ def courrielsDetail(request, contactId):
 
 
 @api_view(["GET"])
-def telephones(request, id=None):
+def telephones(request, id=None, format=None):
     """Read telephones.
 
     Args:
@@ -297,7 +297,7 @@ def telephones(request, id=None):
 
 
 @api_view(["GET"])
-def telephonesDetail(request, contactId):
+def telephonesDetail(request, contactId, format=None):
     """Read contacts (by contactId).
 
     Args:
@@ -316,7 +316,7 @@ def telephonesDetail(request, contactId):
 
 
 @api_view(["GET"])
-def contacts(request, id=None):
+def contacts(request, id=None, format=None):
     """Read contacts.
 
     Args:
@@ -343,7 +343,7 @@ def contacts(request, id=None):
 
 
 @api_view(["GET"])
-def contactsDetail(request, adherentId):
+def contactsDetail(request, adherentId, format=None):
     """Read contacts (by adherentId).
 
     Args:

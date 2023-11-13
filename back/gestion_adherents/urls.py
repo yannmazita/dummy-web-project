@@ -1,4 +1,5 @@
 from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 from gestion_adherents import views
 
 urlpatterns = [
@@ -24,3 +25,5 @@ urlpatterns = [
     path("contact/<int:id>", views.contacts),
     path("contact/adherent_id=<int:adherentId>", views.contactsDetail),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
