@@ -5,10 +5,12 @@ from gestion_adherents import views
 urlpatterns = [
     path("", views.apiRoot),
     path("adherents/", views.AdherentsList.as_view(), name="adherents-list"),
-    # path("adherent/<int:id>/", views.AdherentsDetail.as_view({"get": "getByID"})),
+    path(
+        "adherent/<int:id>/", views.AdherentsDetail.as_view(), name="adherents-detail"
+    ),
     # path("adherent/no_licence=<int:licenseNumber>/", views.AdherentsDetail({"get": "getByLicenseNumber"})),
     path("equipes/", views.EquipesList.as_view(), name="equipes-list"),
-    path("equipe/<int:pk>", views.EquipesDetail.as_view()),
+    path("equipe/<int:pk>", views.EquipesDetail.as_view(), name="equipes-detail"),
     path("entrainees/", views.entraine),
     path("entraine/<int:id>", views.entraine),
     path("entraine/adherent_id=<int:adherentId>", views.entraineDetail),

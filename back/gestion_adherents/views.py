@@ -47,42 +47,20 @@ class AdherentsList(generics.ListCreateAPIView):
     serializer_class = AdherentsSerializer
 
 
-class AdherentsDetail(APIView):
-    """Read, update or delete a snippet instance."""
-
-    def getObjectByID(self, id):
-        try:
-            return Adherents.objects.get(id=id)  # type: ignore
-        except:
-            raise Http404
-
-    def getObjectByLicenseNumber(self, licenseNumber):
-        try:
-            return Adherents.objects.get(no_licence=licenseNumber)  # type: ignore
-        except:
-            raise Http404
-
-    def getByID(self, request, id, format=None):
-        adherent = self.getObjectByID(id)
-        serializer = AdherentsSerializer(adherent)
-        return Response(serializer.data)
-
-    def getByLicenseNumber(self, request, licenseNumber, format=None):
-        adherent = self.getObjectByLicenseNumber(licenseNumber)
-        serializer = AdherentsSerializer(adherent)
-        return Response(serializer.data)
-
-    def putByID(self, request, id, format=None):
-        adherent = self.getObjectByID(id)
-        print(request.data)
+class AdherentsDetail(generics.RetrieveUpdateDestroyAPIView):
+    """Read, update or delete an Adherent instance."""
+    queryset = Adherents.objects.all()  # type: ignore
+    serializer_class = AdherentsSerializer
 
 
 class EquipesList(generics.ListAPIView):
+    """Read all Equipes."""
     queryset = Equipes.objects.all()  # type: ignore
     serializer_class = EquipesSerializer
 
 
 class EquipesDetail(generics.RetrieveAPIView):
+    """Read an Equipe instance."""
     queryset = Equipes.objects.all()  # type: ignore
     serializer_class = EquipesSerializer
 
