@@ -40,30 +40,11 @@ def apiRoot(request, format=None):
     )
 
 
-class AdherentsList(APIView):
+class AdherentsList(generics.ListCreateAPIView):
     """Read all Adherents or create a new Adherent."""
 
-    def get(self, request, format=None):
-        if False:
-            # Get information that won't break GDPR
-            adherents = Adherents.objects.values(  # type: ignore
-                "no_licence",
-                "nom",
-                "prenom",
-                "surclassement",
-                "arbitre",
-                "entraineur",
-            )
-            serializer = AdherentsPublicSerializer(adherents, many=True)
-            return Response(serializer.data)
-        if True:
-            # Get everything
-            adherents = Adherents.objects.all().values()  # type: ignore
-            serializer = AdherentsSerializer(adherents, many=True)
-            return Response(serializer.data)
-
-    def post(self, request, format=None):
-        pass
+    queryset = Adherents.objects.all()  # type: ignore
+    serializer_class = AdherentsSerializer
 
 
 class AdherentsDetail(APIView):
@@ -104,33 +85,6 @@ class EquipesList(generics.ListAPIView):
 class EquipesDetail(generics.RetrieveAPIView):
     queryset = Equipes.objects.all()  # type: ignore
     serializer_class = EquipesSerializer
-
-
-@api_view(["GET"])
-def equipes(request, id=None, format=None):
-    """Read equipes.
-
-    Args:
-        request: The HTTP request.
-        id: The id (primary key) of the object in the database.
-    Returns:
-        DRF Response.
-    """
-    if request.method == "GET":
-        if id is None:
-            try:
-                equipes = Equipes.objects.all().values()  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = EquipesSerializer(equipes, many=True)
-            return Response(serializer.data)
-        else:
-            try:
-                equipe = Equipes.objects.get(id=id)  # type: ignore
-            except:
-                return Response(status=status.HTTP_404_NOT_FOUND)
-            serializer = EquipesSerializer(equipe)
-            return Response(serializer.data)
 
 
 @api_view(["GET"])
