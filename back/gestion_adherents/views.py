@@ -1,9 +1,11 @@
 from django.http import Http404
 from rest_framework import status
+from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
+from rest_framework.reverse import reverse
 
 from .serializers import (
     AdherentsSerializer,
@@ -26,6 +28,16 @@ from .models import (
     Postes,
     Telephones,
 )
+
+
+@api_view(["GET"])
+def apiRoot(request, format=None):
+    return Response(
+        {
+            "adherents": reverse("adherents-list", request=request, format=format),
+            "equipes": reverse("equipes-list", request=request, format=format),
+        }
+    )
 
 
 class AdherentsList(APIView):
@@ -82,6 +94,16 @@ class AdherentsDetail(APIView):
     def putByID(self, request, id, format=None):
         adherent = self.getObjectByID(id)
         print(request.data)
+
+
+class EquipesList(generics.ListAPIView):
+    queryset = Equipes.objects.all()  # type: ignore
+    serializer_class = EquipesSerializer
+
+
+class EquipesDetail(generics.RetrieveAPIView):
+    queryset = Equipes.objects.all()  # type: ignore
+    serializer_class = EquipesSerializer
 
 
 @api_view(["GET"])
