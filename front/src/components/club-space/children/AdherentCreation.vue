@@ -70,6 +70,7 @@
                 id="categorie"
                 label="Catégorie"
                 help="La catégorie du licencié."
+                validation="required"
             />
             <FormKit
                 type="select"
@@ -139,16 +140,7 @@
     const adherent = ref(props.adherent);
 
     async function submitForm(fields){
-        // Formkit doesn't behave correctly when objects in options props are anything other than strings.
-        for (let field in fields){
-            if (field == 'null'){
-                field = null;
-            }
-            const pattern = /^[0-9]*$/;
-            if (pattern.test(field)){
-                //pass
-            }
-        }
+        console.log(fields);
 
         if (adherent.value === undefined || adherent.value === null){
             try {
