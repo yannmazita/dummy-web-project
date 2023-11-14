@@ -123,10 +123,10 @@ def entraineDetail(request, adherentId, format=None):
     """
     if request.method == "GET":
         try:
-            entraine = Entraine.objects.get(adherent_id=adherentId)  # type: ignore
+            entraine = Entraine.objects.get(entraineur_id=adherentId)  # type: ignore
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = EntraineSerializer(entraine)
+        serializer = EntraineSerializer(entraine, context={"request": request})
         return Response(serializer.data)
 
 
@@ -187,7 +187,7 @@ def courrielsDetail(request, contactId, format=None):
             courriel = Courriels.objects.get(contact_id=contactId)  # type: ignore
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = CourrielsSerializer(courriel)
+        serializer = CourrielsSerializer(courriel, context={"request": request})
         return Response(serializer.data)
 
 
@@ -217,10 +217,10 @@ def telephonesDetail(request, contactId, format=None):
     """
     if request.method == "GET":
         try:
-            contact = Contacts.objects.get(contact_id=contactId)  # type: ignore
+            contact = Contacts.objects.get(id=contactId)  # type: ignore
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = TelephonesSerializer(contact)
+        serializer = TelephonesSerializer(contact, context={"request": request})
         return Response(serializer.data)
 
 
@@ -253,5 +253,5 @@ def contactsDetail(request, adherentId, format=None):
             contact = Contacts.objects.get(adherent_id=adherentId)  # type: ignore
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = ContactsSerializer(contact)
+        serializer = ContactsSerializer(contact, context={"request": request})
         return Response(serializer.data)
