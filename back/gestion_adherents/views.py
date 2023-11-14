@@ -41,11 +41,21 @@ def apiRoot(request, format=None):
     )
 
 
-class AdherentsList(generics.ListCreateAPIView):
+class AdherentsList(APIView):
     """Read all Adherents or create a new Adherent."""
 
-    queryset = Adherents.objects.all()  # type: ignore
-    serializer_class = AdherentsSerializer
+    def get(self, request, format=None):
+        adherents = Adherents.objects.all()  # type: ignore
+        serializer = AdherentsSerializer(adherents, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        data = request.data
+        adherentSerializer = AdherentsSerializer(data=data)
+        print(data)
+        if adherentSerializer.is_valid():
+            adherentSerializer.save()
+            return Response(adherentSerializer.data, status=status.HTTP_201_CREATED)
 
 
 class AdherentsDetail(generics.RetrieveUpdateDestroyAPIView):

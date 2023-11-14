@@ -139,7 +139,19 @@
 
     const adherent = ref(props.adherent);
 
+    const formatFormData = function(fields){
+        if (fields.equipe == 'null'){
+            fields.equipe == false;
+        }
+        else {
+            fields.equipe == true;
+        }
+        fields.entraineur = fields.equipe;
+        delete fields.equipe;
+    }
+
     async function submitForm(fields){
+        formatFormData(fields);
         console.log(fields);
 
         if (adherent.value === undefined || adherent.value === null){
