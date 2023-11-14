@@ -12,12 +12,21 @@ from .models import (
 
 
 class AdherentsSerializer(serializers.HyperlinkedModelSerializer):
+    categorie = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.all())  # type: ignore
+    poste = serializers.PrimaryKeyRelatedField(queryset=Postes.objects.all())  # type: ignore
+
+    # categorie_id = serializers.PrimaryKeyRelatedField(read_only=True)  # type: ignore
+    # categorie_id = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.values_list("id"))    # type: ignore
+    # categorie_id = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.filter(pk=id))    # type: ignore
+    # categorie_id = serializers.HyperlinkedRelatedField(view_name="categories-detail", queryset=Categories.objects.all())  # type: ignore
+
     class Meta:
         model = Adherents
         fields = [
+            "url",
             "id",
-            "categorie_id",
-            "poste_id",
+            "categorie",
+            "poste",
             "login",
             "mdp",
             "nom",
@@ -36,6 +45,7 @@ class AdherentsPublicSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Adherents
         fields = [
+            "url",
             "id",
             "no_licence",
             "nom",
@@ -47,11 +57,14 @@ class AdherentsPublicSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class EquipesSerializer(serializers.HyperlinkedModelSerializer):
+    categorie = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.all())  # type: ignore
+
     class Meta:
         model = Equipes
         fields = [
+            "url",
             "id",
-            "categorie_id",
+            "categorie",
             "nom",
             "points",
             "victoires",
@@ -63,12 +76,17 @@ class EquipesSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class EntraineSerializer(serializers.HyperlinkedModelSerializer):
+    entraineur = serializers.PrimaryKeyRelatedField(queryset=Adherents.objects.all())  # type: ignore
+    equipe = serializers.PrimaryKeyRelatedField(queryset=Equipes.objects.all())  # type: ignore
+
     class Meta:
         model = Entraine
         fields = [
+            "url",
             "id",
-            "entraineur_id",
-            "equipe_id",
+            "entraineur",
+            "equipe",
+            "ordre",
         ]
 
 
@@ -76,6 +94,7 @@ class CategoriesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Categories
         fields = [
+            "url",
             "id",
             "categorie",
             "description",
@@ -89,6 +108,7 @@ class PostesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Postes
         fields = [
+            "url",
             "id",
             "designation",
             "description",
@@ -96,22 +116,28 @@ class PostesSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CourrielsSerializer(serializers.HyperlinkedModelSerializer):
+    contact = serializers.PrimaryKeyRelatedField(queryset=Contacts.objects.all())  # type: ignore
+
     class Meta:
         model = Courriels
         fields = [
+            "url",
             "id",
-            "contact_id",
+            "contact",
             "courriel",
             "ordre",
         ]
 
 
 class TelephonesSerializer(serializers.HyperlinkedModelSerializer):
+    contact = serializers.PrimaryKeyRelatedField(queryset=Contacts.objects.all())  # type: ignore
+
     class Meta:
         model = Telephones
         fields = [
+            "url",
             "id",
-            "contact_id",
+            "contact",
             "type",
             "remarque",
             "ordre",
@@ -119,11 +145,14 @@ class TelephonesSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ContactsSerializer(serializers.HyperlinkedModelSerializer):
+    adherent = serializers.PrimaryKeyRelatedField(queryset=Adherents.objects.all())  # type: ignore
+
     class Meta:
         model = Contacts
         fields = [
+            "url",
             "id",
-            "adherent_id",
+            "adherent",
             "nom",
             "prenom",
             "adresse",

@@ -70,6 +70,7 @@
                 id="categorie"
                 label="Catégorie"
                 help="La catégorie du licencié."
+                validation="required"
             />
             <FormKit
                 type="select"
@@ -138,17 +139,20 @@
 
     const adherent = ref(props.adherent);
 
-    async function submitForm(fields){
-        // Formkit doesn't behave correctly when objects in options props are anything other than strings.
-        for (let field in fields){
-            if (field == 'null'){
-                field = null;
-            }
-            const pattern = /^[0-9]*$/;
-            if (pattern.test(field)){
-                //pass
-            }
+    const formatFormData = function(fields){
+        if (fields.equipe == 'null'){
+            fields.equipe = false;
         }
+        else {
+            fields.equipe = true;
+        }
+        fields.entraineur = fields.equipe;
+        delete fields.equipe;
+    }
+
+    async function submitForm(fields){
+        formatFormData(fields);
+        console.log(fields);
 
         if (adherent.value === undefined || adherent.value === null){
             try {
@@ -161,7 +165,7 @@
         }
         else{
             try {
-                await axios.put(`http://localhost:8000/api/adherent/${adherent.value.id}/`, fields);
+                await axios.put(`http://localhost:8000/api/adherents/${adherent.value.id}/`, fields);
                 console.log(fields);
             }
             catch (error) {
@@ -192,7 +196,7 @@
     /*
     async function getCategorieByID(id){
         try{
-            const response = await axios.get(`http://localhost:8000/api/categorie/${id}.json`);
+            const response = await axios.get(`http://localhost:8000/api/categories/${id}.json`);
             const data = response.data;
             const field = {
                 label: `${data.categorie} ${(data.description == null) ? '' : data.description}`,
@@ -226,7 +230,7 @@
     /*
     async function getEquipeByID(id){
         try{
-            const response = await axios.get(`http://localhost:8000/api/equipe/${id}.json`);
+            const response = await axios.get(`http://localhost:8000/api/equipes/${id}.json`);
             const data = response.data;
             const field = {
                 label: `${data.nom}`,
@@ -269,7 +273,6 @@
                     value: `${item.id}`
                 },);
             }
-            console.log(postes)
             return postes;
         }
         catch (error){
@@ -287,7 +290,7 @@
             return field;
         }
         try{
-            const response = await axios.get(`http://localhost:8000/api/poste/${id}.json`);
+            const response = await axios.get(`http://localhost:8000/api/postes/${id}.json`);
             const data = response.data;
             const field = {
                 label: `${data.designation} (${data.description})`,
@@ -308,8 +311,8 @@
         getNode('prenom').input(adherent.value.prenom);
         getNode('date_naissance').input(adherent.value.date_naissance);
         getNode('genre').input(adherent.value.genre);
-        //getNode('courriel').input(adherent.value.courriel);
-        //getNode('phone').input(adherent.value.telephone);
+        getNode('courriel').input(adherent.value.courriel);
+        getNode('telephone').input(adherent.value.telephone);
         //const categorieId = adherent.value.categorie_id;
         //await getNode('categorie').input(getCategorieByID(categorieId));
         getNode('surclassement').input(adherent.value.surclassement);
