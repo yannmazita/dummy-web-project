@@ -22,8 +22,9 @@
 
     async function getAdherentFromLicenseNumber(licenseNumber){
         try {
-            const response = await axios.get(`http://localhost:8000/api/adherent/no_licence=${licenseNumber}`);
+            const response = await axios.get(`http://localhost:8000/api/adherents/no_licence=${licenseNumber}`);
             adherent.value = response.data;
+
             isAdherentLoaded.value = true;
         }
         catch (error){

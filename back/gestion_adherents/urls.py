@@ -1,6 +1,5 @@
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from rest_framework.routers import DefaultRouter
 from gestion_adherents import views
 
 urlpatterns = [
@@ -9,7 +8,7 @@ urlpatterns = [
     path(
         "adherents/<int:pk>/", views.AdherentsDetail.as_view(), name="adherents-detail"
     ),
-    # path("adherents/no_licence=<int:licenseNumber>/", views.AdherentsDetail({"get": "getByLicenseNumber"})),
+    path("adherents/no_licence=<int:licenseNumber>/", views.adherentsLicenseDetail),
     path("equipes/", views.EquipesList.as_view(), name="equipes-list"),
     path("equipes/<int:pk>", views.EquipesDetail.as_view(), name="equipes-detail"),
     path("entraine/", views.EntraineList.as_view(), name="entraine-list"),

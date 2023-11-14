@@ -311,8 +311,8 @@
         getNode('prenom').input(adherent.value.prenom);
         getNode('date_naissance').input(adherent.value.date_naissance);
         getNode('genre').input(adherent.value.genre);
-        //getNode('courriel').input(adherent.value.courriel);
-        //getNode('phone').input(adherent.value.telephone);
+        getNode('courriel').input(adherent.value.courriel);
+        getNode('telephone').input(adherent.value.telephone);
         //const categorieId = adherent.value.categorie_id;
         //await getNode('categorie').input(getCategorieByID(categorieId));
         getNode('surclassement').input(adherent.value.surclassement);

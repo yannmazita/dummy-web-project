@@ -57,12 +57,14 @@ class AdherentsPublicSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class EquipesSerializer(serializers.HyperlinkedModelSerializer):
+    categorie = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.all())  # type: ignore
+
     class Meta:
         model = Equipes
         fields = [
             "url",
             "id",
-            "categorie_id",
+            "categorie",
             "nom",
             "points",
             "victoires",
@@ -74,13 +76,17 @@ class EquipesSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class EntraineSerializer(serializers.HyperlinkedModelSerializer):
+    entraineur = serializers.PrimaryKeyRelatedField(queryset=Adherents.objects.all())  # type: ignore
+    equipe = serializers.PrimaryKeyRelatedField(queryset=Equipes.objects.all())  # type: ignore
+
     class Meta:
         model = Entraine
         fields = [
             "url",
             "id",
-            "entraineur_id",
-            "equipe_id",
+            "entraineur",
+            "equipe",
+            "ordre",
         ]
 
 
@@ -110,24 +116,28 @@ class PostesSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CourrielsSerializer(serializers.HyperlinkedModelSerializer):
+    contact = serializers.PrimaryKeyRelatedField(queryset=Contacts.objects.all())  # type: ignore
+
     class Meta:
         model = Courriels
         fields = [
             "url",
             "id",
-            "contact_id",
+            "contact",
             "courriel",
             "ordre",
         ]
 
 
 class TelephonesSerializer(serializers.HyperlinkedModelSerializer):
+    contact = serializers.PrimaryKeyRelatedField(queryset=Contacts.objects.all())  # type: ignore
+
     class Meta:
         model = Telephones
         fields = [
             "url",
             "id",
-            "contact_id",
+            "contact",
             "type",
             "remarque",
             "ordre",
@@ -135,12 +145,14 @@ class TelephonesSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ContactsSerializer(serializers.HyperlinkedModelSerializer):
+    adherent = serializers.PrimaryKeyRelatedField(queryset=Adherents.objects.all())  # type: ignore
+
     class Meta:
         model = Contacts
         fields = [
             "url",
             "id",
-            "adherent_id",
+            "adherent",
             "nom",
             "prenom",
             "adresse",

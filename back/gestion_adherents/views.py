@@ -41,25 +41,32 @@ def apiRoot(request, format=None):
     )
 
 
-class AdherentsListt(APIView):
-    """Read all Adherents or create a new Adherent."""
+@api_view(["GET", "PUT", "DELETE"])
+def adherentsLicenseDetail(request, licenseNumber, format=None):
+    """Read, create or delete an Adherent instance (by licenseNumber).
 
-    def get(self, request, format=None):
-        adherents = Adherents.objects.all()  # type: ignore
-        serializer = AdherentsSerializer(adherents, many=True)
+    Args:
+        request: The HTTP request.
+        licenseNumber: The license number of the object in the database.
+    Returns:
+        DRF Response.
+    """
+    try:
+        adherent = Adherents.objects.get(no_licence=licenseNumber)  # type: ignore
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == "GET":
+        serializer = AdherentsSerializer(adherent, context={"request": request})
         return Response(serializer.data)
-
-    def post(self, request, format=None):
-        data = request.data
-        adherentSerializer = AdherentsSerializer(
-            data=data, context={"request": request}
-        )
-        # print(data["categorie_id"])
-        # print(type(data["categorie_id"]))
-        if adherentSerializer.is_valid():
-            adherentSerializer.save()
-            return Response(adherentSerializer.data, status=status.HTTP_201_CREATED)
-        return Response(adherentSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == "PUT":
+        serializer = AdherentsSerializer(adherent, context={"request": request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == "DELETE":
+        adherent.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class AdherentsList(generics.ListCreateAPIView):
