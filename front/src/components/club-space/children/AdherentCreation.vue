@@ -148,11 +148,6 @@
         }
         fields.entraineur = fields.equipe;
         delete fields.equipe;
-        fields.poste_id = fields.poste;
-        delete fields.poste;
-
-        //fields.categorie_id = fields.categorie;
-        //delete fields.categorie;
     }
 
     async function submitForm(fields){

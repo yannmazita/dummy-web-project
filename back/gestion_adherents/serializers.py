@@ -13,6 +13,8 @@ from .models import (
 
 class AdherentsSerializer(serializers.HyperlinkedModelSerializer):
     categorie = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.all())  # type: ignore
+    poste = serializers.PrimaryKeyRelatedField(queryset=Postes.objects.all())  # type: ignore
+
     # categorie_id = serializers.PrimaryKeyRelatedField(read_only=True)  # type: ignore
     # categorie_id = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.values_list("id"))    # type: ignore
     # categorie_id = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.filter(pk=id))    # type: ignore
@@ -24,7 +26,7 @@ class AdherentsSerializer(serializers.HyperlinkedModelSerializer):
             "url",
             "id",
             "categorie",
-            "poste_id",
+            "poste",
             "login",
             "mdp",
             "nom",
