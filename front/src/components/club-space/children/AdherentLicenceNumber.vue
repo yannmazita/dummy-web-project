@@ -24,7 +24,8 @@
     let licenseNumber = ref(-1);
     const emit = defineEmits(['licenseNumber'])
     const props = defineProps({
-        isAdherentLoaded:Boolean
+        isAdherentLoaded:Boolean,
+        isAdhrentReadyForDeletion:Boolean
     })
 
     const getLicenseNumber = function(fields){

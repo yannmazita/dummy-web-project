@@ -1,11 +1,10 @@
 <template>
     <AdherentLicenceNumber
-        @licenseNumberEntered="(payload) => {deletePrompt(payload);}"
+        @licenseNumberEntered="(payload) => {getAdherentFromLicenseNumber(payload);}"
         :isAdherentLoaded=isAdherentLoaded
-        v-if="currentComponent=='AdherentLicenceNumber'"
+        :isAdherentReadyForDeletion=isAdherentReadyForDeletion
     />
     <AdherentDeletion
-        v-if="currentComponent=='AdherentDeletion'"
         :adherent=adherent
     />
 </template>
@@ -17,7 +16,8 @@
     import { ref, watch } from 'vue'
 
     const adherent = ref({});
-    const isAdherentLoaded = ref(false);
+    let isAdherentLoaded = ref(false);
+    let isAdherentReadyForDeletion = ref(false);
     const currentComponent = ref("AdherentLicenceNumber");
 
 
@@ -26,16 +26,12 @@
             const response = await axios.get(`http://localhost:8000/api/adherents/no_licence=${licenseNumber}`);
             adherent.value = response.data;
 
-            isAdherentLoaded.value = true;
+            isAdherentReadyForDeletion.value = true;
         }
         catch (error){
             console.log(error);
-            isAdherentLoaded.value = false;
+            isAdherentReadyForDeletion.value = false;
         }
-    }
-
-    async function deletePrompt(licenseNumber){
-        await getAdherentFromLicenseNumber(licenseNumber);
     }
 
     watch(isAdherentLoaded, (newIsAdherentLoaded) =>{
