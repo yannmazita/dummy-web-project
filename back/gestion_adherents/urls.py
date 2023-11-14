@@ -29,7 +29,7 @@ urlpatterns = [
     ),
     path("telephones/contact_id=<int:contactId>", views.telephonesDetail),
     path("contacts/", views.ContactsList.as_view(), name="contacts-list"),
-    path("contacts/<int:pk>", views.ContactsDetail.as_view(), name="contact-detail"),
+    path("contacts/<int:pk>", views.ContactsDetail.as_view(), name="contacts-detail"),
     path("contacts/adherent_id=<int:adherentId>", views.contactsDetail),
 ]
 
