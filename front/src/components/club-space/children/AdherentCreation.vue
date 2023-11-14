@@ -141,13 +141,18 @@
 
     const formatFormData = function(fields){
         if (fields.equipe == 'null'){
-            fields.equipe == false;
+            fields.equipe = false;
         }
         else {
-            fields.equipe == true;
+            fields.equipe = true;
         }
         fields.entraineur = fields.equipe;
         delete fields.equipe;
+        fields.poste_id = fields.poste;
+        delete fields.poste;
+
+        //fields.categorie_id = fields.categorie;
+        //delete fields.categorie;
     }
 
     async function submitForm(fields){

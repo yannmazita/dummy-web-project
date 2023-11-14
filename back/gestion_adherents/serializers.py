@@ -12,17 +12,18 @@ from .models import (
 
 
 class AdherentsSerializer(serializers.HyperlinkedModelSerializer):
-    # categorie_id = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.all())    # type: ignore
+    categorie = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.all())  # type: ignore
+    # categorie_id = serializers.PrimaryKeyRelatedField(read_only=True)  # type: ignore
     # categorie_id = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.values_list("id"))    # type: ignore
     # categorie_id = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.filter(pk=id))    # type: ignore
-    categorie_id = serializers.HyperlinkedRelatedField(view_name="categories-detail", queryset=Categories.objects.all())  # type: ignore
+    # categorie_id = serializers.HyperlinkedRelatedField(view_name="categories-detail", queryset=Categories.objects.all())  # type: ignore
 
     class Meta:
         model = Adherents
         fields = [
             "url",
             "id",
-            "categorie_id",
+            "categorie",
             "poste_id",
             "login",
             "mdp",
