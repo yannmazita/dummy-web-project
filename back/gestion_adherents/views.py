@@ -41,36 +41,11 @@ def apiRoot(request, format=None):
     )
 
 
-class AdherentsList(APIView):
+class AdherentsList(generics.ListCreateAPIView):
     """Read all Adherents or create a new Adherent."""
 
-    def getNonModelFields(self, data):
-        fields = []
-        fields.append({"equipe": data["equipe"]})
-        return fields
-
-    def formatData(self, data):
-        if data["equipe"] == "null" or data["equipe"] is None:
-            data["entraineur"] = 'false'
-        data.pop("equipe")
-
-    def get(self, request, format=None):
-        adherents = Adherents.objects.all()  # type: ignore
-        serializer = AdherentsSerializer(adherents, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        data = request.data
-        extraFields = self.getNonModelFields(data)
-        self.formatData(data)
-
-        print(extraFields)
-        print(data)
-        adherentSerializer = AdherentsSerializer(data=data, context={'request': request})
-        if adherentSerializer.is_valid():
-            # adherentSerializer.save()
-            return Response(adherentSerializer.data, status=status.HTTP_201_CREATED)
-        return Response(adherentSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    queryset = Adherents.objects.all()  # type: ignore
+    serializer_class = AdherentsSerializer
 
 
 class AdherentsDetail(generics.RetrieveUpdateDestroyAPIView):
