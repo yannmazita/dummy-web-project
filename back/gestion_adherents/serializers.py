@@ -12,9 +12,10 @@ from .models import (
 
 
 class AdherentsSerializer(serializers.HyperlinkedModelSerializer):
-    categorie_id = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.())    # type: ignore
+    # categorie_id = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.all())    # type: ignore
     # categorie_id = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.values_list("id"))    # type: ignore
     # categorie_id = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.filter(pk=id))    # type: ignore
+    categorie_id = serializers.HyperlinkedRelatedField(view_name="categories-detail", queryset=Categories.objects.all())  # type: ignore
 
     class Meta:
         model = Adherents
