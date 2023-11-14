@@ -36,7 +36,12 @@ def apiRoot(request, format=None):
     return Response(
         {
             "adherents": reverse("adherents-list", request=request, format=format),
+            "categories": reverse("categories-list", request=request, format=format),
+            "courriels": reverse("courriels-list", request=request, format=format),
+            "entraine": reverse("entraine-list", request=request, format=format),
             "equipes": reverse("equipes-list", request=request, format=format),
+            "postes": reverse("postes-list", request=request, format=format),
+            "telephones": reverse("telephones-list", request=request, format=format),
         }
     )
 
@@ -123,7 +128,7 @@ def entraineDetail(request, adherentId, format=None):
     """
     if request.method == "GET":
         try:
-            entraine = Entraine.objects.get(entraineur_id=adherentId)  # type: ignore
+            entraine = Entraine.objects.get(entraineur=adherentId)  # type: ignore
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = EntraineSerializer(entraine, context={"request": request})
@@ -184,7 +189,7 @@ def courrielsDetail(request, contactId, format=None):
     """
     if request.method == "GET":
         try:
-            courriel = Courriels.objects.get(contact_id=contactId)  # type: ignore
+            courriel = Courriels.objects.get(contact=contactId)  # type: ignore
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = CourrielsSerializer(courriel, context={"request": request})
@@ -207,7 +212,7 @@ class TelephonesDetail(generics.RetrieveAPIView):
 
 @api_view(["GET"])
 def telephonesDetail(request, contactId, format=None):
-    """Read contacts (by contactId).
+    """Read a Telephones instance (by contactId).
 
     Args:
         request: The HTTP request.
@@ -217,10 +222,10 @@ def telephonesDetail(request, contactId, format=None):
     """
     if request.method == "GET":
         try:
-            contact = Contacts.objects.get(id=contactId)  # type: ignore
+            telephone = Telephones.objects.get(contact=contactId)  # type: ignore
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = TelephonesSerializer(contact, context={"request": request})
+        serializer = TelephonesSerializer(telephone, context={"request": request})
         return Response(serializer.data)
 
 
@@ -250,7 +255,7 @@ def contactsDetail(request, adherentId, format=None):
     """
     if request.method == "GET":
         try:
-            contact = Contacts.objects.get(adherent_id=adherentId)  # type: ignore
+            contact = Contacts.objects.get(adherent=adherentId)  # type: ignore
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = ContactsSerializer(contact, context={"request": request})
