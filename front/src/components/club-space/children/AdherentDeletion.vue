@@ -20,15 +20,15 @@
         adherent:Object
     })
 
-    const adherent = ref(props.adherent);
-    const firstname = ref(adherent.value.prenom);
-    const lastname = ref(adherent.value.nom);
-    const dateOfBirth = ref(adherent.value.date_naissance);
+    let adherent = ref(props.adherent);
+    let firstname = ref(adherent.value.prenom);
+    let lastname = ref(adherent.value.nom);
+    let dateOfBirth = ref(adherent.value.date_naissance);
 
     
-    const control = ref(false)
-    const deleteAdherent = ref(false);
-    const adherentDeleted = ref(false);
+    let control = ref(false)
+    let deleteAdherent = ref(false);
+    let adherentDeleted = ref(false);
     const emit = defineEmits(['adherentDeleted'])
 
     async function deleteAdherentFromDatabase(){
@@ -60,7 +60,7 @@
             adherentDeleted.value = true;
         }
         else{
-            //pass
+            control.value = false;
         }
     })
 
