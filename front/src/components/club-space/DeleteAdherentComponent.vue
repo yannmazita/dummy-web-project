@@ -1,85 +1,49 @@
 <template>
-    <main>
-    </main>
+    <AdherentLicenceNumber
+        @licenseNumberEntered="(payload) => {deletePrompt(payload);}"
+        :isAdherentLoaded=isAdherentLoaded
+        v-if="currentComponent=='AdherentLicenceNumber'"
+    />
+    <AdherentDeletion
+        v-if="currentComponent=='AdherentDeletion'"
+        :adherent=adherent
+    />
 </template>
 
+<script setup>
+    import AdherentLicenceNumber from './children/AdherentLicenceNumber.vue'
+    import AdherentDeletion from './children/AdherentDeletion.vue'
+    import axios from 'axios'
+    import { ref, watch } from 'vue'
 
-<script>
-    export default {
-        data() {
-            return {
-                licenseNumber: '',
-                lastname: '',
-                firstname:'',
-                dateOfBirth: '',
-                email: '',
-                telephone: '',
-                category: '',
-                referee: 'false',
-                manager: '',
-                director: '',
-                credentials: '',
-                emailFeedback: '',
-                feedback: 'invalid',
-            }
-        },
-        methods: {
-            async submitForm(){
-                try {
-                    const response = await this.$http.post('http://localhost:8000/api/members/', {
-                        licenseNumber: this.licenseNumber,
-                        lastname: this.lastname,
-                        firstname: this.firstname,
-                        dateOfBirth: this.dateOfBirth,
-                        email: this.email,
-                        telephone: this.telephone,
-                        category: this.category,
-                        referee: this.referee,
-                        manager: this.manager,
-                        director: this.director,
-                        credentials: this.credentials,
-                    });
-                    this.members.push(response.data);
-                    this.licenseNumber = '';
-                    this.lastname = '';
-                    this.firstname = '';
-                    this.dateOfBirth = '';
-                    this.email = '';
-                    this.telephone = '';
-                    this.category = '';
-                    this.referee = 'false';
-                    this.manager = '';
-                    this.director = '';
-                    this.credentials = '';
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-        },
-        computed: {
-            isReferee(){
-                if(this.referee){
-                    return 'yes'
-                }
-                else{
-                    return 'no'
-                }
-            }
-        },
-        watch: {
-            email(newValue, oldValue){
-                if(!newValue.includes('@')){
-                    this.emailFeedback = 'Not an email address.';
-                    this.feedback = 'invalid';
-                }
-                else if(!oldValue.includes('@') && newValue.includes('@')){
-                    this.emailFeedback = 'Address is now valid.';
-                    this.feedback = 'valid';
-                }
-                else{
-                    this.emailFeedback = 'Address is valid.';
-                }
-            }
+    const adherent = ref({});
+    const isAdherentLoaded = ref(false);
+    const currentComponent = ref("AdherentLicenceNumber");
+
+
+    async function getAdherentFromLicenseNumber(licenseNumber){
+        try {
+            const response = await axios.get(`http://localhost:8000/api/adherents/no_licence=${licenseNumber}`);
+            adherent.value = response.data;
+
+            isAdherentLoaded.value = true;
+        }
+        catch (error){
+            console.log(error);
+            isAdherentLoaded.value = false;
         }
     }
+
+    async function deletePrompt(licenseNumber){
+        await getAdherentFromLicenseNumber(licenseNumber);
+    }
+
+    watch(isAdherentLoaded, (newIsAdherentLoaded) =>{
+        if (newIsAdherentLoaded){
+            currentComponent.value = "AdherentDeletion";
+        }
+        else{
+            currentComponent.value = "AdherentLicenceNumber";
+        }
+    })
 </script>
