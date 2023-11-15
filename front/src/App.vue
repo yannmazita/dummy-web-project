@@ -1,7 +1,12 @@
 <template>
     <navigation-bar-component />
+    <!--
     <main>
         <adherent-management-main-component />
+    </main>
+    -->
+    <main>
+        <router-view></router-view>
     </main>
 </template>
 

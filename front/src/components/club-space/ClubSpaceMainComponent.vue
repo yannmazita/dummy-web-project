@@ -1,5 +1,5 @@
 <template>
-    <h1>Comment s'inscrire</h1>
+    <h1>Espace club</h1>
 </template>
 
 <script setup>
