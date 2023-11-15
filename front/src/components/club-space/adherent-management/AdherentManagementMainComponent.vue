@@ -1,9 +1,9 @@
 <template>
     <h2>Gestion des adhérents</h2>
     <div class="flex flex-col sm:flex-row justify-center">
-        <button @click="components='AddAdherentComponent'" class="btn mx-3 my-2 sm:m-1 sm:btn-sm">Ajouter adhérent</button>
-        <button @click="components='UpdateAdherentComponent'" class="btn mx-3 my-2 sm:m-1 sm:btn-sm">Mettre à jour adhérent</button>
-        <button @click="components='DeleteAdherentComponent'" class="btn mx-3 my-2 sm:m-1 sm:btn-sm">Supprimer adhérent</button>
+        <button @click="components='AddAdherentComponent'" class="btn mx-3 my-2 sm:m-1 btn-sm">Ajouter adhérent</button>
+        <button @click="components='UpdateAdherentComponent'" class="btn mx-3 my-2 sm:m-1 btn-sm">Mettre à jour adhérent</button>
+        <button @click="components='DeleteAdherentComponent'" class="btn mx-3 my-2 sm:m-1 btn-sm">Supprimer adhérent</button>
     </div>
         <component :is="components"></component>
 </template>
