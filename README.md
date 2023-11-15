@@ -20,11 +20,11 @@ In project root, inside poetry env/virtual environment:
 cd back; poetry shell 
 ```
 or any command activating your virtual environment inside the back folder.
-First start:
+Django setup:
 ```commandline
-python manage.py makemigrations gestion_adherents && python manage.py migrate && python manage.py populate_database && python manage.py runserver
+python manage.py makemigrations gestion_adherents && python manage.py migrate && python manage.py populate_database
 ```
-Subsequent starts only require:
+Backend start:
 ```commandline
 python manage.py runserver
 ```
@@ -36,9 +36,12 @@ cd front; poetry shell
 ```
 or any command activating your virtual environment inside the front folder.
 ```commandline
-npm run serve
+npm run dev
 ```
 Frontend will be accessible at localhost:8080
+
+# API
+Once the backend is up and running the API is browsable at [localhost:8000/api/].
 
 # Disclaimer
 Documentation may severely lag behind actual features.

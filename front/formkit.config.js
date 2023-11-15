@@ -1,15 +1,15 @@
 import { fr } from '@formkit/i18n'
+import { generateClasses } from '@formkit/themes'
 import { genesisIcons } from '@formkit/icons'
-import { createMultiStepPlugin } from '@formkit/addons'
-import '@formkit/addons/css/multistep'
+import formkitTheme from './tailwind-formkit-theme.js'
 
-const config = {
+export default {
     icons: {
-        genesisIcons,
+        ...genesisIcons,
     },
-    plugins: [createMultiStepPlugin()],
+    config: {
+        classes: generateClasses(formkitTheme),
+    },
     locales: { fr },
-    locale: 'fr',
+    locale: 'fr'
 }
-
-export default config
