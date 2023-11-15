@@ -1,20 +1,22 @@
 <template>
-    <FormKit
-        type="form"
-        @submit="getLicenseNumber"
-        :config="{ validationVisibility: 'live'}"
-        v-if="!control"
-    >
+    <div class="flex justify-center">
         <FormKit
-            type="number"
-            name="no_licence"
-            id="no_licence"
-            label="Numéro licence"
-            help="Le numéro de licence FFVB/FSGT."
-            placeholder="1337"
-            validation="min:0|required"
-        />
-    </FormKit>
+            type="form"
+            @submit="getLicenseNumber"
+            :config="{ validationVisibility: 'live'}"
+            v-if="!control"
+        >
+            <FormKit
+                type="number"
+                name="no_licence"
+                id="no_licence"
+                label="Numéro licence"
+                help="Le numéro de licence FFVB/FSGT."
+                placeholder="1337"
+                validation="min:0|required"
+            />
+        </FormKit>
+        </div>
 </template>
 
 <script setup>

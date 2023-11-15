@@ -1,5 +1,5 @@
 <template>
-    <h1>Gestion des salles</h1>
+    <h2>Gestion des salles</h2>
 </template>
 
 <script setup>

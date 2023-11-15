@@ -14,10 +14,10 @@
         <li>
             <router-link to="/espace-club">Accès espace club</router-link>
           <ul class="p-2">
-            <li><a>Gestion des salles</a></li>
-            <li><a>Gestion des arbitres</a></li>
-            <li><a>Gestion des adhérents</a></li>
-            <li><a>Espace formation</a></li>
+              <li><router-link to="/espace-club/salles">Gestion des salles</router-link></li>
+              <li><router-link to="/espace-club/arbitres">Gestion des arbitres</router-link></li>
+              <li><router-link to="/espace-club/adherents">Gestion des adhérents</router-link></li>
+              <li><router-link to="/espace-club/formations">Gestion des formations</router-link></li>
           </ul>
         </li>
       </ul>
@@ -37,10 +37,10 @@
           <summary>Espace club</summary>
           <ul class="p-2">
               <li tabindex="0"><router-link to="/espace-club">Accès espace club</router-link></li>
-            <li><a>Gestion des salles</a></li>
-            <li><a>Gestion des arbitres</a></li>
-            <li><a>Gestion des adhérents</a></li>
-            <li><a>Espace formation</a></li>
+              <li><router-link to="/espace-club/salles">Gestion des salles</router-link></li>
+              <li><router-link to="/espace-club/arbitres">Gestion des arbitres</router-link></li>
+              <li><router-link to="/espace-club/adherents">Gestion des adhérents</router-link></li>
+              <li><router-link to="/espace-club/formations">Gestion des formations</router-link></li>
           </ul>
         </details>
       </li>

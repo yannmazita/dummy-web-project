@@ -1,5 +1,5 @@
 <template>
-    <h1>Gestion des arbitres</h1>
+    <h2>Gestion des arbitres</h2>
 </template>
 
 <script setup>

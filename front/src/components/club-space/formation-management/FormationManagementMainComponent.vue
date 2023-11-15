@@ -1,5 +1,5 @@
 <template>
-    <h1>Gestion des formations</h1>
+    <h2>Gestion des formations</h2>
 </template>
 
 <script setup>

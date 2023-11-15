@@ -1,5 +1,4 @@
 <template>
-    <main>
         <div class="flex justify-center">
             <FormKit
                 type="form"
@@ -126,7 +125,6 @@
                 />
             </FormKit>
         </div>
-    </main>
 </template>
 
 
