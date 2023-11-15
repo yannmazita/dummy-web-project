@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-    import { ref, defineEmits, defineProps, watch } from 'vue'
+    import { ref, watch } from 'vue'
 
     let control = ref(false);
     let licenseNumber = ref(-1);

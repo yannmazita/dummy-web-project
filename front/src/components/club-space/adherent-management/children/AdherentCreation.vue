@@ -1,5 +1,6 @@
 <template>
     <main>
+        <div class="md:container">
         <FormKit
             type="form"
             @submit="submitForm"
@@ -124,6 +125,7 @@
                 ]"
             />
         </FormKit>
+        </div>
     </main>
 </template>
 

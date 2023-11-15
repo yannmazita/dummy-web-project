@@ -1,12 +1,12 @@
 <template>
     <navigation-bar-component />
     <main>
-        <club-space-main-component />
+        <adherent-management-main-component />
     </main>
 </template>
 
 <script setup>
-import ClubSpaceMainComponent from './components/club-space/ClubSpaceMainComponent.vue'
+import AdherentManagementMainComponent from './components/club-space/adherent-management/AdherentManagementMainComponent.vue'
 import NavigationBarComponent from './components/NavigationBarComponent.vue'
 </script>
 
