@@ -1,11 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require('tailwindcss/defaultTheme');
-
-const extendColors = {
-    // Custom hexadecimal colors
-    secondary: '#9949E',
-    warning: '#f9c018',
-};
 
 export default {
     content: [
@@ -14,12 +7,11 @@ export default {
         "./tailwind-formkit-theme.js",
     ],
     theme: {
-        extend: {
-            colors: extendColors,
-            fontFamily: {
-                sans: ['Montserrat', ...defaultTheme.fontFamily.sans],
-            },
+        /*
+        container: {
+            center: true,
         },
+        */
         daisyui: {
             themes: [
                 "light",

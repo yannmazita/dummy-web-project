@@ -1,5 +1,5 @@
 <template>
-    <div class="center">
+    <div class="flex flex-wrap justify-center">
         <button @click="components='AddAdherentComponent'" class="btn btn-primary">Ajouter adhérent</button>
         <button @click="components='UpdateAdherentComponent'" class="btn btn-primary">Mettre à jour adhérent</button>
         <button @click="components='DeleteAdherentComponent'" class="btn btn-primary">Supprimer adhérent</button>

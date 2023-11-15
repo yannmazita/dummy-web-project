@@ -1,130 +1,130 @@
 <template>
     <main>
-        <div class="md:container">
-        <FormKit
-            type="form"
-            @submit="submitForm"
-            :config="{ validationVisibility: 'live'}"
-        >
+        <div class="flex justify-center">
             <FormKit
-                type="number"
-                name="no_licence"
-                id="no_licence"
-                label="Numéro licence"
-                help="Le numéro de licence FFVB/FSGT."
-                placeholder="1337"
-                validation="min:0|required"
-            />
-            <FormKit
-                type="text"
-                name="nom"
-                id="nom"
-                label="Nom"
-                help="Le nom du licencié."
-                placeholder="Stallman"
-                validation="required:trim"
-            />
-            <FormKit
-                type="text"
-                name="prenom"
-                id="prenom"
-                label="Prénom"
-                help="Le prénom du licencié."
-                placeholder="Richard"
-                validation="required:trim"
-            />
-            <FormKit
-                type="date"
-                name="date_naissance"
-                id="date_naissance"
-                label="Date de naissance"
-                help="La date de naissance du licencié."
-                validation="required"
-            />
-            <FormKit
-                type="select"
-                name="genre"
-                id="genre"
-                label="Genre"
-                help="Le genre du licencié."
-                :options="['F', 'M', 'Autre']"
-            />
-            <FormKit
-                type="email"
-                name="courriel"
-                id="courriel"
-                label="Courriel"
-                help="Le courriel du licencié."
-                validation="required|email"
-            />
-            <FormKit
-                type="tel"
-                name="telephone"
-                id="telephone"
-                label="Numéro de téléphone"
-                help="Le numéro de téléphone du licencié."
-                validation="required|matches:/^0[1-9]-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}$/"
-            />
-            <FormKit
-                type="select"
-                name="categorie"
-                id="categorie"
-                label="Catégorie"
-                help="La catégorie du licencié."
-                validation="required"
-            />
-            <FormKit
-                type="select"
-                name="surclassement"
-                id="surclassement"
-                label="Surclassement"
-                help="La surclassement du licencié."
-                validation="required"
-                :options="[
-                { label: 'Simple', value: '1'},
-                { label: 'Double', value: '2'},
-                { label: 'Triple', value: '3'},
-                ]"
-            />
-            <FormKit
-                type="checkbox"
-                name="arbitre"
-                id="arbitre"
-                label="Arbitre"
-                help="Le licencié est-il un arbitre ?"
-                value="false"
-                :off-value="false"
-            />
-            <FormKit
-                type="select"
-                name="equipe"
-                id="equipe"
-                label="Équipe"
-                help="L'équipe entrainée."
-                validation="required"
-            />
-            <FormKit
-                type="select"
-                name="poste"
-                id="poste"
-                label="Dirigeant"
-                help="Le licencié est-il un dirigeant ?"
-                validation="required"
-            />
-            <FormKit
-                type="select"
-                name="habilitation"
-                id="habilitation"
-                label="Habilitation"
-                help="L'habilitation du licencié."
-                validation="required"
-                :options="[
-                { label: '1 (Administration du site)', value: '1'},
-                { label: '2 (Accès à l\'espace club)', value: '2'},
-                { label: '3 (Consulation simple du site)', value: '3'},
-                ]"
-            />
-        </FormKit>
+                type="form"
+                @submit="submitForm"
+                :config="{ validationVisibility: 'live'}"
+            >
+                <FormKit
+                    type="number"
+                    name="no_licence"
+                    id="no_licence"
+                    label="Numéro licence"
+                    help="Le numéro de licence FFVB/FSGT."
+                    placeholder="1337"
+                    validation="min:0|required"
+                />
+                <FormKit
+                    type="text"
+                    name="nom"
+                    id="nom"
+                    label="Nom"
+                    help="Le nom du licencié."
+                    placeholder="Stallman"
+                    validation="required:trim"
+                />
+                <FormKit
+                    type="text"
+                    name="prenom"
+                    id="prenom"
+                    label="Prénom"
+                    help="Le prénom du licencié."
+                    placeholder="Richard"
+                    validation="required:trim"
+                />
+                <FormKit
+                    type="date"
+                    name="date_naissance"
+                    id="date_naissance"
+                    label="Date de naissance"
+                    help="La date de naissance du licencié."
+                    validation="required"
+                />
+                <FormKit
+                    type="select"
+                    name="genre"
+                    id="genre"
+                    label="Genre"
+                    help="Le genre du licencié."
+                    :options="['F', 'M', 'Autre']"
+                />
+                <FormKit
+                    type="email"
+                    name="courriel"
+                    id="courriel"
+                    label="Courriel"
+                    help="Le courriel du licencié."
+                    validation="required|email"
+                />
+                <FormKit
+                    type="tel"
+                    name="telephone"
+                    id="telephone"
+                    label="Numéro de téléphone"
+                    help="Le numéro de téléphone du licencié."
+                    validation="required|matches:/^0[1-9]-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}$/"
+                />
+                <FormKit
+                    type="select"
+                    name="categorie"
+                    id="categorie"
+                    label="Catégorie"
+                    help="La catégorie du licencié."
+                    validation="required"
+                />
+                <FormKit
+                    type="select"
+                    name="surclassement"
+                    id="surclassement"
+                    label="Surclassement"
+                    help="La surclassement du licencié."
+                    validation="required"
+                    :options="[
+                    { label: 'Simple', value: '1'},
+                    { label: 'Double', value: '2'},
+                    { label: 'Triple', value: '3'},
+                    ]"
+                />
+                <FormKit
+                    type="checkbox"
+                    name="arbitre"
+                    id="arbitre"
+                    label="Arbitre"
+                    help="Le licencié est-il un arbitre ?"
+                    value="false"
+                    :off-value="false"
+                />
+                <FormKit
+                    type="select"
+                    name="equipe"
+                    id="equipe"
+                    label="Équipe"
+                    help="L'équipe entrainée."
+                    validation="required"
+                />
+                <FormKit
+                    type="select"
+                    name="poste"
+                    id="poste"
+                    label="Dirigeant"
+                    help="Le licencié est-il un dirigeant ?"
+                    validation="required"
+                />
+                <FormKit
+                    type="select"
+                    name="habilitation"
+                    id="habilitation"
+                    label="Habilitation"
+                    help="L'habilitation du licencié."
+                    validation="required"
+                    :options="[
+                    { label: '1 (Administration du site)', value: '1'},
+                    { label: '2 (Accès à l\'espace club)', value: '2'},
+                    { label: '3 (Consulation simple du site)', value: '3'},
+                    ]"
+                />
+            </FormKit>
         </div>
     </main>
 </template>

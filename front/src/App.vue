@@ -11,8 +11,4 @@ import NavigationBarComponent from './components/NavigationBarComponent.vue'
 </script>
 
 <style>
-.center{
-    display: flex;
-    justify-content: center;
-}
 </style>
