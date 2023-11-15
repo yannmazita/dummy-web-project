@@ -22,7 +22,7 @@
         </li>
       </ul>
     </div>
-    <a class="btn btn-ghost text-xl">SCP Volley</a>
+    <router-link to="/" class="btn btn-ghost text-xl">SCP Volley</router-link>
   </div>
 
   <div class="navbar-center hidden lg:flex">
