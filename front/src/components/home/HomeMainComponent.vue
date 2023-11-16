@@ -9,8 +9,8 @@
         <div class="flex justify-center">
             <div class="carousel w-full sm:w-1/2">
                 <div id="slide1" class="carousel-item relative w-full">
-                    <div class="flex items-center justify-center">
-                        <h2>Agenda</h2>
+                    <div class="grid">
+                        <h2 class="flex justify-center">Agenda</h2>
                         <img :src="agendaImageUrl" class="w-full" />
                         <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                             <a href="#slide4" class="btn btn-circle">❮</a> 
@@ -19,24 +19,33 @@
                     </div>
                 </div> 
                 <div id="slide2" class="carousel-item relative w-full">
-                    <img :src="inscriptionImageUrl" class="w-full" />
-                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                        <a href="#slide1" class="btn btn-circle">❮</a> 
-                        <a href="#slide3" class="btn btn-circle">❯</a>
+                    <div class="grid">
+                        <h2 class="flex justify-center">Inscription</h2>
+                        <img :src="inscriptionImageUrl" class="w-full" />
+                        <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                            <a href="#slide1" class="btn btn-circle">❮</a> 
+                            <a href="#slide3" class="btn btn-circle">❯</a>
+                        </div>
                     </div>
                 </div> 
                 <div id="slide3" class="carousel-item relative w-full">
-                    <img :src="contactImageUrl" class="w-full" />
-                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                        <a href="#slide2" class="btn btn-circle">❮</a> 
-                        <a href="#slide4" class="btn btn-circle">❯</a>
+                    <div class="grid">
+                        <h2 class="flex justify-center">Contactez-nous</h2>
+                        <img :src="contactImageUrl" class="w-full" />
+                        <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                            <a href="#slide2" class="btn btn-circle">❮</a> 
+                            <a href="#slide4" class="btn btn-circle">❯</a>
+                        </div>
                     </div>
                 </div> 
                 <div id="slide4" class="carousel-item relative w-full">
-                    <img :src="boutiqueImageUrl" class="w-full" />
-                    <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                        <a href="#slide3" class="btn btn-circle">❮</a> 
-                        <a href="#slide1" class="btn btn-circle">❯</a>
+                    <div class="grid">
+                        <h2 class="flex justify-center">Boutique</h2>
+                        <img :src="boutiqueImageUrl" class="w-full" />
+                        <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                            <a href="#slide3" class="btn btn-circle">❮</a> 
+                            <a href="#slide1" class="btn btn-circle">❯</a>
+                        </div>
                     </div>
                 </div>
             </div>
