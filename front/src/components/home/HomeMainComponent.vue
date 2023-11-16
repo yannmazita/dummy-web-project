@@ -10,8 +10,8 @@
             <div class="carousel w-full sm:w-1/2">
                 <div id="slide1" class="carousel-item relative w-full">
                     <div class="grid">
-                        <h2 class="flex justify-center">Agenda</h2>
-                        <img :src="agendaImageUrl" class="w-full" />
+                        <router-link to="/agenda"><h2 class="flex justify-center">Agenda</h2></router-link>
+                        <router-link to="/agenda"><img :src="agendaImageUrl" class="w-full" /></router-link>
                         <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                             <a href="#slide4" class="btn btn-circle">❮</a> 
                             <a href="#slide2" class="btn btn-circle">❯</a>
@@ -20,8 +20,8 @@
                 </div> 
                 <div id="slide2" class="carousel-item relative w-full">
                     <div class="grid">
-                        <h2 class="flex justify-center">Inscription</h2>
-                        <img :src="inscriptionImageUrl" class="w-full" />
+                        <router-link to="/inscription"><h2 class="flex justify-center">Inscription</h2></router-link>
+                        <router-link to="/inscription"><img :src="inscriptionImageUrl" class="w-full" /></router-link>
                         <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                             <a href="#slide1" class="btn btn-circle">❮</a> 
                             <a href="#slide3" class="btn btn-circle">❯</a>
@@ -30,8 +30,8 @@
                 </div> 
                 <div id="slide3" class="carousel-item relative w-full">
                     <div class="grid">
-                        <h2 class="flex justify-center">Contactez-nous</h2>
-                        <img :src="contactImageUrl" class="w-full" />
+                        <router-link to="/contactez-nous"><h2 class="flex justify-center">Contactez-nous</h2></router-link>
+                        <router-link to="/contactez-nous"><img :src="contactImageUrl" class="w-full" /></router-link>
                         <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                             <a href="#slide2" class="btn btn-circle">❮</a> 
                             <a href="#slide4" class="btn btn-circle">❯</a>
@@ -40,8 +40,8 @@
                 </div> 
                 <div id="slide4" class="carousel-item relative w-full">
                     <div class="grid">
-                        <h2 class="flex justify-center">Boutique</h2>
-                        <img :src="boutiqueImageUrl" class="w-full" />
+                        <router-link to="/boutique"><h2 class="flex justify-center">Boutique</h2></router-link>
+                        <router-link to="/boutique"><img :src="boutiqueImageUrl" class="w-full" /></router-link>
                         <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                             <a href="#slide3" class="btn btn-circle">❮</a> 
                             <a href="#slide1" class="btn btn-circle">❯</a>
