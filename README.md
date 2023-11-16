@@ -38,7 +38,7 @@ or any command activating your virtual environment inside the front folder.
 ```commandline
 npm run dev
 ```
-Frontend will be accessible at localhost:8080
+Frontend will be accessible at localhost:5173
 
 # API
 Once the backend is up and running the API is browsable at [localhost:8000/api/].
