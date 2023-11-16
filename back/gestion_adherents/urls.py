@@ -23,6 +23,7 @@ urlpatterns = [
     path("courriels/", views.CourrielsList.as_view(), name="courriels-list"),
     path("courriels/<int:pk>", views.CourrielsDetail.as_view(), name="courriels-detail"),
     path("courriels/contact_id=<int:contactId>", views.courrielsDetail),
+    # path("courriels/courriel=<str:address>", views.courrielsDetail),
     path("telephones/", views.TelephonesList.as_view(), name="telephones-list"),
     path(
         "telephones/<int:id>", views.TelephonesDetail.as_view(), name="telephones-detail"

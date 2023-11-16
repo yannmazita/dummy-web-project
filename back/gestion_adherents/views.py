@@ -38,6 +38,7 @@ def apiRoot(request, format=None):
             "adherents": reverse("adherents-list", request=request, format=format),
             "categories": reverse("categories-list", request=request, format=format),
             "courriels": reverse("courriels-list", request=request, format=format),
+            "contacts": reverse("contacts-list", request=request, format=format),
             "entraine": reverse("entraine-list", request=request, format=format),
             "equipes": reverse("equipes-list", request=request, format=format),
             "postes": reverse("postes-list", request=request, format=format),
@@ -75,7 +76,7 @@ def adherentsLicenseDetail(request, licenseNumber, format=None):
 
 
 class AdherentsList(generics.ListCreateAPIView):
-    """Read all Equipes."""
+    """Read all Adherents."""
 
     queryset = Adherents.objects.all()  # type: ignore
     serializer_class = AdherentsSerializer
@@ -124,14 +125,14 @@ def entraineDetail(request, adherentId, format=None):
         request: The HTTP request.
         adherentId: The adherentId of the object in the database.
     Returns:
-        DRF Response.
+        DRF Response (JSON array).
     """
     if request.method == "GET":
         try:
-            entraine = Entraine.objects.get(entraineur=adherentId)  # type: ignore
+            entraine = Entraine.objects.filter(entraineur=adherentId)  # type: ignore
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = EntraineSerializer(entraine, context={"request": request})
+        serializer = EntraineSerializer(entraine, context={"request": request}, many=True)
         return Response(serializer.data)
 
 
@@ -185,14 +186,15 @@ def courrielsDetail(request, contactId, format=None):
         request: The HTTP request.
         contactId: The contactId of the object in the database.
     Returns:
-        DRF Response.
+        DRF Response (JSON array).
     """
     if request.method == "GET":
         try:
-            courriel = Courriels.objects.get(contact=contactId)  # type: ignore
+            courriel = Courriels.objects.filter(contact=contactId)  # type: ignore
+            print(len(courriel))
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = CourrielsSerializer(courriel, context={"request": request})
+        serializer = CourrielsSerializer(courriel, context={"request": request}, many=True)
         return Response(serializer.data)
 
 
@@ -218,11 +220,11 @@ def telephonesDetail(request, contactId, format=None):
         request: The HTTP request.
         contactId: The contactId of the object in the database.
     Returns:
-        DRF Response.
+        DRF Response (JSON array).
     """
     if request.method == "GET":
         try:
-            telephone = Telephones.objects.get(contact=contactId)  # type: ignore
+            telephone = Telephones.objects.filter(contact=contactId)  # type: ignore
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = TelephonesSerializer(telephone, context={"request": request})
