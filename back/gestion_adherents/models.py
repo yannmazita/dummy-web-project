@@ -154,13 +154,15 @@ class Creneaux(models.Model):
 
 
 class Matchs(models.Model):
-    id_equipe_a = models.IntegerField()
+    equipe_a = models.ForeignKey(
+        Equipes, on_delete=models.CASCADE)
     creneau = models.ForeignKey(
         Creneaux, on_delete=models.CASCADE)
     score_a = models.IntegerField(null=True)
     score_b = models.IntegerField(null=True)
     duree = models.DurationField(null=True)
     nom_equipe_b = models.CharField(max_length=255)
+    # nom_equipe_b may need to relate to the nom column in Equipes, however it isn't a primary key
 
 
 class Arbitre(models.Model):
@@ -173,6 +175,6 @@ class Entrainements(models.Model):
     equipe = models.ForeignKey(
         Equipes, on_delete=models.CASCADE)
     entraineur = models.ForeignKey(
-        Adherents, on_delete=models.CASCADE)
+        Entraine, on_delete=models.CASCADE)
     creneau = models.ForeignKey(
         Creneaux, on_delete=models.CASCADE)

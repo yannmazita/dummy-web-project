@@ -10,24 +10,37 @@ from rest_framework.reverse import reverse
 
 from .serializers import (
     AdherentsSerializer,
-    AdherentsPublicSerializer,
+    ArbitreSerializer,
+    ArchivesSerializer,
+    CatalogueSerializer,
     CategoriesSerializer,
     ContactsSerializer,
     CourrielsSerializer,
+    CreneauxSerializer,
+    DocumentsSerializer,
     EquipesSerializer,
     EntraineSerializer,
+    EntrainementsSerializer,
     PostesSerializer,
     TelephonesSerializer,
+    MatchsSerializer,
 )
 from .models import (
     Adherents,
+    Arbitre,
+    Archives,
+    Catalogue,
     Categories,
     Contacts,
     Courriels,
+    Creneaux,
+    Documents,
     Equipes,
     Entraine,
+    Entrainements,
     Postes,
     Telephones,
+    Matchs,
 )
 
 
@@ -36,19 +49,28 @@ def apiRoot(request, format=None):
     return Response(
         {
             "adherents": reverse("adherents-list", request=request, format=format),
+            "arbitre": reverse("arbitre-list", request=request, format=format),
+            "archives": reverse("archives-list", request=request, format=format),
+            "catalogue": reverse("catalogue-list", request=request, format=format),
             "categories": reverse("categories-list", request=request, format=format),
-            "courriels": reverse("courriels-list", request=request, format=format),
             "contacts": reverse("contacts-list", request=request, format=format),
+            "courriels": reverse("courriels-list", request=request, format=format),
+            "creneaux": reverse("creneaux-list", request=request, format=format),
+            "documents": reverse("documents-list", request=request, format=format),
             "entraine": reverse("entraine-list", request=request, format=format),
+            "entrainements": reverse(
+                "entrainements-list", request=request, format=format
+            ),
             "equipes": reverse("equipes-list", request=request, format=format),
             "postes": reverse("postes-list", request=request, format=format),
             "telephones": reverse("telephones-list", request=request, format=format),
+            "matchs": reverse("matchs-list", request=request, format=format),
         }
     )
 
 
 @api_view(["GET", "PUT", "DELETE"])
-def adherentsLicenseDetail(request, licenseNumber, format=None):
+def adherentsByLicense(request, licenseNumber, format=None):
     """Read, create or delete an Adherent instance (by licenseNumber).
 
     Args:
@@ -76,7 +98,7 @@ def adherentsLicenseDetail(request, licenseNumber, format=None):
 
 
 class AdherentsList(generics.ListCreateAPIView):
-    """Read all Adherents."""
+    """Read or create Adherents."""
 
     queryset = Adherents.objects.all()  # type: ignore
     serializer_class = AdherentsSerializer
@@ -87,6 +109,90 @@ class AdherentsDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Adherents.objects.all()  # type: ignore
     serializer_class = AdherentsSerializer
+
+
+class ArbitreList(generics.ListCreateAPIView):
+    """Read or create Arbitre."""
+
+    queryset = Arbitre.objects.all()  # type: ignore
+    serializer_class = ArbitreSerializer
+
+
+class ArbitreDetail(generics.RetrieveUpdateDestroyAPIView):
+    """Read, update or delete an Arbitre instance."""
+
+    queryset = Arbitre.objects.all()  # type: ignore
+    serializer_class = ArbitreSerializer
+
+
+class ArchivesList(generics.ListCreateAPIView):
+    """Read or create Archives."""
+
+    queryset = Archives.objects.all()  # type: ignore
+    serializer_class = ArchivesSerializer
+
+
+class ArchivesDetail(generics.RetrieveUpdateDestroyAPIView):
+    """Read, update or delete an Archives instance."""
+
+    queryset = Adherents.objects.all()  # type: ignore
+    serializer_class = AdherentsSerializer
+
+
+class CatalogueList(generics.ListAPIView):
+    """Read all Catalogue."""
+
+    queryset = Catalogue.objects.all()  # type: ignore
+    serializer_class = CatalogueSerializer
+
+
+class CatalogueDetail(generics.RetrieveAPIView):
+    """Read a Catalogue instance."""
+
+    queryset = Catalogue.objects.all()  # type: ignore
+    serializer_class = CatalogueSerializer
+
+
+class CategoriesList(generics.ListAPIView):
+    """Read all Categories."""
+
+    queryset = Categories.objects.all()  # type: ignore
+    serializer_class = CategoriesSerializer
+
+
+class CategoriesDetail(generics.RetrieveAPIView):
+    """Read a Categories instance."""
+
+    queryset = Categories.objects.all()  # type: ignore
+    serializer_class = CategoriesSerializer
+
+
+class CreneauxList(generics.ListCreateAPIView):
+    """Read or create Creneaux."""
+
+    queryset = Creneaux.objects.all()  # type: ignore
+    serializer_class = CreneauxSerializer
+
+
+class CreneauxDetail(generics.RetrieveAPIView):
+    """Read, update or destroy a Creneaux instance."""
+
+    queryset = Creneaux.objects.all()  # type: ignore
+    serializer_class = CreneauxSerializer
+
+
+class DocumentsList(generics.ListCreateAPIView):
+    """Read or create Documents."""
+
+    queryset = Documents.objects.all()  # type: ignore
+    serializer_class = DocumentsSerializer
+
+
+class DocumentsDetail(generics.RetrieveAPIView):
+    """Read, update or destroy an Documents instance."""
+
+    queryset = Documents.objects.all()  # type: ignore
+    serializer_class = DocumentsSerializer
 
 
 class EquipesList(generics.ListAPIView):
@@ -103,18 +209,32 @@ class EquipesDetail(generics.RetrieveAPIView):
     serializer_class = EquipesSerializer
 
 
-class EntraineList(generics.ListAPIView):
-    """Read all Entraine."""
+class EntraineList(generics.ListCreateAPIView):
+    """Read or create Entraine."""
 
     queryset = Entraine.objects.all()  # type: ignore
     serializer_class = EntraineSerializer
 
 
 class EntraineDetail(generics.RetrieveAPIView):
-    """Read an Entraine instance."""
+    """Read, update or destroy an Entraine instance."""
 
     queryset = Entraine.objects.all()  # type: ignore
     serializer_class = EntraineSerializer
+
+
+class EntrainementsList(generics.ListCreateAPIView):
+    """Read or create Entrainements."""
+
+    queryset = Entrainements.objects.all()  # type: ignore
+    serializer_class = EntrainementsSerializer
+
+
+class EntrainementsDetail(generics.RetrieveAPIView):
+    """Read, update or destroy an Entrainements instance."""
+
+    queryset = Entrainements.objects.all()  # type: ignore
+    serializer_class = EntrainementsSerializer
 
 
 @api_view(["GET"])
@@ -132,22 +252,10 @@ def entraineDetail(request, adherentId, format=None):
             entraine = Entraine.objects.filter(entraineur=adherentId)  # type: ignore
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = EntraineSerializer(entraine, context={"request": request}, many=True)
+        serializer = EntraineSerializer(
+            entraine, context={"request": request}, many=True
+        )
         return Response(serializer.data)
-
-
-class CategoriesList(generics.ListAPIView):
-    """Read all Categories."""
-
-    queryset = Categories.objects.all()  # type: ignore
-    serializer_class = CategoriesSerializer
-
-
-class CategoriesDetail(generics.RetrieveAPIView):
-    """Read a Categories instance."""
-
-    queryset = Categories.objects.all()  # type: ignore
-    serializer_class = CategoriesSerializer
 
 
 class PostesList(generics.ListAPIView):
@@ -164,22 +272,22 @@ class PostesDetail(generics.RetrieveAPIView):
     serializer_class = PostesSerializer
 
 
-class CourrielsList(generics.ListAPIView):
-    """Read all Courriels."""
+class CourrielsList(generics.ListCreateAPIView):
+    """Read or create Courriels."""
 
     queryset = Courriels.objects.all()  # type: ignore
     serializer_class = CourrielsSerializer
 
 
-class CourrielsDetail(generics.RetrieveAPIView):
-    """Read a Courriels instance."""
+class CourrielsDetail(generics.RetrieveUpdateDestroyAPIView):
+    """Read, update or destroy Courriels instance."""
 
     queryset = Courriels.objects.all()  # type: ignore
     serializer_class = CourrielsSerializer
 
 
 @api_view(["GET"])
-def courrielsDetail(request, contactId, format=None):
+def courrielsByContactId(request, contactId, format=None):
     """Read courriels (by contactId).
 
     Args:
@@ -194,19 +302,21 @@ def courrielsDetail(request, contactId, format=None):
             print(len(courriel))
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = CourrielsSerializer(courriel, context={"request": request}, many=True)
+        serializer = CourrielsSerializer(
+            courriel, context={"request": request}, many=True
+        )
         return Response(serializer.data)
 
 
-class TelephonesList(generics.ListAPIView):
-    """Read all Telephones."""
+class TelephonesList(generics.ListCreateAPIView):
+    """Read or create Telephones."""
 
     queryset = Telephones.objects.all()  # type: ignore
     serializer_class = TelephonesSerializer
 
 
-class TelephonesDetail(generics.RetrieveAPIView):
-    """Read a Telephones instance."""
+class TelephonesDetail(generics.RetrieveUpdateDestroyAPIView):
+    """Read, update or delete Telephones instance."""
 
     queryset = Telephones.objects.all()  # type: ignore
     serializer_class = TelephonesSerializer
@@ -231,23 +341,23 @@ def telephonesDetail(request, contactId, format=None):
         return Response(serializer.data)
 
 
-class ContactsList(generics.ListAPIView):
-    """Read all Contacts."""
+class ContactsList(generics.ListCreateAPIView):
+    """Read or create Contacts"""
 
     queryset = Contacts.objects.all()  # type: ignore
     serializer_class = ContactsSerializer
 
 
-class ContactsDetail(generics.RetrieveAPIView):
-    """Read a Contacts instance."""
+class ContactsDetail(generics.RetrieveUpdateDestroyAPIView):
+    """Read, update or delete a Contacts instance."""
 
     queryset = Contacts.objects.all()  # type: ignore
     serializer_class = ContactsSerializer
 
 
 @api_view(["GET"])
-def contactsDetail(request, adherentId, format=None):
-    """Read contacts (by adherentId).
+def contactsByAdherentId(request, adherentId, format=None):
+    """Read a Contacts instance (by adherentId).
 
     Args:
         request: The HTTP request.
@@ -262,3 +372,17 @@ def contactsDetail(request, adherentId, format=None):
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializer = ContactsSerializer(contact, context={"request": request})
         return Response(serializer.data)
+
+
+class MatchsList(generics.ListCreateAPIView):
+    """Read or create Matchs."""
+
+    queryset = Matchs.objects.all()  # type: ignore
+    serializer_class = MatchsSerializer
+
+
+class MatchsDetail(generics.RetrieveUpdateDestroyAPIView):
+    """Read, update or delete a Matchs instance."""
+
+    queryset = Matchs.objects.all()  # type: ignore
+    serializer_class = MatchsSerializer
