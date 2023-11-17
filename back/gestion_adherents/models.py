@@ -109,9 +109,9 @@ class Telephones(models.Model):
     contact = models.ForeignKey(
         Contacts, on_delete=models.CASCADE)
     telephone = models.CharField(max_length=255)
-    type = models.CharField(max_length=255)
-    remarque = models.CharField(max_length=255)
-    ordre = models.IntegerField()
+    type = models.CharField(max_length=255, null=True)
+    remarque = models.CharField(max_length=255, null=True)
+    ordre = models.IntegerField(null=True)
 
 
 class Documents(models.Model):
