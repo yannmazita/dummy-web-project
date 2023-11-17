@@ -140,6 +140,7 @@
     const adherent = ref(props.adherent);
 
     const formatFormData = function(fields){
+        let removedData = [];
         if (fields.equipe == 'null'){
             fields.equipe = false;
         }
@@ -147,12 +148,22 @@
             fields.equipe = true;
         }
         fields.entraineur = fields.equipe;
+
+        removedData.push(fields.equipe);
+        removedData.push(fields.courriel);
+        removedData.push(fields.telephone);
         delete fields.equipe;
+        delete fields.courriel;
+        delete fields.telephone;
+
+        return removedData;
     }
 
+
     async function submitForm(fields){
+        const removedFields = formatFormData(fields);
         formatFormData(fields);
-        console.log(fields);
+        console.log(equipeId);
 
         if (adherent.value === undefined || adherent.value === null){
             try {
