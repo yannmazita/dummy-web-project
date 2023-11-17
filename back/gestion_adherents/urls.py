@@ -8,7 +8,7 @@ urlpatterns = [
     path(
         "adherents/<int:pk>/", views.AdherentsDetail.as_view(), name="adherents-detail"
     ),
-    path("adherents/no_licence=<int:licenceNumber>/", views.adherentsByLicense),
+    path("adherents/no_licence=<int:licenseNumber>/", views.adherentsByLicense),
     path("arbitre/", views.ArbitreList.as_view(), name="arbitre-list"),
     path("arbitre/<int:pk>", views.ArbitreDetail.as_view(), name="arbitre-detail"),
     path("archives/", views.ArchivesList.as_view(), name="archives-list"),
