@@ -173,6 +173,6 @@ class Entrainements(models.Model):
     equipe = models.ForeignKey(
         Equipes, on_delete=models.CASCADE)
     entraineur = models.ForeignKey(
-        Adherents, on_delete=models.CASCADE)
+        Entraine, on_delete=models.CASCADE)
     creneau = models.ForeignKey(
         Creneaux, on_delete=models.CASCADE)
