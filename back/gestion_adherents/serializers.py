@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import (
     Adherents,
     Arbitre,
+    Archives,
     Catalogue,
     Categories,
     Contacts,
@@ -82,7 +83,7 @@ class ArchivesSerializer(serializers.HyperlinkedModelSerializer):
     validateur = serializers.PrimaryKeyRelatedField(queryset=Adherents.objects.all())  # type: ignore
 
     class Meta:
-        model = Entraine
+        model = Archives
         fields = [
             "url",
             "id",
@@ -276,7 +277,7 @@ class CreneauxSerializer(serializers.HyperlinkedModelSerializer):
 
 class MatchsSerializer(serializers.HyperlinkedModelSerializer):
     equipe_a = serializers.PrimaryKeyRelatedField(queryset=Equipes.objects.all())  # type: ignore
-    creneau = serializerj.PrimaryKeyRelatedField(queryset=Creneaux.objects.all())  # type: ignore
+    creneau = serializers.PrimaryKeyRelatedField(queryset=Creneaux.objects.all())  # type: ignore
     # nom_equipe_b may need to relate to the nom column in Equipes, however it isn't a primary key
 
     class Meta:
@@ -284,7 +285,7 @@ class MatchsSerializer(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
-            "equipa_a",
+            "equipe_a",
             "creneau",
             "score_a",
             "score_b",
