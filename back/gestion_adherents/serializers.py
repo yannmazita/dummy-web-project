@@ -272,3 +272,22 @@ class CreneauxSerializer(serializers.HyperlinkedModelSerializer):
             "debut",
             "fin",
         ]
+
+
+class MatchsSerializer(serializers.HyperlinkedModelSerializer):
+    equipe_a = serializers.PrimaryKeyRelatedField(queryset=Equipes.objects.all())  # type: ignore
+    creneau = serializerj.PrimaryKeyRelatedField(queryset=Creneaux.objects.all())  # type: ignore
+    # nom_equipe_b may need to relate to the nom column in Equipes, however it isn't a primary key
+
+    class Meta:
+        model = Matchs
+        fields = [
+            "url",
+            "id",
+            "equipa_a",
+            "creneau",
+            "score_a",
+            "score_b",
+            "duree",
+            "nom_equipe_b",
+        ]
