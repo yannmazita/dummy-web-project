@@ -252,9 +252,7 @@
         const id = adherent.value.id;
         const contact = await getContactByAdherentID(id);
         const telephones = await getTelephonesByContactID(contact.id);
-        console.log(telephones);
         const courriels = await getCourrielsByContactID(contact.id);
-        console.log(courriels);
         getNode('no_licence').input(adherent.value.no_licence);
         getNode('nom').input(adherent.value.nom);
         getNode('prenom').input(adherent.value.prenom);
@@ -301,7 +299,6 @@
 
             try {
                 adherentsResponse = await axios.post('http://localhost:8000/api/adherents/', fields);
-                console.log(adherentsResponse);
             }
             catch (error) {
                 console.log(error);
@@ -315,7 +312,6 @@
                 }
 
                 contactsResponse = await axios.post('http://localhost:8000/api/contacts/', data);
-                console.log(contactsResponse);
             }
             catch (error) {
                 console.log(error);
@@ -348,7 +344,6 @@
         else{
             try {
                 await axios.put(`http://localhost:8000/api/adherents/${adherent.value.id}/`, fields);
-                console.log(fields);
             }
             catch (error) {
                 console.log(error);
