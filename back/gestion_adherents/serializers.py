@@ -235,6 +235,7 @@ class TelephonesSerializer(serializers.HyperlinkedModelSerializer):
             "url",
             "id",
             "contact",
+            "telephone",
             "type",
             "remarque",
             "ordre",
