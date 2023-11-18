@@ -62,7 +62,8 @@
                     id="telephone"
                     label="Numéro de téléphone"
                     help="Le numéro de téléphone du licencié."
-                    validation="required|matches:/^0[1-9]-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}$/"
+                    placeholder="0123456789"
+                    validation="required|matches:/^0[1-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$/"
                 />
                 <FormKit
                     type="select"
