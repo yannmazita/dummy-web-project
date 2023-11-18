@@ -323,7 +323,7 @@ class TelephonesDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 @api_view(["GET"])
-def telephonesDetail(request, contactId, format=None):
+def telephonesByContactId(request, contactId, format=None):
     """Read a Telephones instance (by contactId).
 
     Args:

@@ -34,23 +34,31 @@ urlpatterns = [
     path("creneaux/", views.CreneauxList.as_view(), name="creneaux-list"),
     path("creneaux/<int:pk>", views.CreneauxDetail.as_view(), name="creneaux-detail"),
     path("documents/", views.DocumentsList.as_view(), name="documents-list"),
-    path("documents/<int:pk>", views.DocumentsDetail.as_view(), name="documents-detail"),
+    path(
+        "documents/<int:pk>", views.DocumentsDetail.as_view(), name="documents-detail"
+    ),
     path("entraine/", views.EntraineList.as_view(), name="entraine-list"),
     path("entraine/<int:pk>", views.EntraineDetail.as_view(), name="entraine-detail"),
     path("entraine/adherent_id=<int:adherentId>", views.entraineDetail),
-    path("entrainements/", views.EntrainementsList.as_view(), name="entrainements-list"),
-    path("entrainements/<int:pk>", views.EntraineDetail.as_view(), name="entrainements-detail"),
+    path(
+        "entrainements/", views.EntrainementsList.as_view(), name="entrainements-list"
+    ),
+    path(
+        "entrainements/<int:pk>",
+        views.EntraineDetail.as_view(),
+        name="entrainements-detail",
+    ),
     path("equipes/", views.EquipesList.as_view(), name="equipes-list"),
     path("equipes/<int:pk>", views.EquipesDetail.as_view(), name="equipes-detail"),
     path("postes/", views.PostesList.as_view(), name="postes-list"),
     path("postes/<int:pk>", views.PostesDetail.as_view(), name="postes-detail"),
     path("telephones/", views.TelephonesList.as_view(), name="telephones-list"),
     path(
-        "telephones/<int:id>",
+        "telephones/<int:pk>",
         views.TelephonesDetail.as_view(),
         name="telephones-detail",
     ),
-    path("telephones/contact_id=<int:contactId>", views.telephonesDetail),
+    path("telephones/contact_id=<int:contactId>", views.telephonesByContactId),
     path("matchs/", views.MatchsList.as_view(), name="matchs-list"),
     path("matchs/<int:pk>", views.MatchsDetail.as_view(), name="matchs-detail"),
 ]
