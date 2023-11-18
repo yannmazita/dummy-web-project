@@ -323,7 +323,7 @@ class TelephonesDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 @api_view(["GET"])
-def telephonesDetail(request, contactId, format=None):
+def telephonesByContactId(request, contactId, format=None):
     """Read a Telephones instance (by contactId).
 
     Args:
@@ -337,7 +337,7 @@ def telephonesDetail(request, contactId, format=None):
             telephone = Telephones.objects.filter(contact=contactId)  # type: ignore
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = TelephonesSerializer(telephone, context={"request": request})
+        serializer = TelephonesSerializer(telephone, context={"request": request}, many=True)
         return Response(serializer.data)
 
 

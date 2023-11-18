@@ -62,7 +62,8 @@
                     id="telephone"
                     label="Numéro de téléphone"
                     help="Le numéro de téléphone du licencié."
-                    validation="required|matches:/^0[1-9]-[0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2}$/"
+                    placeholder="0123456789"
+                    validation="required|matches:/^0[1-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$/"
                 />
                 <FormKit
                     type="select"
@@ -140,6 +141,7 @@
     const adherent = ref(props.adherent);
 
     const formatFormData = function(fields){
+        let removedData = {};
         if (fields.equipe == 'null'){
             fields.equipe = false;
         }
@@ -147,32 +149,17 @@
             fields.equipe = true;
         }
         fields.entraineur = fields.equipe;
+
+        removedData.equipe = fields.equipe;
+        removedData.courriel = fields.courriel;
+        removedData.telephone = fields.telephone;
         delete fields.equipe;
+        delete fields.courriel;
+        delete fields.telephone;
+
+        return removedData;
     }
 
-    async function submitForm(fields){
-        formatFormData(fields);
-        console.log(fields);
-
-        if (adherent.value === undefined || adherent.value === null){
-            try {
-                await axios.post('http://localhost:8000/api/adherents/', fields);
-                console.log(fields);
-            }
-            catch (error) {
-                console.log(error);
-            }
-        }
-        else{
-            try {
-                await axios.put(`http://localhost:8000/api/adherents/${adherent.value.id}/`, fields);
-                console.log(fields);
-            }
-            catch (error) {
-                console.log(error);
-            }
-        }
-    }
 
     async function getCategories(){
         try {
@@ -193,25 +180,39 @@
             console.log(error);
         }
     }
-    /*
-    async function getCategorieByID(id){
+
+    async function getContactByAdherentID(id){
         try{
-            const response = await axios.get(`http://localhost:8000/api/categories/${id}.json`);
+            const response = await axios.get(`http://localhost:8000/api/contacts/adherent_id=${id}.json`);
             const data = response.data;
-            const field = {
-                label: `${data.categorie} ${(data.description == null) ? '' : data.description}`,
-                value: `${data.id}`,
-                attrs: {
-                    selected: true,
-                },
-            }
-            return field;
+            return data;
         }
         catch (error){
             console.log(error);
         }
     }
-    */
+
+    async function getTelephonesByContactID(id){
+        try{
+            const response = await axios.get(`http://localhost:8000/api/telephones/contact_id=${id}.json`);
+            const data = response.data;
+            return data;
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
+
+    async function getCourrielsByContactID(id){
+        try{
+            const response = await axios.get(`http://localhost:8000/api/courriels/contact_id=${id}.json`);
+            const data = response.data;
+            return data;
+        }
+        catch (error){
+            console.log(error);
+        }
+    }
 
     async function getEquipes(){
         try {
@@ -227,40 +228,6 @@
             console.log(error);
         }
     }
-    /*
-    async function getEquipeByID(id){
-        try{
-            const response = await axios.get(`http://localhost:8000/api/equipes/${id}.json`);
-            const data = response.data;
-            const field = {
-                label: `${data.nom}`,
-                value: `${data.id}`,
-            };
-            return field;
-        }
-        catch (error){
-            console.log(error);
-        }
-    }
-    async function getEntraineByAdherentID(id){
-        try{
-            const response = await axios.get(`http://localhost:8000/api/entraine/adherent_id=${id}.json`);
-            const data = response.data;
-            const equipeId = data.equipeId;
-            const field = getEquipeByID(equipeId);
-            return field;
-        }
-        catch (error){
-            console.log(error);
-            const field = {
-                label: 'Pas d\'équipe entrainée',
-                value: null,
-            };
-            return field;
-        }
-    }
-    */
-    
 
     async function getPostes(){
         const postes = [ {label: 'Pas de poste de dirigeant', value: 'null'} ];
@@ -280,39 +247,19 @@
             return postes;
         }
     }
-    /*
-    async function getPosteByID(id){
-        if (id === null){
-            const field = {
-                label: 'Pas de poste de dirigeant',
-                value: null,
-            };
-            return field;
-        }
-        try{
-            const response = await axios.get(`http://localhost:8000/api/postes/${id}.json`);
-            const data = response.data;
-            const field = {
-                label: `${data.designation} (${data.description})`,
-                value: `${data.id}`,
-            };
-            return field;
-        }
-        catch (error){
-            console.log(error);
-        }
-    }
-    */
 
     async function getFormDataFromAdherent(){
-        //const id = adherent.value.id;
+        const id = adherent.value.id;
+        const contact = await getContactByAdherentID(id);
+        const telephones = await getTelephonesByContactID(contact.id);
+        const courriels = await getCourrielsByContactID(contact.id);
         getNode('no_licence').input(adherent.value.no_licence);
         getNode('nom').input(adherent.value.nom);
         getNode('prenom').input(adherent.value.prenom);
         getNode('date_naissance').input(adherent.value.date_naissance);
         getNode('genre').input(adherent.value.genre);
-        getNode('courriel').input(adherent.value.courriel);
-        getNode('telephone').input(adherent.value.telephone);
+        getNode('courriel').input(courriels[0].courriel);        // only considering the first email address
+        getNode('telephone').input(telephones[0].telephone);      // only considering the first telephone number
         //const categorieId = adherent.value.categorie_id;
         //await getNode('categorie').input(getCategorieByID(categorieId));
         getNode('surclassement').input(adherent.value.surclassement);
@@ -325,7 +272,7 @@
         // Failed to manage to change the input of select forms.
     }
 
-    onMounted(async function() {
+    async function populateDropdownForms(){
         try {
             const categories = await getCategories();
             const equipes = await getEquipes();
@@ -340,6 +287,73 @@
         catch (error) {
             console.log(error);
         }
+    }
+
+    async function submitForm(fields){
+        const removedFields = formatFormData(fields);
+        //const contact = getContactByAdherentID(fields);
+
+        if (adherent.value === undefined || adherent.value === null){
+            let adherentsResponse = null;
+            let contactsResponse = null;
+
+            try {
+                adherentsResponse = await axios.post('http://localhost:8000/api/adherents/', fields);
+            }
+            catch (error) {
+                console.log(error);
+            }
+
+            try {
+                const data = {
+                    adherent: adherentsResponse.data.id,
+                    nom: adherentsResponse.data.nom,
+                    prenom: adherentsResponse.data.prenom,
+                }
+
+                contactsResponse = await axios.post('http://localhost:8000/api/contacts/', data);
+            }
+            catch (error) {
+                console.log(error);
+            }
+
+            try {
+                const data = {
+                    contact: contactsResponse.data.id,
+                    courriel: removedFields.courriel,
+                }
+
+                await axios.post('http://localhost:8000/api/courriels/', data);
+            }
+            catch (error) {
+                console.log(error);
+            }
+
+            try {
+                const data = {
+                    contact: contactsResponse.data.id,
+                    telephone: removedFields.telephone,
+                }
+
+                await axios.post('http://localhost:8000/api/telephones/', data);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+        else{
+            try {
+                await axios.put(`http://localhost:8000/api/adherents/${adherent.value.id}/`, fields);
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
+    }
+
+
+    onMounted(async function() {
+        await populateDropdownForms();
         if (adherent.value != null && adherent.value != undefined){
             getFormDataFromAdherent();
         }
