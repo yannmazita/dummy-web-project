@@ -4,8 +4,10 @@
         :isAdherentReadyForDeletion=isAdherentReadyForDeletion
     />
     <AdherentDeletion
+        @deleteModalChoice="(payload) => {if(payload){deleteAdherentByLicenseNumber(adherent.no_licence);}}" 
         :adherent=adherent
         :adherentLoaded=isAdherentReadyForDeletion
+        :adherentDeleted=adherentDeleted
     />
 </template>
 
@@ -17,6 +19,7 @@
 
     let adherent = ref({});
     let isAdherentReadyForDeletion = ref(false);
+    let adherentDeleted = ref(false);
 
     async function getAdherentByLicenseNumber(licenseNumber){
         try {
@@ -27,7 +30,18 @@
         catch (error){
             console.log(error);
             isAdherentReadyForDeletion.value = false;
-            control = false;
+        }
+    }
+    async function deleteAdherentByLicenseNumber(licenseNumber){
+        try {
+            const response = await axios.delete(`http://localhost:8000/api/adherents/no_licence=${licenseNumber}`);
+            adherentDeleted = true;
+            adherent = ref({});
+        }
+        catch (error){
+            adherentDeleted = false;
+            adherent = ref({});
+            console.log(error);
         }
     }
 </script>
