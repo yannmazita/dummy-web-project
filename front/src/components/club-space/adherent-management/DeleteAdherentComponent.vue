@@ -1,11 +1,13 @@
 <template>
     <AdherentLicenceNumber
-        @licenseNumberEntered="(payload) => {getAdherentFromLicenseNumber(payload);}"
-        :isAdherentLoaded=isAdherentLoaded
+        @licenseNumberEntered="(payload) => {getAdherentByLicenseNumber(payload);}"
         :isAdherentReadyForDeletion=isAdherentReadyForDeletion
     />
     <AdherentDeletion
+        @deleteModalChoice="(payload) => {if(payload){deleteAdherentByLicenseNumber(adherent.no_licence);}}" 
         :adherent=adherent
+        :adherentLoaded=isAdherentReadyForDeletion
+        :adherentDeleted=adherentDeleted
     />
 </template>
 
@@ -15,17 +17,14 @@
     import axios from 'axios'
     import { ref, watch } from 'vue'
 
-    const adherent = ref({});
-    let isAdherentLoaded = ref(false);
+    let adherent = ref({});
     let isAdherentReadyForDeletion = ref(false);
-    const currentComponent = ref("AdherentLicenceNumber");
+    let adherentDeleted = ref(false);
 
-
-    async function getAdherentFromLicenseNumber(licenseNumber){
+    async function getAdherentByLicenseNumber(licenseNumber){
         try {
             const response = await axios.get(`http://localhost:8000/api/adherents/no_licence=${licenseNumber}`);
             adherent.value = response.data;
-
             isAdherentReadyForDeletion.value = true;
         }
         catch (error){
@@ -33,13 +32,16 @@
             isAdherentReadyForDeletion.value = false;
         }
     }
-
-    watch(isAdherentLoaded, (newIsAdherentLoaded) =>{
-        if (newIsAdherentLoaded){
-            currentComponent.value = "AdherentDeletion";
+    async function deleteAdherentByLicenseNumber(licenseNumber){
+        try {
+            const response = await axios.delete(`http://localhost:8000/api/adherents/no_licence=${licenseNumber}`);
+            adherentDeleted = true;
+            adherent = ref({});
         }
-        else{
-            currentComponent.value = "AdherentLicenceNumber";
+        catch (error){
+            adherentDeleted = false;
+            adherent = ref({});
+            console.log(error);
         }
-    })
+    }
 </script>
