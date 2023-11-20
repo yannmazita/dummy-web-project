@@ -248,17 +248,6 @@
         }
     }
 
-    async function getPosteByID(id){
-        try{
-            const response = await axios.get(`http://localhost:8000/api/postes/${id}.json`);
-            const data = response.data;
-            return data;
-        }
-        catch (error){
-            console.log(error);
-        }
-    }
-
     async function getFormDataFromAdherent(){
         const id = adherent.value.id;
         const contact = await getContactByAdherentID(id);
@@ -271,11 +260,13 @@
         getNode('genre').input(adherent.value.genre);
         getNode('courriel').input(courriels[0].courriel);        // only considering the first email address
         getNode('telephone').input(telephones[0].telephone);      // only considering the first telephone number
-        getNode('categorie').input(adherent.value.categorie);
+        //const categorieId = adherent.value.categorie_id;
+        //await getNode('categorie').input(getCategorieByID(categorieId));
         getNode('surclassement').input(adherent.value.surclassement);
         getNode('arbitre').input(adherent.value.arbitre);
         //await getNode('equipe').input(getEntraineByAdherentID(id));
-        getNode('poste').input(adherent.value.poste);
+        //const posteId = adherent.value.poste_id;
+        //await getNode('poste').input(getPosteByID(posteId));
         getNode('habilitation').input(adherent.value.habilitation);
 
         // Failed to manage to change the input of select forms.
