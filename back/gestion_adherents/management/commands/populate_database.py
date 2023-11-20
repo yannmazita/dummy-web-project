@@ -831,7 +831,7 @@ def ajouterMatchs():
     for item in data:
         match = Matchs(
             id=item[0],
-            id_equipe_a=item[1],
+            equipe_a=noneReplace(Equipes, item[1]),
             creneau=noneReplace(Creneaux, item[2]),
             score_a=item[3],
             score_b=item[4],
