@@ -61,5 +61,5 @@
     import agendaImageUrl from '@/assets/images/home-page/agenda_image.jpg'
     import inscriptionImageUrl from '@/assets/images/home-page/inscription_image.jpg'
     import contactImageUrl from '@/assets/images/home-page/contact_image.jpg'
-    import boutiqueImageUrl from '@/assets/images/home-page/boutique_image.jpeg'
+    import boutiqueImageUrl from '@/assets/images/home-page/boutique_image.jpg'
 </script>
