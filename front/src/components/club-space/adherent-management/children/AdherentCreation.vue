@@ -148,6 +148,9 @@
         else {
             fields.equipe = true;
         }
+        if (fields.poste == 'null'){
+            delete fields.poste;
+        }
         fields.entraineur = fields.equipe;
 
         removedData.equipe = fields.equipe;
@@ -228,6 +231,30 @@
             console.log(error);
         }
     }
+    async function getEquipesByAdherentID(id){
+       let entraineData = [];
+       let equipeData = [];
+        try{
+            const entraineResponse = await axios.get(`http://localhost:8000/api/entraine/adherent_id=${id}.json`);
+            entraineData = entraineResponse.data;
+        }
+        catch (error){
+            console.log(error);
+        }
+        try{
+            for (let currentEntraineData of entraineData){
+                const response = await axios.get(`http://localhost:8000/api/equipes/adherent_id=${id}.json`);
+                equipeData.push(response.data);
+            }
+        }
+        catch (error){
+            console.log(error);
+        }
+        if (equipeData.length === 0){
+            equipeData.push({id: 'null'});
+        }
+        return equipeData;
+    }
 
     async function getPostes(){
         const postes = [ {label: 'Pas de poste de dirigeant', value: 'null'} ];
@@ -253,15 +280,18 @@
         const contact = await getContactByAdherentID(id);
         const telephones = await getTelephonesByContactID(contact.id);
         const courriels = await getCourrielsByContactID(contact.id);
+        const equipes = await getEquipesByAdherentID(id);
+        console.log(equipes);
         getNode('no_licence').input(adherent.value.no_licence);
         getNode('nom').input(adherent.value.nom);
         getNode('prenom').input(adherent.value.prenom);
         getNode('date_naissance').input(adherent.value.date_naissance);
         getNode('genre').input(adherent.value.genre);
-        getNode('courriel').input(courriels[0].courriel);        // only considering the first email address
-        getNode('telephone').input(telephones[0].telephone);      // only considering the first telephone number
+        getNode('courriel').input(courriels[0].courriel);           // only considering the first email address
+        getNode('telephone').input(telephones[0].telephone);        // only considering the first telephone number
         getNode('categorie').input(adherent.value.categorie);
         getNode('surclassement').input(adherent.value.surclassement);
+        getNode('equipe').input(equipes[0].id);                     // only considering the first equipe
         getNode('arbitre').input(adherent.value.arbitre);
         getNode('poste').input(adherent.value.poste);
         getNode('habilitation').input(adherent.value.habilitation);
