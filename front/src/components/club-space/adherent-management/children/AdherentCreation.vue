@@ -260,15 +260,23 @@
     }
 
     async function getPostes(){
-        const postes = [ {label: 'Pas de poste de dirigeant', value: 'null'} ];
+        const postes = [];
         try {
             const response = await axios.get('http://localhost:8000/api/postes.json/');
             const data = response.data;
             for (let item of data){
-                postes.push({
-                    label: `${item.designation} (${item.description})`,
-                    value: `${item.id}`
-                },);
+                if (item.description == null){
+                    postes.push({
+                        label: `${item.designation}`,
+                        value: `${item.id}`
+                    });
+                }
+                else {
+                    postes.push({
+                        label: `${item.designation} (${item.description})`,
+                        value: `${item.id}`
+                    });
+                }
             }
             return postes;
         }
