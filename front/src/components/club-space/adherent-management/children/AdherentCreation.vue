@@ -192,6 +192,7 @@
         }
         catch (error){
             console.log(error);
+            return {};
         }
     }
 
@@ -203,6 +204,7 @@
         }
         catch (error){
             console.log(error);
+            return [{telephone: null}];
         }
     }
 
@@ -214,6 +216,7 @@
         }
         catch (error){
             console.log(error);
+            return [{courriel: null}];
         }
     }
 
