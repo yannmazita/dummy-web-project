@@ -23,7 +23,7 @@ class Equipes(models.Model):
 
 class Postes(models.Model):
     designation = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, null=True)
 
 
 class Adherents(models.Model):
@@ -40,7 +40,7 @@ class Adherents(models.Model):
     categorie = models.ForeignKey(
         Categories, on_delete=models.CASCADE)
     poste = models.ForeignKey(
-        Postes, on_delete=models.CASCADE, null=True)
+        Postes, on_delete=models.CASCADE)
     login = models.CharField(max_length=255, null=True)
     mdp = models.CharField(max_length=255, null=True)
     nom = models.CharField(max_length=255)
