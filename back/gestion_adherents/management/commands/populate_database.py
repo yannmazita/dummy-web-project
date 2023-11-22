@@ -133,6 +133,7 @@ def ajouterEquipes():
 
 def ajouterPostes():
     data = [
+        (0, "Pas de poste de dirigeant", None),
         (1, "Président(e)", "Le chef"),
         (2, "Secrétaire", "Ben un poste de secrétaire quoi ..."),
         (3, "Comptable", "Le chef"),
@@ -151,7 +152,7 @@ def ajouterAdherents():
         (
             1,
             1,
-            None,
+            0,
             "azlouni.sirine",
             "123",
             "AZLOUNI",
@@ -167,7 +168,7 @@ def ajouterAdherents():
         (
             2,
             1,
-            None,
+            0,
             "delmotte.camille",
             "123",
             "DELMOTTE",
@@ -183,7 +184,7 @@ def ajouterAdherents():
         (
             3,
             1,
-            None,
+            0,
             "guers.louna",
             "123",
             "GUERS",
@@ -199,7 +200,7 @@ def ajouterAdherents():
         (
             4,
             1,
-            None,
+            0,
             "journade.mathieu",
             "123",
             "JOURNADE",
@@ -215,7 +216,7 @@ def ajouterAdherents():
         (
             5,
             1,
-            None,
+            0,
             "legal.camille",
             "123",
             "LEGAL",
@@ -231,7 +232,7 @@ def ajouterAdherents():
         (
             6,
             2,
-            None,
+            0,
             "lemetayer.gaetane",
             "123",
             "LEMETAYER",
@@ -247,7 +248,7 @@ def ajouterAdherents():
         (
             7,
             2,
-            None,
+            0,
             "vigier.maxens",
             "123",
             "VIGIER",
@@ -263,7 +264,7 @@ def ajouterAdherents():
         (
             8,
             2,
-            None,
+            0,
             "virgili.margaux",
             "123",
             "VIRGILI",
@@ -279,7 +280,7 @@ def ajouterAdherents():
         (
             0,
             3,
-            None,
+            0,
             "test",
             "test",
             "admin",
