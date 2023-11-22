@@ -10,7 +10,7 @@
 
     async function getCreneaux(){
         try {
-            const response = await axios.get('http://localhoast:8000/api/creneaux.json')
+            const response = await axios.get('http://localhost:8000/api/creneaux.json')
             const data = response.data;
             return data;
         }
