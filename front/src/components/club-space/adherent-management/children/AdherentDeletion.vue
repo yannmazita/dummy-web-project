@@ -11,6 +11,11 @@
             </div>
         </div>
     </dialog>
+    <div v-if="control" class="toast toast-end">
+        <div class="alert alert-success">
+            <span>Message sent successfully.</span>
+        </div>
+    </div>
 </template>
 
 <script setup>
@@ -20,6 +25,7 @@
         adherentLoaded:Boolean,
         adherentDeleted:Boolean,
     })
+    let control = ref(false);
     let nom = ref("");
     let prenom = ref("");
     let dateOfBirth = ref("");
@@ -32,5 +38,10 @@
             dateOfBirth = newProps.adherent.date_naissance;
             deletionModal.showModal();
         }
+        if (newProps.adherentDeleted === true){
+            control = true;
+            console.log(control);
+        }
+        console.log(`adherentDeleted value in newProps ${newProps.adherentDeleted}`);
     })
 </script>
