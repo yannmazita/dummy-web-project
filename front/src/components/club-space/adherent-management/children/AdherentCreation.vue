@@ -292,7 +292,6 @@
         const telephones = await getTelephonesByContactID(contact.id);
         const courriels = await getCourrielsByContactID(contact.id);
         const equipes = await getEquipesByAdherentID(id);
-        console.log(equipes);
         getNode('no_licence').input(adherent.value.no_licence);
         getNode('nom').input(adherent.value.nom);
         getNode('prenom').input(adherent.value.prenom);
