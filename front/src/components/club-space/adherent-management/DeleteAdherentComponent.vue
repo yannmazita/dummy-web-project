@@ -40,7 +40,7 @@
     }
     async function deleteAdherentByLicenseNumber(licenseNumber){
         try {
-            //await axios.delete(`http://localhost:8000/api/adherents/no_licence=${licenseNumber}`);
+            await axios.delete(`http://localhost:8000/api/adherents/no_licence=${licenseNumber}`);
             adherent = ref({});
             toastControl.value = true;
             toastMessage.value = 'Adhérent supprimé';
