@@ -11,11 +11,6 @@
             </div>
         </div>
     </dialog>
-    <div v-if="control" class="toast toast-center toast-bottom sm:toast-end sm:toast-middle">
-        <div class="alert alert-success">
-            <span>Adhérent supprimé !</span>
-        </div>
-    </div>
 </template>
 
 <script setup>
@@ -23,7 +18,6 @@
     const props = defineProps({
         adherent:Object,
         adherentLoaded:Boolean,
-        adherentDeleted:Boolean,
     })
     let control = ref(false);
     let nom = ref("");
@@ -37,9 +31,6 @@
             prenom = newProps.adherent.prenom;
             dateOfBirth = newProps.adherent.date_naissance;
             deletionModal.showModal();
-        }
-        if (newProps.adherentDeleted === true){
-            control = true;
         }
     })
 </script>
