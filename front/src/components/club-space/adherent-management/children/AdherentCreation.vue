@@ -335,11 +335,11 @@
 
             try {
                 adherentsResponse = await axios.post('http://localhost:8000/api/adherents/', fields);
-                emit('adherentCreated', true);
+                //emit('adherentCreated', true);
             }
             catch (error) {
                 console.log(error);
-                emit('adherentCreated', false);
+                //emit('adherentCreated', false);
             }
 
             try {
@@ -382,11 +382,11 @@
         else{
             try {
                 await axios.put(`http://localhost:8000/api/adherents/${adherent.value.id}/`, fields);
-                emit('adherentUpdated', true);
+                //emit('adherentUpdated', true);
             }
             catch (error) {
                 console.log(error);
-                emit('adherentUpdated', false);
+                //emit('adherentUpdated', false);
             }
         }
     }
