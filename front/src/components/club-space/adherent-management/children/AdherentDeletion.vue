@@ -13,7 +13,7 @@
     </dialog>
     <div v-if="control" class="toast toast-end">
         <div class="alert alert-success">
-            <span>Message sent successfully.</span>
+            <span>Adhérent supprimé !</span>
         </div>
     </div>
 </template>
