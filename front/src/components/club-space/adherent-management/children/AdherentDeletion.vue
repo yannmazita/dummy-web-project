@@ -11,11 +11,6 @@
             </div>
         </div>
     </dialog>
-    <div v-if="control" class="toast toast-end">
-        <div class="alert alert-success">
-            <span>Adhérent supprimé !</span>
-        </div>
-    </div>
 </template>
 
 <script setup>
@@ -23,7 +18,6 @@
     const props = defineProps({
         adherent:Object,
         adherentLoaded:Boolean,
-        adherentDeleted:Boolean,
     })
     let control = ref(false);
     let nom = ref("");
@@ -32,16 +26,11 @@
     const emit = defineEmits(['deleteModalChoice'])
 
     watch(props, (newProps) =>{
-        if (newProps !== null){
+        if (newProps.adherent !== null){
             nom = newProps.adherent.nom;
             prenom = newProps.adherent.prenom;
             dateOfBirth = newProps.adherent.date_naissance;
             deletionModal.showModal();
         }
-        if (newProps.adherentDeleted === true){
-            control = true;
-            console.log(control);
-        }
-        console.log(`adherentDeleted value in newProps ${newProps.adherentDeleted}`);
     })
 </script>
