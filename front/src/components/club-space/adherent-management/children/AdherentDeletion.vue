@@ -26,7 +26,7 @@
     const emit = defineEmits(['deleteModalChoice'])
 
     watch(props, (newProps) =>{
-        if (newProps !== null){
+        if (newProps.adherent !== null){
             nom = newProps.adherent.nom;
             prenom = newProps.adherent.prenom;
             dateOfBirth = newProps.adherent.date_naissance;
