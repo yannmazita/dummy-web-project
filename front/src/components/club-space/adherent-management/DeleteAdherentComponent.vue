@@ -35,10 +35,9 @@
     }
     async function deleteAdherentByLicenseNumber(licenseNumber){
         try {
-            //const response = await axios.delete(`http://localhost:8000/api/adherents/no_licence=${licenseNumber}`);
+            await axios.delete(`http://localhost:8000/api/adherents/no_licence=${licenseNumber}`);
             adherentDeleted.value = true;
             adherent = ref({});
-            console.log(`adherentDeleted value in deleteAdherentByLicenseNumber ${adherentDeleted}`);
         }
         catch (error){
             adherentDeleted.value = false;

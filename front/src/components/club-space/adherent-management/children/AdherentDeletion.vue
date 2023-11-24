@@ -11,7 +11,7 @@
             </div>
         </div>
     </dialog>
-    <div v-if="control" class="toast toast-end">
+    <div v-if="control" class="toast toast-center toast-bottom sm:toast-end sm:toast-middle">
         <div class="alert alert-success">
             <span>Adhérent supprimé !</span>
         </div>
@@ -40,8 +40,6 @@
         }
         if (newProps.adherentDeleted === true){
             control = true;
-            console.log(control);
         }
-        console.log(`adherentDeleted value in newProps ${newProps.adherentDeleted}`);
     })
 </script>
