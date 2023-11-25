@@ -7,13 +7,13 @@
     <div class="divider"></div>
     <section>
         <div class="flex justify-center">
-            <div class="carousel w-full sm:w-1/2">
+            <div class="carousel w-full sm:w-5/6 md:w-3/4 lg:w-3/5 xl:w-2/5 2xl:w-1/4">
                 <div id="slide1" class="carousel-item relative w-full">
                     <div class="grid w-full">
                         <router-link to="/agenda"><h2 class="flex justify-center">Agenda</h2></router-link>
                         <router-link to="/agenda"><img :src="agendaImageUrl" class="w-full" /></router-link>
                         <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                            <a href="#slide4" class="btn btn-circle">❮</a> 
+                            <a href="#slide5" class="btn btn-circle">❮</a> 
                             <a href="#slide2" class="btn btn-circle">❯</a>
                         </div>
                     </div>
@@ -44,6 +44,16 @@
                         <router-link to="/boutique"><img :src="boutiqueImageUrl" class="w-full" /></router-link>
                         <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                             <a href="#slide3" class="btn btn-circle">❮</a> 
+                            <a href="#slide5" class="btn btn-circle">❯</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="slide5" class="carousel-item relative w-full">
+                    <div class="grid w-full">
+                        <router-link to="/espace-club"><h2 class="flex justify-center">Espace club</h2></router-link>
+                        <router-link to="/espace-club"><img :src="espaceClubImageUrl" class="w-full" /></router-link>
+                        <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+                            <a href="#slide4" class="btn btn-circle">❮</a> 
                             <a href="#slide1" class="btn btn-circle">❯</a>
                         </div>
                     </div>
@@ -62,4 +72,5 @@
     import inscriptionImageUrl from '@/assets/images/home-page/inscription_image.jpg'
     import contactImageUrl from '@/assets/images/home-page/contact_image.jpg'
     import boutiqueImageUrl from '@/assets/images/home-page/boutique_image.jpg'
+    import espaceClubImageUrl from '@/assets/images/home-page/espace_club_image.jpg'
 </script>
