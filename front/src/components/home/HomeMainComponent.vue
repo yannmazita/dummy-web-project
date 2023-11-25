@@ -2,7 +2,19 @@
     <h1>Accueil</h1>
     <div class="divider"></div>
     <article>
-        <h1>Actualités</h1>
+        <h2>Actualités</h2>
+            <div class="flex justify-center">
+                <div class="card lg:card-side bg-base-100 shadow-xl w-full xl:w-5/6">
+                    <figure><img class="w-40" :src="actualiteImageUrl" alt="Image actualité"/></figure>
+                    <div class="card-body">
+                        <h2 class="card-title">Nouveau dui accumsan sit amet!</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <div class="card-actions justify-end">
+                            <button class="btn btn-primary">En savoir plus</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </article>
     <div class="divider"></div>
     <section>
@@ -73,4 +85,5 @@
     import contactImageUrl from '@/assets/images/home-page/contact_image.jpg'
     import boutiqueImageUrl from '@/assets/images/home-page/boutique_image.jpg'
     import espaceClubImageUrl from '@/assets/images/home-page/espace_club_image.jpg'
+    import actualiteImageUrl from '@/assets/images/home-page/une_actualite.jpg'
 </script>
