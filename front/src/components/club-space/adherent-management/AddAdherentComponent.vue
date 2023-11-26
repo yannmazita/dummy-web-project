@@ -1,9 +1,9 @@
 <template>
     <AdherentCreation
-    @adherentCreated="(payload) => {if(payload){toastMessage.value = 'Adhérent crée'};}"
-    @adherentUpdated="(payload) => {if(payload){toastMessage.value = 'Adhérent mis à jour'};}"
+        @adherentCreated="(payload) => {if(payload){toastMessage.value = 'Adhérent crée'};}"
+        @adherentUpdated="(payloadd) => {if(payloadd){console.log(payloadd)};}"
     />
-    <ToastComponent v-if="toastControl">{{ toastMessage }}</ToastComponent>
+    <ToastComponent v-if="toastControl.value">{{ toastMessage }}</ToastComponent>
 </template>
 
 <script setup>
@@ -16,7 +16,7 @@
     
     watch(toastMessage, () => {
         toastControl.value = true;
-        console.log(toastMessage);
+        //console.log(toastMessage);
     })
 </script>
 

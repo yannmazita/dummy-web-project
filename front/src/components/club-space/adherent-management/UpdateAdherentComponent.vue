@@ -1,6 +1,6 @@
 <template>
     <AdherentLicenceNumber
-        @licenseNumberEntered="(payload) => {getAdherentFromLicenseNumber(payload);}"
+        @licenseNumber="(payload) => {getAdherentFromLicenseNumber(payload);}"
         :isAdherentLoaded=isAdherentLoaded
         v-if="currentComponent=='AdherentLicenceNumber'"
     />
