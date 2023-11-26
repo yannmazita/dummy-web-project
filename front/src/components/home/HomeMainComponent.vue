@@ -62,8 +62,8 @@
                 </div>
                 <div id="slide5" class="carousel-item relative w-full">
                     <div class="grid w-full">
-                        <router-link to="/espace-club"><h2 class="flex justify-center link-hover">Espace club</h2></router-link>
-                        <router-link to="/espace-club"><img :src="espaceClubImageUrl" class="w-full" /></router-link>
+                        <router-link to="/espace-club/login"><h2 class="flex justify-center link-hover">Espace club</h2></router-link>
+                        <router-link to="/espace-club/login"><img :src="espaceClubImageUrl" class="w-full" /></router-link>
                         <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
                             <a href="#slide4" class="btn btn-circle">❮</a> 
                             <a href="#slide1" class="btn btn-circle">❯</a>
