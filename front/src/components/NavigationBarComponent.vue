@@ -12,7 +12,7 @@
           <li><router-link to="/contactez-nous">Contactez-nous</router-link></li>
           <li><router-link to="/boutique">Boutique</router-link></li>
         <li>
-            <router-link to="/espace-club">Accès espace club</router-link>
+            <router-link to="/espace-club/login">Accès espace club</router-link>
           <ul class="p-2">
               <li><router-link to="/espace-club/salles">Gestion des salles</router-link></li>
               <li><router-link to="/espace-club/arbitres">Gestion des arbitres</router-link></li>
@@ -36,7 +36,7 @@
         <details>
           <summary>Espace club</summary>
           <ul class="p-2">
-              <li tabindex="0"><router-link to="/espace-club">Accès espace club</router-link></li>
+              <li tabindex="0"><router-link to="/espace-club/login">Accès espace club</router-link></li>
               <li><router-link to="/espace-club/salles">Gestion des salles</router-link></li>
               <li><router-link to="/espace-club/arbitres">Gestion des arbitres</router-link></li>
               <li><router-link to="/espace-club/adherents">Gestion des adhérents</router-link></li>

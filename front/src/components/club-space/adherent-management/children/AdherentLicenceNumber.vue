@@ -32,8 +32,7 @@
 
     const getLicenseNumber = function(fields){
         licenseNumber = fields.no_licence;
-        emit('licenseNumberEntered', licenseNumber);
-        //licenseNumber.value!==-1?control.value=true:control.value=false;
+        emit('licenseNumber', licenseNumber);
     }
 
     watch(props, (newProps) =>{

@@ -16,6 +16,7 @@ import AdherentManagementMainComponent from './components/club-space/adherent-ma
 import FormationManagementMainComponent from './components/club-space/formation-management/FormationManagementMainComponent.vue'
 import RefereeManagementMainComponent from './components/club-space/referee-management/RefereeManagementMainComponent.vue'
 import RoomManagementMainComponent from './components/club-space/room-management/RoomManagementMainComponent.vue'
+import LoginComponent from '@/components/club-space/LoginComponent.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -27,8 +28,11 @@ const router = createRouter({
         { path: '/contactez-nous', component: ContactUsMainComponent },
         {
             path: '/espace-club',
-            component: ClubSpaceMainComponent,
             children: [
+                {
+                    path: 'login',
+                    component: LoginComponent,
+                },
                 {
                     path: 'adherents',
                     component: AdherentManagementMainComponent,
