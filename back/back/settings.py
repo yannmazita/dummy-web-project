@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-7!40%s(7#xv4lqpx(8t$_(b)ti5ggksezo0j267kf828u_--4^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -131,6 +131,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:8000",
     "http://localhost:8080",
+    "http://localhost:9000",
 ]
 
 # Django REST Framework
