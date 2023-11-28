@@ -1,6 +1,6 @@
 <template>
     <AdherentLicenceNumber
-        @licenseNumberEntered="(payload) => {getAdherentByLicenseNumber(payload);}"
+        @licenseNumber="(payload) => {getAdherentByLicenseNumber(payload);}"
         :isAdherentReadyForDeletion=isAdherentReadyForDeletion
     />
     <AdherentDeletion
@@ -30,6 +30,7 @@
             const response = await axios.get(`http://localhost:8000/api/adherents/no_licence=${licenseNumber}`);
             adherent.value = response.data;
             isAdherentReadyForDeletion.value = true;
+            console.log(adherent.value);
         }
         catch (error){
             console.log(error);
