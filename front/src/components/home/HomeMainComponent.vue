@@ -18,7 +18,7 @@
     </article>
     <div class="divider"></div>
     <section>
-        <div class="flex justify-center">
+        <div class="flex justify-center" role="navigation" aria-label="Sections site">
             <div class="carousel w-full sm:w-5/6 md:w-3/4 lg:w-3/5 xl:w-2/5 2xl:w-1/4">
                 <div id="slide1" class="carousel-item relative w-full">
                     <div class="grid w-full">
