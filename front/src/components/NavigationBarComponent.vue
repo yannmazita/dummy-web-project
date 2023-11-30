@@ -1,5 +1,5 @@
 <template>
-<div class="navbar bg-base-100">
+<nav class="navbar bg-base-100">
   <div class="navbar-start">
     <div class="dropdown">
       <label tabindex="0" class="btn btn-ghost z-50 lg:hidden">
@@ -48,5 +48,9 @@
   </div>
   <div class="navbar-end">
   </div>
-</div>
+</nav>
 </template>
+
+<script setup>
+    import { onMounted } from 'vue'
+</script>
